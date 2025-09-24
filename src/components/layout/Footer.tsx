@@ -1,0 +1,96 @@
+import Link from "next/link";
+import Image from "next/image";
+import ApartmentIcon from "@mui/icons-material/Apartment";
+import EmailIcon from "@mui/icons-material/Email";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+
+import logo from "@/assets/images/logo.png";
+import { PATH_NAME } from "@/configs/pathName";
+
+export default function Footer() {
+  return (
+    <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 pt-10 md:pt-20 pb-7 bg-black flex flex-col items-center gap-10 md:gap-20">
+      <div className="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-11 text-white">
+        <Link
+          href={PATH_NAME.HOME}
+          className="text-center text-lg md:text-xl hover:text-secondary"
+        >
+          HOME
+        </Link>
+        <div className="hidden md:block lg:w-3 lg:h-3 md:w-2 md:h-2 bg-secondary rounded-full" />
+        <Link
+          href={PATH_NAME.PRODUCTS}
+          className="text-center text-lg md:text-xl hover:text-secondary"
+        >
+          SẢN PHẨM
+        </Link>
+        <div className="hidden md:block w-3 h-3 md:w-2 md:h-2 bg-secondary rounded-full" />
+        <Link
+          href={PATH_NAME.BLOGS}
+          className="text-center text-lg md:text-xl hover:text-secondary"
+        >
+          BLOGS
+        </Link>
+        <div className="hidden md:block w-3 h-3 md:w-2 md:h-2 bg-secondary rounded-full" />
+        <Link
+          href={PATH_NAME.ABOUTUS}
+          className="text-center text-lg md:text-xl hover:text-secondary"
+        >
+          VỀ CHÚNG TÔI
+        </Link>
+      </div>
+
+      <div className="w-full flex flex-col md:flex-row justify-between items-center gap-10 text-white">
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-4">
+            <LocalPhoneIcon />
+            <div>+84 969 666 352</div>
+          </div>
+          <div className="flex items-center gap-4">
+            <EmailIcon />
+            <div>floravnu@gmail.com</div>
+          </div>
+          <div className="flex items-start gap-4">
+            <ApartmentIcon />
+            <div>
+              Khu phố 34, Phường Linh Xuân
+              <br />
+              TP. Hồ Chí Minh
+            </div>
+          </div>
+        </div>
+
+        <Image src={logo} alt="FloraVNU logo" className="w-40 sm:w-52 h-auto" />
+
+        <div className="text-center md:text-left max-w-xs text-sm sm:text-base">
+          Website do nhóm sinh viên Trường Đại học Công nghệ Thông tin - ĐHQG
+          TP.HCM phục vụ mục đích học tập.
+        </div>
+      </div>
+
+      <div className="w-full py-4 border-t border-white/20 flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-10 text-xs sm:text-sm text-gray-300 text-center">
+        <Link href={PATH_NAME.OURCOMMIT} className="hover:text-secondary">
+          Cam kết của FloraVNU
+        </Link>
+        <Link href={PATH_NAME.OPERATINGPOLICY} className="hover:text-secondary">
+          Chính sách hoạt động
+        </Link>
+        <Link href={PATH_NAME.PRIVACYPOLICY} className="hover:text-secondary">
+          Chính sách bảo mật thông tin
+        </Link>
+        <Link
+          href={PATH_NAME.ORDERINSTRUCTIONS}
+          className="hover:text-secondary"
+        >
+          Hướng dẫn đặt hoa
+        </Link>
+        <Link
+          href={PATH_NAME.CONTACTINSTRUCTIONS}
+          className="hover:text-secondary"
+        >
+          Hướng dẫn liên hệ
+        </Link>
+      </div>
+    </div>
+  );
+}
