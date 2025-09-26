@@ -4,12 +4,19 @@ import ApartmentIcon from "@mui/icons-material/Apartment";
 import EmailIcon from "@mui/icons-material/Email";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 
-import logo from "@/assets/images/logo.png";
+import logo from "@/assets/images/logo.svg";
 import { PATH_NAME } from "@/configs/pathName";
 
 export default function Footer() {
   return (
-    <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 pt-10 md:pt-20 pb-7 bg-black flex flex-col items-center gap-10 md:gap-20">
+    <footer
+      className="w-full px-4 sm:px-8 md:px-16 lg:px-32 pt-10 md:pt-20 pb-7  flex flex-col items-center gap-10 md:gap-20"
+      style={{
+        backgroundImage: "url('/images/footer.png')",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-11 text-white">
         <Link
           href={PATH_NAME.HOME}
@@ -60,7 +67,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <Image src={logo} alt="FloraVNU logo" className="w-40 sm:w-52 h-auto" />
+        <Image src={logo} alt="FloraVNU logo" className="w-70 h-auto" />
 
         <div className="text-center md:text-left max-w-xs text-sm sm:text-base">
           Website do nhóm sinh viên Trường Đại học Công nghệ Thông tin - ĐHQG
@@ -91,6 +98,6 @@ export default function Footer() {
           Hướng dẫn liên hệ
         </Link>
       </div>
-    </div>
+    </footer>
   );
 }

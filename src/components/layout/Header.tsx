@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-import logo from "@/assets/images/logo.png";
+import logo from "@/assets/images/logo.svg";
 import { PATH_NAME } from "@/configs/pathName";
 import { Button } from "../ui/Button";
 import SearchBar from "../ui/SearchBar";
@@ -34,13 +34,13 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
   }, []);
 
   return (
-    <div
-      className={`bg-primary h-[10vh] md:h-[15vh] flex items-center px-[5vw] justify-between sticky top-0 z-50
-        ${
-          scrolled
-            ? "shadow-[0_4px_10px_rgba(255,255,255,0.8)] rounded-b-[20px]"
-            : "shadow-none rounded-b-none"
-        }`}
+    <header
+      className={`absolute top-0 left-0 w-full z-50 transition-all duration-800
+    ${
+      scrolled
+        ? "bg-primary shadow-[0_4px_10px_rgba(0,0,0,0.15)]  sticky"
+        : "bg-transparent"
+    } h-[8vh] md:h-[13vh] flex items-center px-[5vw] justify-between`}
     >
       <div className="w-full gap-10 flex items-center pr-5">
         <Link href={PATH_NAME.HOME}>
@@ -55,8 +55,8 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
             href={PATH_NAME.HOME}
             className={
               pathname === PATH_NAME.HOME
-                ? "font-medium text-secondary text-[18px] cursor-default"
-                : "text-black font-medium hover:text-gray-500 text-[18px]"
+                ? "font-bold text-secondary text-[17px] cursor-default"
+                : "text-black font-bold hover:text-gray-700 text-[17px]"
             }
           >
             Trang chủ
@@ -65,8 +65,8 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
             href={PATH_NAME.PRODUCTS}
             className={
               pathname === PATH_NAME.PRODUCTS
-                ? "font-medium text-secondary text-[18px]"
-                : "text-black font-medium hover:text-gray-500 text-[18px]"
+                ? "font-bold text-secondary text-[17px]"
+                : "text-black font-bold hover:text-gray-700 text-[17px]"
             }
           >
             Sản phẩm
@@ -75,8 +75,8 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
             href={PATH_NAME.BLOGS}
             className={
               pathname === PATH_NAME.BLOGS
-                ? "font-medium text-secondary text-[18px]"
-                : "text-black font-medium hover:text-gray-500 text-[18px]"
+                ? "font-bold text-secondary text-[17px]"
+                : "text-black font-bold hover:text-gray-700 text-[17px]"
             }
           >
             Blogs
@@ -85,8 +85,8 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
             href={PATH_NAME.ABOUTUS}
             className={
               pathname === PATH_NAME.ABOUTUS
-                ? "font-medium text-secondary text-[18px]"
-                : "text-black font-medium hover:text-gray-500 text-[18px]"
+                ? "font-bold text-secondary text-[17px]"
+                : "text-black font-bold hover:text-gray-700 text-[17px]"
             }
           >
             Về chúng tôi
@@ -117,7 +117,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
       >
         ☰
       </button>
-    </div>
+    </header>
   );
 };
 
