@@ -112,12 +112,13 @@ const RecommendCarousel = ({ flowers }: { flowers: Flower[] }) => {
         {flowers.map((item, index) => (
           <div className="px-2" key={index}>
             <FlowerItem
+              id={item.id}
               key={index}
-              url={item.imageUrl}
+              imageUrl={item.imageUrl}
               title={item.title}
               price={item.price}
               description={item.description}
-            />{" "}
+            />
           </div>
         ))}
       </Slider>
