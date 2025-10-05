@@ -35,15 +35,16 @@ const SearchBar = ({
               <FontAwesomeIcon
                 icon={faSearch}
                 style={{ color: "#000" }}
-                size="lg"
+                size="sm"
               />
             </InputAdornment>
           ),
         }}
         sx={{
           "& .MuiOutlinedInput-root": {
-            height: "40px",
+            height: "30px",
             borderRadius: "20px",
+            fontSize: "15px",
             bgcolor: "#ffffff",
             "& fieldset": {
               borderColor: "#ff69b5",
