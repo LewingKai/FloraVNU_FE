@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
+import { InputLabel } from "@mui/material";
 
 interface ValidatedTextFieldProps {
-  label: string;
   value: string;
   onChange: (value: string) => void;
   validationRules: (value: string) => boolean;
@@ -13,7 +13,6 @@ interface ValidatedTextFieldProps {
 }
 
 const ValidatedTextField = ({
-  label,
   value,
   onChange,
   validationRules = () => true,
@@ -32,18 +31,20 @@ const ValidatedTextField = ({
   return (
     <TextField
       fullWidth
+      value={value}
+      placeholder={placeholder}
+      onChange={handleChange}
+      error={error}
+      helperText={error ? errorMessage : ""}
+      slotProps={{
+        inputLabel: { shrink: false },
+      }}
       sx={{
         "& .MuiOutlinedInput-root": {
           borderRadius: "8px",
           backgroundColor: "#F0F4F8",
         },
       }}
-      label={label}
-      value={value}
-      placeholder={placeholder}
-      onChange={handleChange}
-      error={error}
-      helperText={error ? errorMessage : ""}
       {...props}
     />
   );

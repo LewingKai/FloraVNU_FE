@@ -5,6 +5,7 @@ export const PATH_NAME = {
   ABOUTUS: "/about-us",
   SIGNIN: "/sign-in",
   SIGNUP: "/sign-up",
+  FORGOTPASSWORD: "/forgot-password",
   OURCOMMIT: "/our-commit",
   PRIVACYPOLICY: "/privacy-policy",
   ORDERINSTRUCTIONS: "/order-instructions",
