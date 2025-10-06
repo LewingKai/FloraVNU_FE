@@ -19,8 +19,8 @@ const PasswordTextField = ({
   value,
   onChange,
   validationRules = () => true,
-  errorMessage = "",
-  placeholder = "",
+  errorMessage = "Mật khẩu không hợp lệ (tối thiểu 6 ký tự)",
+  placeholder = "Nhập mật khẩu",
 }: PasswordTextFieldProps) => {
   const [error, setError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);

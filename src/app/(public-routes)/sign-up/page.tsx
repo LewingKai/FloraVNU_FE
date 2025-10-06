@@ -6,12 +6,15 @@ import { PATH_NAME } from "@/configs/pathName";
 
 import ValidatedTextField from "@/components/ui/ValidatedTextField";
 import PasswordTextField from "@/components/ui/PasswordTextField";
+import ConfirmPasswordTextField from "@/components/ui/ConfirmPasswordTextField";
+import CustomSelect from "@/components/ui/CustomSelect";
+import CustomDatePicker from "@/components/ui/CustomDatePicker";
 import { Button } from "@/components/ui/Button";
 
-const SignIn = () => {
+const SignUp = () => {
   return (
     <div
-      className="relative flex justify-between mx-20 mt-28 mb-1 h-[600px] rounded-4xl py-10 px-32"
+      className="relative flex justify-between mx-20 mt-28 mb-1 rounded-4xl py-10 px-32"
       style={{
         backgroundImage: `url('/images/bg-signin.png')`,
         backgroundSize: "cover",
@@ -26,23 +29,31 @@ const SignIn = () => {
         alt="FloraVNU logo"
         style={{ width: "500px", height: "auto", zIndex: "10" }}
       />
-      <div className="z-10 flex flex-col justify-center gap-4 w-96">
-        <div className="text-white text-3xl">Đăng nhập</div>
+      <div className="z-10 flex flex-col justify-center gap-3 w-96">
+        <div className="text-white text-3xl">Tạo tài khoản</div>
         <ValidatedTextField placeholder="Tên tài khoản" />
-        <div className="flex flex-col items-end gap-1">
-          <PasswordTextField />
-          <Link href={PATH_NAME.FORGOTPASSWORD}>
-            <div className="text-white">Quên mật khẩu</div>
-          </Link>
-        </div>
+        <ValidatedTextField placeholder="Họ và tên" />
+        <CustomSelect
+          options={[
+            { label: "Nam", value: "male" },
+            { label: "Nữ", value: "female" },
+            { label: "Khác", value: "other" },
+          ]}
+          placeholder="Chọn giới tính"
+        />
+        <CustomDatePicker placeholder="Ngày sinh" />
+        <ValidatedTextField placeholder="Email" />
+        <ValidatedTextField placeholder="Số điện thoại" />
+        <PasswordTextField />
+        <ConfirmPasswordTextField />
         <Button variant="default" size="lg" className="w-full">
-          Đăng nhập
+          Đăng ký
         </Button>
         <div className="text-white text-center">
-          Bạn chưa có tài khoản?{" "}
-          <Link href={PATH_NAME.SIGNUP}>
+          Bạn đã có tài khoản?{" "}
+          <Link href={PATH_NAME.SIGNIN}>
             <Button variant="link" className="px-1 cursor-pointer">
-              Đăng ký ngay
+              Đăng nhập ngay
             </Button>
           </Link>
         </div>
@@ -51,4 +62,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

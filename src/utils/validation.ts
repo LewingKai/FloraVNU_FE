@@ -29,8 +29,3 @@ export const validatePhone = (value: string) => {
 };
 
 export const validatePassword = (value: string) => !!value && value.length >= 6;
-
-export const validateConfirmPassword = (
-  password: string,
-  confirmPassword: string
-) => confirmPassword !== "" && password === confirmPassword;
