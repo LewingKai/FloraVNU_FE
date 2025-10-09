@@ -68,7 +68,7 @@ const SignUp = () => {
     try {
       await authApi.signUp(formData);
       toast.success("Đăng ký thành công! Hãy đăng nhập để tiếp tục");
-      setTimeout(() => router.push(PATH_NAME.SIGNIN), 1500);
+      router.push(PATH_NAME.SIGNIN);
     } catch (error) {
       toast.error("Đăng ký thất bại!");
       throw error;
