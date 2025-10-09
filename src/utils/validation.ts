@@ -1,4 +1,4 @@
-export const validateRequired = (value: string) =>
+export const validateRequired = (value: string | null) =>
   !!value && value.trim() !== "";
 
 export const validateName = (value: string) => {
@@ -29,3 +29,11 @@ export const validatePhone = (value: string) => {
 };
 
 export const validatePassword = (value: string) => !!value && value.length >= 6;
+
+export const validateConfirmPassword = (
+  password: string,
+  confirmPassword: string
+) => {
+  if (!confirmPassword) return true;
+  return password === confirmPassword;
+};

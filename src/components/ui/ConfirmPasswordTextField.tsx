@@ -1,6 +1,7 @@
 "use client";
 
 import PasswordTextField from "./PasswordTextField";
+import { validateConfirmPassword } from "@/utils/validation";
 
 interface ConfirmPasswordTextFieldProps {
   password: string;
@@ -17,13 +18,11 @@ const ConfirmPasswordTextField = ({
   errorMessage = "Mật khẩu không khớp",
   placeholder = "Nhập lại mật khẩu",
 }: ConfirmPasswordTextFieldProps) => {
-  const isValid = value === password || value.length === 0;
-
   return (
     <PasswordTextField
       value={value}
       onChange={onChange}
-      validationRules={() => isValid}
+      validationRules={(val) => validateConfirmPassword(password, val)}
       errorMessage={errorMessage}
       placeholder={placeholder}
     />

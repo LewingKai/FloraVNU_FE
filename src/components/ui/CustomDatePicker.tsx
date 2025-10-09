@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 interface CustomDatePickerProps {
-  value: Dayjs | null;
-  onChange: (newValue: Dayjs | null) => void;
+  value: string | null;
+  onChange: (newValue: string | null) => void;
   placeholder?: string;
-  validationRules?: (value: Dayjs | null) => boolean;
+  validationRules?: (value: string | null) => boolean;
   errorMessage?: string;
 }
 
@@ -23,15 +23,18 @@ const CustomDatePicker = ({
 }: CustomDatePickerProps) => {
   const [error, setError] = useState(false);
 
+  const dayjsValue = value ? dayjs(value, "YYYY-MM-DD") : null;
+
   const handleChange = (newValue: Dayjs | null) => {
-    onChange(newValue);
-    setError(!validationRules(newValue));
+    const formatted = newValue ? newValue.format("YYYY-MM-DD") : null;
+    onChange(formatted);
+    setError(!validationRules(formatted));
   };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
-        value={value}
+        value={dayjsValue}
         onChange={handleChange}
         format="DD/MM/YYYY"
         slotProps={{

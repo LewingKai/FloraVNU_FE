@@ -1,5 +1,4 @@
-export interface Account {
-  _id: string;
+export interface User {
   username: string;
   fullName: string;
   email: string;
@@ -7,8 +6,4 @@ export interface Account {
   birthday: string;
   phone: string;
   password: string;
-  role: string;
-  createdAt: string;
-  updateAt: string;
-  __v: number;
 }

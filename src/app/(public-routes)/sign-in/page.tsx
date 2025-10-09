@@ -24,7 +24,7 @@ const SignIn = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (field: "username" | "password", value: string) => {
+  const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
