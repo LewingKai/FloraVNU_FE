@@ -42,23 +42,22 @@ const listFlowerItem = [
 ];
 const filterType = {
   event: [
-    { label: "Hoa chúc mừng", value: "" },
-    { label: " Hoa khai trương ", value: "" },
-    { label: "Hoa tốt nghiệp", value: "" },
+    { label: "Hoa chúc mừng", value: "congratulation" },
+    { label: "Hoa khai trương", value: "grand-opening" },
+    { label: "Hoa tốt nghiệp", value: "graduation" },
   ],
   flowerType: [
     { label: "Hoa hồng", value: "rose" },
-    { label: "Hoa cẩm chướng ", value: "" },
-    { label: "Hoa tulip", value: "" },
-    { label: "Hoa ly", value: "" },
-    { label: "Hoa cẩm tú cầu", value: "" },
-    { label: "Hoa đồng tiền", value: "" },
+    { label: "Hoa cẩm chướng", value: "carnation" },
+    { label: "Hoa tulip", value: "tulip" },
+    { label: "Hoa ly", value: "lily" },
+    { label: "Hoa cẩm tú cầu", value: "hydrangea" },
+    { label: "Hoa đồng tiền", value: "gerbera" },
   ],
   shapeType: [
-    { label: "Bó hoa", value: "" },
-    { label: "Hộp hoa", value: "" },
-
-    { label: "Giỏ hoa", value: "" },
+    { label: "Bó hoa", value: "bouquet" },
+    { label: "Hộp hoa", value: "flower-box" },
+    { label: "Giỏ hoa", value: "basket" },
   ],
 };
 
