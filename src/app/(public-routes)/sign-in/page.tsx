@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 import logo from "@/assets/images/logo.svg";
 import { PATH_NAME } from "@/configs/pathName";
-import { validateEmail, validatePassword } from "@/utils/validation";
+import { validateRequired, validatePassword } from "@/utils/validation";
 
 import ValidatedTextField from "@/components/ui/ValidatedTextField";
 import PasswordTextField from "@/components/ui/PasswordTextField";
@@ -19,18 +19,18 @@ import authApi from "@/services/axios/actions/auth.action";
 const SignIn = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: "",
   });
   const [loading, setLoading] = useState(false);
 
-  const handleChange = useCallback((field: string, value: string | null) => {
+  const handleChange = useCallback((field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value || "" }));
   }, []);
 
   const handleSubmit = async () => {
     if (
-      !validateEmail(formData.email) ||
+      !validateRequired(formData.username) ||
       !validatePassword(formData.password)
     ) {
       toast.error("Vui lòng nhập thông tin hợp lệ!");
@@ -39,7 +39,7 @@ const SignIn = () => {
 
     setLoading(true);
     try {
-      await authApi.signIn(formData.email, formData.password);
+      await authApi.signIn(formData.username, formData.password);
       toast.success("Đăng nhập thành công!");
       router.push(PATH_NAME.HOME);
     } catch (error) {
@@ -51,7 +51,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="relative flex flex-col md:flex-row justify-center items-center mx-4 lg:mx-20 mt-24 mb-4 rounded-4xl py-10 px-6 lg:px-16 md:gap-4 bg-[url('/images/bg-signin.png')] bg-cover bg-center bg-no-repeat">
+    <div className="relative flex flex-col md:h-[512px] md:flex-row justify-center items-center mx-4 lg:mx-20 mt-24 mb-4 rounded-4xl py-10 px-6 lg:px-16 md:gap-4 bg-[url('/images/bg-signin.png')] bg-cover bg-center bg-no-repeat">
       <div className="absolute inset-0 bg-black opacity-60 rounded-4xl" />
       <div className="absolute inset-0 bg-[#FFE6B7] opacity-25 rounded-4xl" />
 
@@ -70,11 +70,11 @@ const SignIn = () => {
 
         <div className="flex flex-col gap-4">
           <ValidatedTextField
-            placeholder="Email"
-            value={formData.email}
-            onChange={(value) => handleChange("email", value)}
-            validationRules={validateEmail}
-            errorMessage="Email không hợp lệ."
+            placeholder="Tên tài khoản"
+            value={formData.username}
+            onChange={(value) => handleChange("username", value)}
+            validationRules={validateRequired}
+            errorMessage="Tên tài khoản không được để trống."
           />
           <PasswordTextField
             value={formData.password}
