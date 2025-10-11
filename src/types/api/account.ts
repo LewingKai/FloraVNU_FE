@@ -7,3 +7,18 @@ export interface User {
   phone: string;
   password: string;
 }
+
+export interface Account {
+  _id: string;
+  username: string;
+  fullName: string;
+  email: string;
+  gender: string;
+  birthday: string;
+  phone: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  avatar?: { url: string };
+}
