@@ -10,6 +10,9 @@ import logo from "@/assets/images/logo.svg";
 import { PATH_NAME } from "@/configs/pathName";
 import { Button } from "../ui/Button";
 import SearchBar from "../ui/SearchBar";
+import AccountMenu from "../AccountMenu";
+
+import useAuth from "@/stores/useAuth";
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -19,6 +22,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const { user, isAuth, fetchMe } = useAuth();
 
   function handleSubmit() {
     console.log(searchValue);
@@ -32,6 +36,10 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    fetchMe();
+  }, [fetchMe]);
 
   return (
     <header
@@ -98,18 +106,29 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
           />
         </nav>
       </div>
-      <div className="lg:flex gap-4 hidden">
-        <Link href={PATH_NAME.SIGNIN}>
-          <Button variant="default" size="lg">
-            Đăng nhập
-          </Button>
-        </Link>
-        <Link href={PATH_NAME.SIGNUP}>
-          <Button variant="default" size="lg">
-            Đăng ký
-          </Button>
-        </Link>
-      </div>
+      {isAuth && user ? (
+        <div className="hidden lg:flex">
+          <AccountMenu
+            fullName={user.fullName}
+            email={user.email}
+            avatar={user.avatar}
+            role={user.role}
+          />
+        </div>
+      ) : (
+        <div className="lg:flex gap-4 hidden">
+          <Link href={PATH_NAME.SIGNIN}>
+            <Button variant="default" size="lg">
+              Đăng nhập
+            </Button>
+          </Link>
+          <Link href={PATH_NAME.SIGNUP}>
+            <Button variant="default" size="lg">
+              Đăng ký
+            </Button>
+          </Link>
+        </div>
+      )}
 
       <button
         className="hidden max-lg:block text-black text-2xl focus:outline-none"

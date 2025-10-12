@@ -9,6 +9,7 @@ class AuthApi {
     try {
       const res = await client.post(authEndpoint.login, { username, password });
       clientRequest.setAccessToken(res.data.accessToken);
+      localStorage.setItem("user_id", res.data.data._id);
       return res.data;
     } catch (error) {
       throw error;

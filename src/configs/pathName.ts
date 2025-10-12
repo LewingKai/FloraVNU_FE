@@ -11,4 +11,6 @@ export const PATH_NAME = {
   ORDERINSTRUCTIONS: "/order-instructions",
   CONTACTINSTRUCTIONS: "/contact-instructions",
   OPERATINGPOLICY: "/operating-policy",
+  ACCOUNTDETAILS: "/account-details",
+  ORDERSHISTORY: "/orders-history",
 };

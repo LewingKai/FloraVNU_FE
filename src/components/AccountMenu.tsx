@@ -18,14 +18,22 @@ import {
   faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { clientRequest } from "@/services/axios/ClientRequest";
-import { Account } from "@/types/api/account";
 import { PATH_NAME } from "@/configs/pathName";
 
-const AccountMenu = ({ fullName, email, avatar, role }: Account) => {
+import useAuth from "@/stores/useAuth";
+
+interface AccountMenuProps {
+  fullName: string;
+  email: string;
+  avatar?: { url: string };
+  role: string;
+}
+
+const AccountMenu = ({ fullName, email, avatar, role }: AccountMenuProps) => {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const { logout } = useAuth();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -36,10 +44,9 @@ const AccountMenu = ({ fullName, email, avatar, role }: Account) => {
   };
 
   const handleLogout = () => {
-    clientRequest.removeAccessToken();
+    logout();
     toast.success("Đăng xuất thành công!");
     router.push(PATH_NAME.HOME);
-    handleClose();
   };
 
   return (
@@ -56,10 +63,10 @@ const AccountMenu = ({ fullName, email, avatar, role }: Account) => {
           >
             <div className="flex gap-3 justify-start items-center">
               <div className="flex-col gap-2 text-sm justify-start">
-                <p className="font-bold text-[20px] text-right text-white">
+                <p className="font-bold text-[20px] text-right text-black">
                   {fullName}
                 </p>
-                <p className="text-[15px] italic font-light text-white">
+                <p className="text-[15px] italic font-light text-black">
                   {email}
                 </p>
               </div>
@@ -113,7 +120,7 @@ const AccountMenu = ({ fullName, email, avatar, role }: Account) => {
       >
         <MenuItem
           onClick={() => {
-            router.push("/account");
+            router.push(PATH_NAME.ACCOUNTDETAILS);
             handleClose();
           }}
           sx={{ paddingTop: "8px", paddingBottom: "8px" }}
@@ -123,7 +130,7 @@ const AccountMenu = ({ fullName, email, avatar, role }: Account) => {
         </MenuItem>
         <MenuItem
           onClick={() => {
-            router.push("/order-history");
+            router.push(PATH_NAME.ORDERSHISTORY);
             handleClose();
           }}
           sx={{ paddingTop: "8px", paddingBottom: "8px" }}
@@ -133,7 +140,7 @@ const AccountMenu = ({ fullName, email, avatar, role }: Account) => {
             className="mr-2"
             size="lg"
           />
-          Lịch sử đặt hàng
+          Lịch sử đặt hoa
         </MenuItem>
         {role === "admin" && (
           <MenuItem
@@ -155,8 +162,9 @@ const AccountMenu = ({ fullName, email, avatar, role }: Account) => {
             icon={faRightFromBracket}
             className="mr-2"
             size="lg"
+            color="red"
           />
-          Đăng xuất
+          <span className="text-red-600">Đăng xuất</span>
         </MenuItem>
       </Menu>
     </>

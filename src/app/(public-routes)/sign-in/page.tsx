@@ -16,6 +16,8 @@ import { Button } from "@/components/ui/Button";
 
 import authApi from "@/services/axios/actions/auth.action";
 
+import useAuth from "@/stores/useAuth";
+
 const SignIn = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -23,6 +25,7 @@ const SignIn = () => {
     password: "",
   });
   const [loading, setLoading] = useState(false);
+  const { setUser, login, fetchMe } = useAuth();
 
   const handleChange = useCallback((field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value || "" }));
@@ -39,7 +42,12 @@ const SignIn = () => {
 
     setLoading(true);
     try {
-      await authApi.signIn(formData.username, formData.password);
+      const res = await authApi.signIn(formData.username, formData.password);
+
+      setUser(res.data.data);
+      login();
+      await fetchMe();
+
       toast.success("Đăng nhập thành công!");
       router.push(PATH_NAME.HOME);
     } catch (error) {

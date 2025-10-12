@@ -20,5 +20,10 @@ export interface Account {
   createdAt: string;
   updatedAt: string;
   __v: number;
-  avatar?: { url: string };
+  avatar?: Avatar;
+}
+
+export interface Avatar {
+  url: string;
+  public_id: string;
 }
