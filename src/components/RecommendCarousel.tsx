@@ -112,7 +112,7 @@ const RecommendCarousel = ({ flowers }: { flowers: Flower[] }) => {
         {flowers.map((item, index) => (
           <div className="px-2" key={index}>
             <FlowerItem
-              id={item.id}
+              _id={item._id}
               key={index}
               image={item.image}
               name={item.name || "Bó hoa xinh"}

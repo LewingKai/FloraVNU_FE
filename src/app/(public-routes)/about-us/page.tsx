@@ -1,6 +1,12 @@
 import Image from "next/image";
 
 const AboutUs = () => {
+  const fontSizeH2 =
+    "text-[20px]  sm:text-[25px] md:text-[30px]  lg:text-[40px]";
+  const fontSizeP =
+    "text-[12px]  sm:text-[15px] md:text-[18px]  lg:text-[20px]";
+  const fontSizeH1 =
+    "text-[30px] md:text-[50px] sm:text-[40px]  lg:text-[80px]";
   const serviceBenefits = [
     {
       title: "Miễn phí giao hàng 63 tỉnh",
@@ -47,21 +53,23 @@ const AboutUs = () => {
   return (
     <div>
       <div
-        className="w-[100%] relative h-[600px]"
+        className="w-[100%] relative md:h-[600px] sm:h-[350px] h-[250px]"
         style={{
           backgroundImage: "url('/images/aboutus/image2.png')",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="max-w-[37%] absolute mt-[8%] ml-10">
-          <p className="uppercase font-bold text-amber-300">
+        <div className="md:max-w-[37%] max-w-[60%] sm:max-w-[45%] absolute mt-[8%] md:ml-10 ml-5">
+          <p className={`uppercase font-bold text-amber-300 ${fontSizeP}`}>
             Giới thiệu về chúng tôi
           </p>
-          <h1 className="text-white uppercase font-bold text-[40px] mt-10">
+          <h1
+            className={`${fontSizeH2} text-white uppercase font-bold md:mt-10 mt-3`}
+          >
             FloraVNU – Thổi hồn vào từng đóa hoa
           </h1>
-          <p className="text-white text-[15px] italic font-light">
+          <p className={`${fontSizeP} text-white italic font-light`}>
             Tại FloraVNU, chúng tôi tin rằng mỗi bó hoa đều mang trong mình một
             câu chuyện và cảm xúc. Sứ mệnh của chúng tôi là mang đến cho bạn
             những sản phẩm hoa tươi tinh tế, chất lượng và tràn đầy ý nghĩa
@@ -69,26 +77,35 @@ const AboutUs = () => {
           </p>
         </div>
       </div>
-      <div className="flex gap-4 justify-center h-[500px] px-20 py-10">
+      <div className="md:flex gap-4 justify-center md:px-20 px-5 py-10">
         <Image
           src={"/images/aboutus/image1.png"}
-          width={600}
+          width={1000}
           height={100}
           alt="Tiệm hoa"
-          className="rounded-br-[70px] rounded-tl-[70px]"
+          className="md:rounded-br-[70px] md:rounded-tl-[70px] rounded-br-[50px] rounded-tl-[50px] w-full"
         />
-        <div className="ml-10">
-          <p className="uppercase font-bold text-amber-300">Về chúng tôi</p>
-          <h2 className="uppercase font-bold text-[40px]">
+
+        <div className="md:ml-10">
+          <p className="uppercase font-bold text-amber-300 text-center md:text-left mt-5">
+            Về chúng tôi
+          </p>
+          <h2
+            className={`${fontSizeH2} uppercase font-bold text-center md:text-left mb-3`}
+          >
             Tầm nhìn và sứ mệnh của chúng tôi
           </h2>
-          <p>
+          <p
+            className={`${fontSizeP}  text-black italic font-light text-center md:text-left`}
+          >
             FloraVNU mong muốn trở thành thương hiệu hoa uy tín và được yêu
             thích hàng đầu tại Làng Đại học, nơi mỗi sản phẩm không chỉ là một
             món quà mà còn là cầu nối gửi gắm yêu thương và lan tỏa vẻ đẹp cuộc
             sống.
           </p>
-          <p className="mt-5">
+          <p
+            className={`${fontSizeP}  italic font-light md:mt-5 text-black text-center md:text-left`}
+          >
             Chúng tôi cam kết mang đến những đóa hoa tươi mới, tinh tế và giàu
             cảm xúc, kết hợp cùng dịch vụ tận tâm để đồng hành cùng khách hàng
             trong mọi khoảnh khắc quan trọng – từ niềm vui, hạnh phúc đến những

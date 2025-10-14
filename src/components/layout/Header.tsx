@@ -36,19 +36,19 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
 
   return (
     <header
-      className={`absolute top-0 left-0 w-full z-50 transition-all duration-800
+      className={`top-0 left-0 w-full z-50 transition-all duration-800
     ${
       scrolled
-        ? "bg-primary shadow-[0_4px_10px_rgba(0,0,0,0.15)]  sticky"
-        : "bg-transparent"
-    } h-[8vh] md:h-[13vh] flex items-center px-[5vw] justify-between`}
+        ? "bg-primary shadow-[0_4px_10px_rgba(0,0,0,0.15)] sticky"
+        : "bg-transparent absolute"
+    } h-[10vh] md:h-[13vh] flex items-center px-[5vw] justify-between`}
     >
       <div className="w-full gap-10 flex items-center pr-5">
         <Link href={PATH_NAME.HOME}>
           <Image
             src={logo}
             alt="FloraVNU logo"
-            className="max-md:w-[90px] max-lg:w-[100px] lg:w-[140px]"
+            className=" lg:w-[140px] w-[50px]"
           />
         </Link>
         <nav className="flex gap-10 max-md:hidden items-center ml-[20px]">
@@ -119,7 +119,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
       )}
 
       <button
-        className="hidden max-lg:block text-black text-2xl focus:outline-none"
+        className="hidden max-lg:block text-black sm:text-2xl text-xl focus:outline-none"
         onClick={toggleSidebar}
       >
         ☰

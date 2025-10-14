@@ -32,3 +32,32 @@ body {
 .slick-next:before {
   display: none !important;
 }
+
+.flower-description p {
+  font-size: 16px !important;
+  color: #333 !important;
+  margin-bottom: 8px;
+}
+
+.flower-description ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.flower-description strong {
+  color: #e60023;
+}
+
+.flower-des_item p {
+  margin-bottom: 10px;
+  word-spacing: 1px;
+  font-size: 14px !important;
+}
+.flower-des_item ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.flower-des_item strong {
+  color: #000;
+}

@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { PATH_NAME } from "@/configs/pathName";
 import { Flower } from "@/types/home";
 import { Review } from "@/types/review";
+import { Avatar } from "@mui/material";
 
 type Props = {
   outStandingFlower: Flower[];
@@ -40,6 +41,12 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
+  const fontSizeH2 =
+    "text-[20px]  sm:text-[25px] md:text-[30px]  lg:text-[40px]";
+  const fontSizeP =
+    "text-[12px]  sm:text-[15px] md:text-[18px]  lg:text-[20px]";
+  const fontSizeH1 =
+    "text-[30px] md:text-[50px] sm:text-[40px]  lg:text-[80px]";
   const listItem = [
     {
       icon: "/icons/home/banking_easy.svg",
@@ -114,19 +121,19 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
       }}
     >
       <div
-        className="w-[100%] relative h-[700px]"
+        className="w-[100%] relative lg:h-[700px]  sm:h-[500px] h-[300px]"
         style={{
           backgroundImage: "url('/images/home/image1.png')",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="absolute bottom-1/5 left-1/2  w-[60%] -translate-x-1/2">
-          <h1 className="text-7xl font-bold text-white text-center font-playfair">
+        <div className="absolute bottom-1/5 left-1/2 w-[80%] lg:w-[60%] -translate-x-1/2">
+          <h1 className={` ${fontSizeH1} font-bold text-white text-center`}>
             Hương hoa khẽ chạm, tình yêu khẽ nở.
           </h1>
 
-          <div className="h-[200px] bg-white rounded-xl p-10 mt-10 w-[85%] mx-auto">
+          <div className=" bg-white rounded-xl md:p-10 p-3 sm:p-6 md:mt-10 mt-3 w-[90%] mx-auto">
             <SearchBar
               handleChangeCurrencies={(e) =>
                 setSearchType(e.target.value as string)
@@ -136,7 +143,7 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
               searchValue={searchValue}
               currencyValue={searchType}
             />
-            <p className="text-[15px] font-light text-black text-center mt-5">
+            <p className="sm:text-[15px]  lg:text-[15px] text-[10px] font-light text-black text-center mt-5">
               FloraVNU mang đến những đóa hoa tươi nhất, gửi gắm yêu thương và
               khoảnh khắc lãng mạn đến người bạn trân quý.
             </p>
@@ -146,51 +153,66 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
 
       {/* Sản phẩm nổi bật */}
 
-      <div className="pt-10 bg-white pb-20">
-        <h2 className="text-[40px] uppercase font-bold font-playfair text-center">
+      <div className="pt-10 bg-white md:pb-20 sm:pb-10 pb-6">
+        <h2
+          className={`${fontSizeH2} uppercase text-[#14057b] font-bold font-playfair text-center`}
+        >
           Sản phẩm nổi bật
         </h2>
-        <div className="w-[10vw] h-[4px] bg-secondary mx-auto mb-5"></div>
+        <div className="w-[15vw] h-[4px] bg-secondary mx-auto mb-5"></div>
         <div className="mx-auto max-w-[1100px] max-md:px-12 mt-5">
           {outStandingFlower && (
             <RecommendCarousel flowers={outStandingFlower || []} />
           )}
         </div>
       </div>
-      <div className="w-full h-[1000px] bg-opacity-100 flex items-center justify-center">
+      <div className="w-full sm:h-[1000px] h-[800px] bg-opacity-100 flex items-center justify-center">
         <div>
           <div>
-            <h2 className="text-[40px] uppercase font-bold font-playfair text-center text-white">
+            <h2
+              className={`${fontSizeH2} text-white font-bold font-playfair text-center`}
+            >
               Đánh giá của khách hàng
             </h2>
-            <p className="text-white italic text-[15px] font-light text-center">
+            <p
+              className={`${fontSizeP} italic text-white text-center sm:mb-5 `}
+            >
               Khách hàng của chúng tôi nói gì?
             </p>
             <div>
-              <div className="flex justify-center items-center gap-6 overflow-x-auto h-[20vh]">
+              <div className="flex justify-center items-center md:gap-6 gap-3 overflow-x-auto h-[20vh]">
                 {outStadingCommentList.map((t, index) => (
                   <div
                     key={t.id}
-                    className={`cursor-pointer transition-all duration-300 rounded-full overflow-clip ${
+                    className={` cursor-pointer transition-all md:w-[80px] md:h-[80px]  h-[40px] w-[40px] duration-300 rounded-full overflow-clip ${
                       selected === index
                         ? "scale-125 border-2 border-white"
                         : "scale-90 opacity-70"
                     }`}
                     onClick={() => setSelected(index)}
                   >
-                    <Image
+                    <Avatar
+                      alt="Avatar khách hàng"
+                      src={t.avatar || "/images/home/rose.png"}
+                      sx={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                    {/* <Image
                       src={t.avatar || "/images/home/rose.png"}
                       alt={t.name || "Avatar khách hàng"}
-                      width={100}
-                      height={100}
+                      fill
+                      sizes="1000px"
                       className="rounded-full object-cover"
-                    />
+                    /> */}
                   </div>
                 ))}
               </div>
 
               {/* Nội dung comment */}
-              <div className="max-w-[75vw] mx-auto p-6 rounded-br-4xl rounded-tl-4xl bg-white/80 my-5 min-h-[25vh] overflow-hidden">
+              <div className="sm:max-w-[75vw] max-w-[85%] mx-auto sm:p-6 p-3 rounded-br-4xl rounded-tl-4xl bg-white/80 sm:my-5 my-2 min-h-[25vh] overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={selected}
@@ -199,10 +221,10 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
                     exit={{ x: 100, opacity: 0 }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
                   >
-                    <p className="text-lg italic text-center">
+                    <p className="text-[12px]  sm:text-[15px] md:text-[18px]  lg:text-[20px] italic text-center">
                       “{outStadingCommentList[selected].comment}”
                     </p>
-                    <h4 className="mt-4 font-bold text-secondary text-center text-lg">
+                    <h4 className="text-[12px]  sm:text-[15px] md:text-[18px]  lg:text-[20px] font-bold text-secondary text-center text-lg">
                       {outStadingCommentList[selected].name}
                     </h4>
                   </motion.div>
@@ -210,27 +232,35 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
               </div>
             </div>
           </div>
-          <div className="mt-10">
-            <h2 className="text-[40px]  font-bold font-playfair text-center text-white">
+          <div className="sm:mt-10 mt-5">
+            <h2
+              className={`${fontSizeH2} font-bold font-playfair text-center text-white`}
+            >
               Tại sao nên chọn FloraVNU?
             </h2>
             <div className="w-[10vw] h-[4px] bg-secondary mx-auto "></div>
-            <div className="place-items-center w-full px-20 py-10 grid-cols-2 grid gap-5">
+            <div className="place-items-center w-full sm:px-20 px-5 md:py-10 py-5 sm:grid-cols-2 grid-cols-2 grid md:gap-5 gap-4">
               {listItem.map((item, index) => {
                 return (
                   <div
                     key={index}
-                    className="flex items-center min-w-[35vw] bg-white p-7 gap-10 mb-7 rounded-2xl"
+                    className="sm:flex items-center min-w-[30vw] max-w-[50vw] sm:min-h-[0vh] min-h-[30vh] bg-white sm:p-7 p-4 gap-10 md:mb-7 rounded-2xl"
                   >
-                    <Image
-                      src={item.icon}
-                      alt={item.title}
-                      width={60}
-                      height={60}
-                    />
+                    <div className="flex-shrink-0 w-[30px] h-[40px] mx-auto mb-2  sm:w-[50px] sm:h-[50px] md:w-[60px] md:h-[60px]">
+                      <Image
+                        src={item.icon}
+                        alt={item.title}
+                        width={60}
+                        height={60}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+
                     <div>
-                      <h3 className=" text-[20px] font-bold">{item.title}</h3>
-                      <p className="text-wrap italic font-light text-[13px]">
+                      <h3 className="sm:text-left text-center text-[12px] sm:text-[15px] md:text-[18px] lg:text-[20px] font-bold">
+                        {item.title}
+                      </h3>
+                      <p className="sm:text-left text-center text-wrap italic font-light text-[12px] md:text-[13px]">
                         {item.des}
                       </p>
                     </div>
@@ -243,25 +273,25 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
       </div>
       <div className="bg-white">
         <div>
-          <div className="px-20 py-10">
-            <div className=" mt-10 mb-12 flex gap-6 items-center">
+          <div className="sm:x-20 sm:px-30 px-5 sm:py-10 py-5">
+            <div className=" sm:mt-10  sm:mb-12 mb-5 flex sm:gap-6 gap-3 items-center">
               <div className="w-[5px] h-[100px] bg-secondary"></div>
               <div>
-                <h2 className="text-[40px] uppercase text-[#14057b] font-bold font-playfair ">
+                <h2 className="text-[20px]  sm:text-[25px] md:text-[30px]  lg:text-[40px] uppercase text-[#14057b] font-bold font-playfair ">
                   Bộ sưu tập của chúng tôi
                 </h2>
-                <p className=" text-[15px] italic font-light ">
+                <p className=" text-[12px]  sm:text-[15px] md:text-[18px]  lg:text-[20px] italic font-light ">
                   Khám phá bộ sưu tập những đóa hoa tinh khôi, được tuyển chọn
                   và sắp xếp tỉ mỉ, mang đến vẻ đẹp thanh lịch cho mọi khoảnh
                   khắc yêu thương.
                 </p>
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-5 justify-items-center">
+            <div className="grid md:grid-cols-3 grid-cols-2 md:gap-5 gap-2  justify-items-center">
               {imageAlbum.map((img, index) => (
                 <div
                   key={index}
-                  className="relative w-full h-[250px] rounded-br-4xl  rounded-tl-4xl overflow-hidden group"
+                  className="relative w-full sm:h-[250px] h-[100px] rounded-br-4xl  rounded-tl-4xl overflow-hidden group"
                   onClick={() => {
                     router.push(`${PATH_NAME.PRODUCTS}?types=${img.title}`);
                   }}
@@ -273,29 +303,25 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
                     className="object-cover rounded-tl-4xl rounded-br-4xl transition-all duration-500"
                   />
                   <div className="absolute inset-0 bg-black/50 opacity-0 transition-all duration-500 group-hover:opacity-100" />
-                  <div
-                    className="absolute inset-0 p-2 flex items-center justify-center 
-                 text-white text-2xl font-bold
-                 opacity-0 translate-y-5 transition-all duration-500
-                 group-hover:opacity-100 group-hover:translate-y-0"
-                  >
+                  <div className="absolute inset-0 p-2 flex items-center justify-center text-white text-2xl font-bold opacity-0 translate-y-5 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
                     <div className="max-w-[95%] flex items-center">
-                      <h4 className="text-[30px] font-bold text-right text-secondary">
+                      <h4 className="sm:text-[30px] text-[15px] font-bold text-right text-secondary">
                         {img.title}
                       </h4>
 
                       <div className="mx-2 h-[80%] w-px bg-amber-400"></div>
-
-                      <p className="text-[13px] font-light italic">{img.des}</p>
+                      <p className="sm:text-[13px] text-[10px] font-light italic sm:line-clamp-10 line-clamp-3">
+                        {img.des}
+                      </p>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="relative w-full mt-10 overflow-hidden left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] rounded-4xl">
+          <div className="relative w-full sm:mt-10  overflow-hidden left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
             <div
-              className="flex h-[250px] w-[60vw] transition-transform duration-500 ease-in-out"
+              className="flex sm:h-[350px] h-[150px] w-full transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(-${currentSlide * 100}%)` }}
             >
               {slides.map((slide, index) => (
@@ -311,13 +337,13 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
             </div>
             <button
               onClick={prevSlide}
-              className="absolute top-1/2 left-5 -translate-y-1/2  text-white rounded-full w-[50px] h-[50px] text-2xl cursor-pointer z-10 flex items-center justify-center"
+              className="absolute top-1/2 left-5 -translate-y-1/2  text-white rounded-full sm:w-[50px] sm:h-[50px] w-[20px] h-[20px] text-2xl cursor-pointer z-10 flex items-center justify-center"
             >
               ❮
             </button>
             <button
               onClick={nextSlide}
-              className="absolute top-1/2 right-5 -translate-y-1/2  text-white rounded-full w-[50px] h-[50px] text-2xl cursor-pointer z-10 flex items-center justify-center"
+              className="absolute top-1/2 right-5 -translate-y-1/2  text-white rounded-full sm:w-[50px] sm:h-[50px] w-[20px] h-[20px] text-2xl cursor-pointer z-10 flex items-center justify-center"
             >
               ❯
             </button>
@@ -346,7 +372,6 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
                 className="carousel-control-prev-icon"
                 aria-hidden="true"
               ></span>
-              <span className="sr-only">Previous</span>
             </a>
             <a
               className="carousel-control-next"
@@ -358,7 +383,6 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
                 className="carousel-control-next-icon"
                 aria-hidden="true"
               ></span>
-              <span className="sr-only">Next</span>
             </a>
           </div>
         </div>

@@ -23,6 +23,15 @@ class ProductApi {
       return [];
     }
   }
+  async getDetail(id: string) {
+    try {
+      const endpoint = productEndpoint.getDetail.replace(":id", id);
+      const res = await client.get(endpoint);
+      return res.data;
+    } catch (error) {
+      return null;
+    }
+  }
 }
 
 const productApi = new ProductApi();
