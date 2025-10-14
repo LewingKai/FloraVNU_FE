@@ -126,7 +126,7 @@ const FlowerDetail = () => {
               >
                 <FontAwesomeIcon icon={faPlus} size="lg" />
               </BubblyButton>
-              <input
+              {/* <input
                 type="text"
                 className="w-[20px] focus:outline-none text-center border-b border-b-[#a5a3a3]"
                 // value={foodInfo.quantity}
@@ -137,7 +137,7 @@ const FlowerDetail = () => {
                 //     onChangeQuality(+value);
                 //   }
                 // }}
-              />
+              /> */}
               <BubblyButton
                 className="bg-primary rounded-full w-8 h-8 p-1 text-white"
                 // onClick={onDecrease}

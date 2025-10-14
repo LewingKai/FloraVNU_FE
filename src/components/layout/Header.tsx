@@ -5,13 +5,10 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-
 import logo from "@/assets/images/logo.svg";
 import { PATH_NAME } from "@/configs/pathName";
 import { Button } from "../ui/Button";
-import SearchBar from "../ui/SearchBar";
 import AccountMenu from "../AccountMenu";
-
 import useAuth from "@/stores/useAuth";
 
 interface HeaderProps {
@@ -23,10 +20,6 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const { user, isAuth, fetchMe } = useAuth();
-
-  function handleSubmit() {
-    console.log(searchValue);
-  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -99,11 +92,6 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
           >
             Về chúng tôi
           </Link>
-          <SearchBar
-            handleChangeSearch={(e) => setSearchValue(e.target.value)}
-            handleSubmit={handleSubmit}
-            searchValue={searchValue}
-          />
         </nav>
       </div>
       {isAuth && user ? (

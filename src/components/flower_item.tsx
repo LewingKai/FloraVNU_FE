@@ -5,19 +5,19 @@ import { MdOutlineAddShoppingCart } from "react-icons/md";
 
 const FlowerItem: React.FC<Flower> = (floweritem) => {
   return (
-    <Link href={`/flower-detail/${floweritem.id}`}>
-      <div className="relative w-full h-50">
+    <Link href={`/flower-detail/${floweritem.id}`} className="w-full">
+      <div className="relative w-full h-55">
         <Image
-          src={floweritem.imageUrl}
-          alt={floweritem.title}
+          src={floweritem.image?.url || "/images/default-flower.jpg"}
+          alt={floweritem.name || "Bó hoa xinh"}
           fill
           className="object-cover"
+          sizes="1000px"
         />
       </div>
       <div className="border-l border-r border-b p-3 border-secondary rounded-b-2xl">
-        <h3 className="text-[20px] font-bold line-clamp-2">
-          {" "}
-          hsbcas adcjhbasdcbsad csjadcbsjhadcbsdbcdcs asjhcbsadjcbsajd
+        <h3 className="text-[20px] font-bold line-clamp-1">
+          {floweritem.name}
         </h3>
         <p className="text-[13px] font-light italic line-clamp-2 mt-1">
           {floweritem.description}
