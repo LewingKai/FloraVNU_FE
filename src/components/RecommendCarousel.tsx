@@ -114,10 +114,11 @@ const RecommendCarousel = ({ flowers }: { flowers: Flower[] }) => {
             <FlowerItem
               id={item.id}
               key={index}
-              imageUrl={item.imageUrl}
-              title={item.title}
+              image={item.image}
+              name={item.name || "Bó hoa xinh"}
               price={item.price}
               description={item.description}
+              alt={item.name || "Bó hoa xinh"}
             />
           </div>
         ))}

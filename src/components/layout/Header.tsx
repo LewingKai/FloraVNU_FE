@@ -10,6 +10,7 @@ import logo from "@/assets/images/logo.svg";
 import { PATH_NAME } from "@/configs/pathName";
 import { Button } from "../ui/Button";
 import SearchBar from "../ui/SearchBar";
+import productApi from "@/services/axios/actions/products.action";
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -19,10 +20,6 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-
-  function handleSubmit() {
-    console.log(searchValue);
-  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -91,11 +88,6 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
           >
             Về chúng tôi
           </Link>
-          <SearchBar
-            handleChangeSearch={(e) => setSearchValue(e.target.value)}
-            handleSubmit={handleSubmit}
-            searchValue={searchValue}
-          />
         </nav>
       </div>
       <div className="lg:flex gap-4 hidden">
