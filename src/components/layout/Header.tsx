@@ -10,6 +10,9 @@ import { PATH_NAME } from "@/configs/pathName";
 import { Button } from "../ui/Button";
 import AccountMenu from "../AccountMenu";
 import useAuth from "@/stores/useAuth";
+import { headerText } from "@/helpers/text_vn";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -60,7 +63,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
                 : "text-black font-bold hover:text-gray-700 text-[17px]"
             }
           >
-            Trang chủ
+            {headerText.homePages}
           </Link>
           <Link
             href={PATH_NAME.PRODUCTS}
@@ -70,7 +73,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
                 : "text-black font-bold hover:text-gray-700 text-[17px]"
             }
           >
-            Sản phẩm
+            {headerText.productsPage}
           </Link>
           <Link
             href={PATH_NAME.BLOGS}
@@ -80,7 +83,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
                 : "text-black font-bold hover:text-gray-700 text-[17px]"
             }
           >
-            Blogs
+            {headerText.blogPage}
           </Link>
           <Link
             href={PATH_NAME.ABOUTUS}
@@ -90,10 +93,19 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
                 : "text-black font-bold hover:text-gray-700 text-[17px]"
             }
           >
-            Về chúng tôi
+            {headerText.aboutUsPage}
           </Link>
         </nav>
       </div>
+      <button onClick={() => {}}>
+        <div className="relative">
+          <FontAwesomeIcon icon={faCartShopping} size="xl" color="#E32C89" />
+          <p className="text-[10px] p-0.5 px-1.5 rounded-full bg-white text-[#E32C89]  absolute -top-1/4 -right-1">
+            2
+          </p>
+        </div>
+      </button>
+      <div className="text-[20px] text-[#E32C89] ml-3"> |</div>
       {isAuth && user ? (
         <div className="hidden lg:flex">
           <AccountMenu
@@ -107,22 +119,22 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
         <div className="lg:flex gap-4 hidden">
           <Link href={PATH_NAME.SIGNIN}>
             <Button variant="default" size="lg">
-              Đăng nhập
+              {headerText.signIn}
             </Button>
           </Link>
           <Link href={PATH_NAME.SIGNUP}>
             <Button variant="default" size="lg">
-              Đăng ký
+              {headerText.signUp}
             </Button>
           </Link>
         </div>
       )}
 
       <button
-        className="hidden max-lg:block text-black sm:text-2xl text-xl focus:outline-none"
+        className="hidden max-lg:block text-black sm:text-2xl text-xl focus:outline-none p-5"
         onClick={toggleSidebar}
       >
-        ☰
+        <FontAwesomeIcon icon={faBars} size="sm" />
       </button>
     </header>
   );

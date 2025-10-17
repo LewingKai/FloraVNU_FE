@@ -5,9 +5,22 @@ import productEndpoint from "../endpoints/product.endpoint";
 class ProductApi {
   async search(params: SearchParamsType) {
     try {
-      const res = await client.get(productEndpoint.search, {
-        params: params,
+      const filteredParams: Record<string, any> = {};
+      Object.entries(params).forEach(([key, value]) => {
+        if (
+          value !== undefined &&
+          value !== null &&
+          value !== "" &&
+          !(typeof value === "number" && isNaN(value))
+        ) {
+          filteredParams[key] = value;
+        }
       });
+
+      const res = await client.get(productEndpoint.search, {
+        params: filteredParams,
+      });
+
       return res.data;
     } catch (error) {
       return [];

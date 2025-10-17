@@ -1,3 +1,4 @@
+import { AboutUsTextVN } from "@/helpers/text_vn";
 import Image from "next/image";
 
 const AboutUs = () => {
@@ -62,18 +63,15 @@ const AboutUs = () => {
       >
         <div className="md:max-w-[37%] max-w-[60%] sm:max-w-[45%] absolute mt-[8%] md:ml-10 ml-5">
           <p className={`uppercase font-bold text-amber-300 ${fontSizeP}`}>
-            Giới thiệu về chúng tôi
+            {AboutUsTextVN.ourIntroduction}
           </p>
           <h1
             className={`${fontSizeH2} text-white uppercase font-bold md:mt-10 mt-3`}
           >
-            FloraVNU – Thổi hồn vào từng đóa hoa
+            {AboutUsTextVN.sloganAboutUs}
           </h1>
           <p className={`${fontSizeP} text-white italic font-light`}>
-            Tại FloraVNU, chúng tôi tin rằng mỗi bó hoa đều mang trong mình một
-            câu chuyện và cảm xúc. Sứ mệnh của chúng tôi là mang đến cho bạn
-            những sản phẩm hoa tươi tinh tế, chất lượng và tràn đầy ý nghĩa
-            trong từng khoảnh khắc.
+            {AboutUsTextVN.descriptionSlogan}
           </p>
         </div>
       </div>
@@ -88,28 +86,22 @@ const AboutUs = () => {
 
         <div className="md:ml-10">
           <p className="uppercase font-bold text-amber-300 text-center md:text-left mt-5">
-            Về chúng tôi
+            {AboutUsTextVN.aboutUs}
           </p>
           <h2
             className={`${fontSizeH2} uppercase font-bold text-center md:text-left mb-3`}
           >
-            Tầm nhìn và sứ mệnh của chúng tôi
+            {AboutUsTextVN.ourVisionAndMission}
           </h2>
           <p
             className={`${fontSizeP}  text-black italic font-light text-center md:text-left`}
           >
-            FloraVNU mong muốn trở thành thương hiệu hoa uy tín và được yêu
-            thích hàng đầu tại Làng Đại học, nơi mỗi sản phẩm không chỉ là một
-            món quà mà còn là cầu nối gửi gắm yêu thương và lan tỏa vẻ đẹp cuộc
-            sống.
+            {AboutUsTextVN.descVisionAndMission}
           </p>
           <p
             className={`${fontSizeP}  italic font-light md:mt-5 text-black text-center md:text-left`}
           >
-            Chúng tôi cam kết mang đến những đóa hoa tươi mới, tinh tế và giàu
-            cảm xúc, kết hợp cùng dịch vụ tận tâm để đồng hành cùng khách hàng
-            trong mọi khoảnh khắc quan trọng – từ niềm vui, hạnh phúc đến những
-            lời chúc ý nghĩa.
+            {AboutUsTextVN.ourCommit}
           </p>
         </div>
       </div>

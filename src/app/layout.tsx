@@ -10,6 +10,7 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+import ReactQueryProvider from "@/components/layout/tanstack_query";
 
 export const metadata = {
   title: "FloraVNU - Tiệm hoa tươi, nơi tình yêu bắt đầu",
@@ -83,7 +84,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
   );

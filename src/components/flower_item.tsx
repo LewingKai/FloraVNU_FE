@@ -6,11 +6,11 @@ import DOMPurify from "dompurify";
 import helpersFunction from "@/helpers/helpers";
 
 const FlowerItem: React.FC<Flower> = (floweritem) => {
-  const safeHtml = DOMPurify.sanitize(floweritem.description);
   const fontSizeTitle =
     "text-[14px]  sm:text-[15px] md:text-[18px]  lg:text-[20px]";
   const fontSizeDesc =
-    "text-[12px]  sm:text-[13px] md:text-[15px]  lg:text-[18px]";
+    "text-[11px]  sm:text-[12px] md:text-[13px]  lg:text-[13px]";
+
   return (
     <Link href={`/flower-detail/${floweritem._id}`} className="w-full">
       <div className="relative w-full h-55">
@@ -26,10 +26,9 @@ const FlowerItem: React.FC<Flower> = (floweritem) => {
         <h3 className={`${fontSizeTitle} font-bold line-clamp-1`}>
           {floweritem.name}
         </h3>
-        <div
-          className="flower-des_item line-clamp-2"
-          dangerouslySetInnerHTML={{ __html: safeHtml }}
-        />
+        <p className={`line-clamp-2 italic ${fontSizeDesc}`}>
+          {helpersFunction.stripHtmlTags(floweritem.description)}
+        </p>
         <div className="flex flex-row justify-between mt-2">
           <p
             className={`text-red-500 font-bold ${fontSizeTitle} text-priceText`}
