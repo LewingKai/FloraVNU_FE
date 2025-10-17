@@ -45,8 +45,10 @@ const AccountMenu = ({ fullName, email, avatar, role }: AccountMenuProps) => {
 
   const handleLogout = () => {
     logout();
-    toast.success("Đăng xuất thành công!");
-    router.push(PATH_NAME.HOME);
+    setTimeout(() => {
+      router.push(PATH_NAME.HOME);
+      toast.success("Đăng xuất thành công!");
+    }, 100);
   };
 
   return (
@@ -120,7 +122,7 @@ const AccountMenu = ({ fullName, email, avatar, role }: AccountMenuProps) => {
       >
         <MenuItem
           onClick={() => {
-            router.push(PATH_NAME.ACCOUNTDETAILS);
+            router.push(PATH_NAME.ACCOUNT);
             handleClose();
           }}
           sx={{ paddingTop: "8px", paddingBottom: "8px" }}
