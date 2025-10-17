@@ -45,11 +45,11 @@ const ListFilter: React.FC<ListFilterProps> = ({
     <div className="transition-all duration-300 flex flex-col">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center justify-between px-6 py-5 bg-gray-200"
+        className="flex items-center justify-between sm:px-6 p-2 sm:py-5 bg-gray-200"
       >
-        <div className="text-[15px] font-medium text-black uppercase">
+        <p className="sm:text-[15px] text-[12px] font-medium text-black uppercase">
           {label}
-        </div>
+        </p>
         <KeyboardArrowDown
           className={`ml-2 transition-transform duration-200 ${
             open ? "rotate-180" : ""
@@ -59,13 +59,13 @@ const ListFilter: React.FC<ListFilterProps> = ({
 
       {open &&
         (!isPriceFilter ? (
-          <div className="px-6 mb-5">
+          <div className="sm:px-6 px-2 sm:pb-5">
             {listTitle?.map((item) => (
               <div
                 key={item.value}
                 className="flex w-full items-center justify-between"
               >
-                <p>{item.label}</p>
+                <p className="sm:text-[15px] text-[12px]">{item.label}</p>
                 <Checkbox
                   checked={selected.includes(item.value)}
                   onChange={() => handleCheckboxChange(item.value)}
@@ -78,7 +78,7 @@ const ListFilter: React.FC<ListFilterProps> = ({
             ))}
           </div>
         ) : (
-          <div className="px-6 mb-5">
+          <div className="sm:px-6 px-2 sm:mb-5">
             <Slider
               getAriaLabel={() => "price range"}
               value={value1}

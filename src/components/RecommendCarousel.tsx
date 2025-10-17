@@ -60,7 +60,7 @@ const NextArrow: React.FC<ArrowProps> = ({ className, onClick, style }) => {
   );
 };
 
-const RecommendCarousel = ({ flowers }: { flowers: Flower[] }) => {
+const RecommendCarousel = React.memo(({ flowers }: { flowers: Flower[] }) => {
   const settings: Settings = {
     dots: true,
     infinite: true,
@@ -112,7 +112,7 @@ const RecommendCarousel = ({ flowers }: { flowers: Flower[] }) => {
         {flowers.map((item, index) => (
           <div className="px-2" key={index}>
             <FlowerItem
-              id={item.id}
+              _id={item._id}
               key={index}
               image={item.image}
               name={item.name || "Bó hoa xinh"}
@@ -125,6 +125,6 @@ const RecommendCarousel = ({ flowers }: { flowers: Flower[] }) => {
       </Slider>
     </div>
   );
-};
+});
 
 export default RecommendCarousel;
