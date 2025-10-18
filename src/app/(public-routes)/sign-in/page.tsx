@@ -46,7 +46,6 @@ const SignIn = () => {
 
       setUser(res.data.data);
       login();
-      await fetchMe();
 
       toast.success("Đăng nhập thành công!");
       router.push(PATH_NAME.HOME);
