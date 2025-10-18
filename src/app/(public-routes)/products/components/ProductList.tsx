@@ -10,12 +10,14 @@ import {
   Pagination,
   Select,
 } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import ListFilter from "./list_filter";
 import { enumSortType, Flower, SearchParamsType } from "@/types/home";
 import productApi from "@/services/axios/actions/products.action";
 import SearchBar from "@/components/ui/SearchBar";
 import { useRouter, useSearchParams } from "next/navigation";
+import { ProductTextVN } from "@/helpers/text_vn";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 const filterType = {
   event: [
@@ -50,7 +52,6 @@ const sortTypeList = [
 ];
 
 type Props = {
-  flowerList: Flower[];
   searchParams: SearchParamsType;
 };
 
@@ -68,13 +69,15 @@ type FilterListType = {
   priceMin: number;
 };
 
-const ProductsList = ({ flowerList, searchParams }: Props) => {
+const ProductsList = ({ searchParams }: Props) => {
+  const fontSizeP =
+    "text-[12px]  sm:text-[15px] md:text-[18px]  lg:text-[20px]";
+  const fontSizeH1 =
+    "text-[30px] md:text-[50px] sm:text-[40px]  lg:text-[80px]";
   const [sortType, setSortType] = useState(enumSortType.priceIncreases);
   const [openFilterBox, setOpenFilterBox] = useState(false);
   const [searchValue, setSearchValue] = useState<string>("");
   const [currencyValue, setcurrencyValue] = useState("name");
-  const [toalPages, setTotalPages] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
   const [filterList, setFilterList] = useState<FilterListType>({
     limited: "20",
     forms: [],
@@ -88,10 +91,12 @@ const ProductsList = ({ flowerList, searchParams }: Props) => {
     page: 1,
     priceMin: 0,
   });
-  const [flowers, setFlowers] = useState<Flower[]>(flowerList);
+  // const [flowers, setFlowers] = useState<Flower[]>(flowerList);
+  const [hasInitial, setHasInitial] = useState(true);
+  const isFirstRender = useRef(true);
   const router = useRouter();
   const searchParam = useSearchParams();
-  const isFirstRender = useRef(true);
+  const [count, setCount] = useState(1);
   const handleSubmit = () => {
     setFilterList((prev) => ({
       ...prev,
@@ -101,13 +106,9 @@ const ProductsList = ({ flowerList, searchParams }: Props) => {
     }));
   };
 
-  useEffect(() => {
-    const paramsWeb = new URLSearchParams(searchParam.toString());
-
-    const keyword = paramsWeb.get("keyword") ?? "";
-    const searchType = paramsWeb.get("searchType") ?? "name";
-
-    const sortParam = paramsWeb.get("sort") ?? "";
+  const parsedParams = useMemo(() => {
+    const params = new URLSearchParams(searchParam.toString());
+    const sortParam = params.get("sort") ?? "";
     let priceSort = "asc";
     let stockQuantity = "desc";
 
@@ -117,35 +118,86 @@ const ProductsList = ({ flowerList, searchParams }: Props) => {
       if (priceMatch?.[1]) priceSort = priceMatch[1];
       if (stockMatch?.[1]) stockQuantity = stockMatch[1];
     }
-    setSearchValue(keyword);
-    setcurrencyValue(searchType);
-    setSortType(priceSort);
-    setFilterList({
-      limited: paramsWeb.get("limit") ?? "20",
-      forms: (paramsWeb.get("forms")?.split(",") ?? []) as string[],
-      occasions: (paramsWeb.get("occasions")?.split(",") ?? []) as string[],
-      types: (paramsWeb.get("types")?.split(",") ?? []) as string[],
-      priceMax: paramsWeb.get("priceMax")
-        ? Number(paramsWeb.get("priceMax"))
+    return {
+      keyword: params.get("keyword") ?? "",
+      searchType: params.get("searchType") ?? "name",
+      sortParam: params.get("sort") ?? "",
+      limited: params.get("limit") ?? "20",
+      forms: (params.get("forms")?.split(",") ?? []) as string[],
+      occasions: (params.get("occasions")?.split(",") ?? []) as string[],
+      types: (params.get("types")?.split(",") ?? []) as string[],
+      priceMax: params.get("priceMax")
+        ? Number(params.get("priceMax"))
         : 500000,
-      priceMin: paramsWeb.get("priceMin")
-        ? Number(paramsWeb.get("priceMin"))
-        : 0,
+      priceMin: params.get("priceMin") ? Number(params.get("priceMin")) : 0,
       stockQuantity,
       priceSort,
-      searchType,
-      keyword,
-      page: paramsWeb.get("page") ? Number(paramsWeb.get("page")) : 1,
-    });
+      page: params.get("page") ? Number(params.get("page")) : 1,
+    };
   }, [searchParam]);
 
   useEffect(() => {
+    setSearchValue(parsedParams.keyword);
+    setcurrencyValue(parsedParams.searchType);
+    setSortType(parsedParams.priceSort);
+    setFilterList({
+      limited: parsedParams.limited,
+      forms: parsedParams.forms,
+      occasions: parsedParams.occasions,
+      types: parsedParams.types,
+      priceMax: parsedParams.priceMax,
+      priceMin: parsedParams.priceMin,
+      stockQuantity: parsedParams.stockQuantity,
+      priceSort: parsedParams.priceSort,
+      searchType: parsedParams.searchType,
+      keyword: parsedParams.keyword,
+      page: parsedParams.page,
+    });
+  }, [parsedParams]);
+
+  const fetchProducts = async (filters: FilterListType) => {
+    const paramsWeb = new URLSearchParams();
+
+    if (filters.limited) paramsWeb.set("limit", filters.limited);
+    if (filters.forms?.length) paramsWeb.set("forms", filters.forms.join(","));
+    if (filters.occasions?.length)
+      paramsWeb.set("occasions", filters.occasions.join(","));
+    if (filters.types?.length) paramsWeb.set("types", filters.types.join(","));
+    if (filters.priceMax)
+      paramsWeb.set("priceMax", filters.priceMax.toString());
+    if (filters.priceMin)
+      paramsWeb.set("priceMin", filters.priceMin.toString());
+    if (filters.searchType) paramsWeb.set("searchType", filters.searchType);
+    if (filters.keyword) paramsWeb.set("keyword", filters.keyword);
+    paramsWeb.set("page", filters.page.toString());
+    paramsWeb.set(
+      "sort",
+      `price:${filters.priceSort},stockQuantity:${filters.stockQuantity}`
+    );
+    console.log("gọi api lần", count);
+    setCount((prev) => prev + 1);
+    const res = await productApi.search(Object.fromEntries(paramsWeb));
+    return res;
+  };
+
+  const { data, isPending, isError } = useQuery({
+    queryKey: ["products", JSON.stringify(searchParams)],
+    queryFn: () => fetchProducts(filterList),
+    placeholderData: keepPreviousData,
+    enabled: !hasInitial,
+    // initialData: hasInitial
+    //   ? { data: flowerList, total: flowerList.length }
+    //   : undefined,
+    staleTime: 1000 * 60 * 3, // cache 3 phút
+  });
+
+  useEffect(() => {
+    if (hasInitial) setHasInitial(false);
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
     }
     const fetchData = async () => {
-      setIsLoading(true);
       const paramsWeb = new URLSearchParams();
 
       // Gắn các param nếu có giá trị
@@ -172,18 +224,8 @@ const ProductsList = ({ flowerList, searchParams }: Props) => {
       const currentUrl = window.location.search;
 
       if (newUrl !== currentUrl) {
-        router.replace(newUrl, { scroll: false });
+        router.replace(newUrl);
       }
-      console.log("paramsWeb =====", Object.fromEntries(paramsWeb));
-      try {
-        const res = await productApi.search(Object.fromEntries(paramsWeb));
-        setFlowers(res.data || []);
-        setTotalPages(Math.ceil(res.total / Number(filterList.limited)));
-      } catch (error) {
-        console.error("Fetch products failed:", error);
-      }
-
-      setIsLoading(false);
     };
 
     fetchData();
@@ -204,44 +246,48 @@ const ProductsList = ({ flowerList, searchParams }: Props) => {
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
-        className="w-full h-[650px] relative items-center justify-center flex"
+        className="w-full lg:h-[650px] md:h-[450px] h-[200px] relative items-center justify-center flex"
       >
-        <div className="max-w-[70%]">
-          <h1 className="text-[80px] font-bold text-white text-center">
-            Sản phẩm của chúng tôi
+        <div className="sm:max-w-[70%] max-w-[80%]">
+          <h1 className={`${fontSizeH1} font-bold text-white text-center mb-5`}>
+            {ProductTextVN.ourProducts}
           </h1>
-          <p className="text-[25px] font-light italic text-white text-center">
-            "FloraVNU mang đến những đóa hoa tươi nhất, gửi gắm yêu thương và
-            khoảnh khắc lãng mạn đến người bạn trân quý."
+          <p className="text-[12px]  sm:text-[15px] md:text-[18px]  lg:text-[20px] font-light italic text-white text-center">
+            {ProductTextVN.descriptionProductSlogan}
           </p>
         </div>
       </div>
-      <div className="border-b border-t flex  justify-between items-center px-10 py-6 my-5 gap-10">
+      <div className="border-b border-t flex  justify-between items-center md:px-10 px-3 md:py-6 py-2 md:my-5 my-3 md:gap-10 gap-3">
         <button
           className="flex items-center gap-2 flex-1"
           onClick={() => setOpenFilterBox(!openFilterBox)}
         >
-          <FontAwesomeIcon icon={faSliders} size="xl" />
-          <p className="text-lg font-bold uppercase">Bộ lọc</p>
+          <FontAwesomeIcon
+            icon={faSliders}
+            className="w-6 h-6 sm:w-13 sm:h-13"
+          />
+          <p className="text-lg font-bold uppercase hidden sm:flex">
+            {ProductTextVN.filterBoxTitle}
+          </p>
         </button>
         <SearchBar
           handleChangeCurrencies={(e) => {
-            // setFilterList((prev) => ({
-            //   ...prev,
-            //   searchType: e.target.value,
-            // }));
+            setFilterList((prev) => ({
+              ...prev,
+              searchType: e.target.value as string,
+            }));
           }}
           handleChangeSearch={(e) => setSearchValue(e.target.value)}
           handleSubmit={handleSubmit}
           searchValue={searchValue}
           currencyValue={filterList.searchType || "name"}
-          className="flex-2"
+          className="sm:flex-2 flex-4"
         />
-        <div className="flex justify-end items-center flex-1">
-          <p className="uppercase font-bold text-lg min-w-[150px]">
-            Sắp xếp theo:
+        <div className="flex justify-end items-center sm:flex-1 lg:max-w-[1000px] max-w-[100px]">
+          <p className="hidden lg:flex uppercase font-bold text-[15px] md:text-[18px] lg:text-[20px] sm:min-w-[150px] min-w-[100px]">
+            {`${ProductTextVN.sortBy}:`}
           </p>
-          <FormControl sx={{ m: 1, width: 200 }}>
+          <FormControl sx={{ m: 1, width: "100%" }}>
             <Select
               labelId="demo-multiple-name-label"
               id="demo-multiple-name"
@@ -268,37 +314,40 @@ const ProductsList = ({ flowerList, searchParams }: Props) => {
           </FormControl>
         </div>
       </div>
-      <div className="flex flex-col gap-10 items-center pb-10  px-10">
-        <div className="flex gap-10 w-[95%] justify-center">
+      <div className="flex flex-col gap-10 items-center pb-10 md:px-10 px-3">
+        <div className="flex sm:gap-10 gap-5 w-[95%] justify-center">
           {/* Bộ lọc */}
           {openFilterBox && (
-            <div className="w-[25%] border h-fit border-gray-200">
+            <div className="sm:w-[25%] w-[45%] border h-fit border-gray-200">
               {/* lọc theo sự kiện */}
               <ListFilter
                 listTitle={filterType.event}
-                label="Theo sự kiện"
+                label={ProductTextVN.sortByEvent}
                 onChange={(values) => handleFilterChange("occasions", values)}
               />
               {/* lọc theo loài hoa */}
               <ListFilter
                 listTitle={filterType.flowerType}
-                label="Theo loài hoa"
+                label={ProductTextVN.sortByType}
                 onChange={(values) => handleFilterChange("types", values)}
               />
               {/* lọc theo kiểu dáng */}
               <ListFilter
                 listTitle={filterType.shapeType}
-                label="Theo kiểu dáng"
+                label={ProductTextVN.sortByShape}
                 onChange={(values) => handleFilterChange("forms", values)}
               />
               {/* lọc theo giá */}
-              <ListFilter label="Theo mức giá" isPriceFilter={true} />
+              <ListFilter
+                label={ProductTextVN.sortByPriceLevel}
+                isPriceFilter={true}
+              />
             </div>
           )}
 
           {/* Sản phẩm */}
           <div className={`${openFilterBox ? "w-[70%]" : "w-full"}`}>
-            {isLoading ? (
+            {isPending ? (
               <div className="w-full h-[700px] flex justify-center items-center">
                 <CircularProgress
                   enableTrackSlot
@@ -310,16 +359,18 @@ const ProductsList = ({ flowerList, searchParams }: Props) => {
               </div>
             ) : (
               <div
-                className={`${flowers.length != 0 ? "grid" : ""}  gap-5 ${
-                  openFilterBox ? "grid-cols-4" : "grid-cols-5"
+                className={`${data?.data?.length != 0 ? "grid" : ""}  gap-5 ${
+                  openFilterBox
+                    ? "lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1"
+                    : "lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2"
                 }`}
               >
-                {flowers != null && flowers.length > 0 ? (
-                  (flowers as Flower[]).map((item, index) => {
+                {data?.data != null && data?.data?.length > 0 ? (
+                  (data?.data as Flower[]).map((item, index) => {
                     return (
                       <FlowerItem
                         key={index}
-                        id={item.id}
+                        _id={item._id}
                         alt={item.name}
                         image={item.image}
                         name={item.name}
@@ -329,15 +380,23 @@ const ProductsList = ({ flowerList, searchParams }: Props) => {
                     );
                   })
                 ) : (
-                  <p>Không có sản phẩm nào phù hợp với bạn!</p>
+                  <p className={`${fontSizeP}`}>
+                    {ProductTextVN.noProductsFound}
+                  </p>
                 )}
               </div>
             )}
           </div>
         </div>
-        {flowers.length != 0 ? (
+        {(data?.total
+          ? Math.ceil(data.total / Number(filterList.limited))
+          : 0) > 1 ? (
           <Pagination
-            count={toalPages}
+            count={
+              data?.total
+                ? Math.ceil(data.total / Number(filterList.limited))
+                : 0
+            }
             page={filterList.page}
             onChange={(e, value) =>
               setFilterList((prev) => ({

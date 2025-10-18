@@ -63,17 +63,17 @@ const AccountMenu = ({ fullName, email, avatar, role }: AccountMenuProps) => {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <div className="flex gap-3 justify-start items-center">
+            <div className="flex gap-3 justify-start items-center hover:none">
               <div className="flex-col gap-2 text-sm justify-start">
-                <p className="font-bold text-[20px] text-right text-black">
+                <p className="font-bold text-[15px] text-right text-black">
                   {fullName}
                 </p>
-                <p className="text-[15px] italic font-light text-black">
+                <p className="text-[13px] italic font-light text-black">
                   {email}
                 </p>
               </div>
               <Avatar
-                sx={{ width: 50, height: 50 }}
+                sx={{ width: 40, height: 40 }}
                 src={avatar?.url}
                 alt="avatar"
                 className="border-2 rounded-full border-white"

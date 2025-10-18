@@ -8,6 +8,7 @@ import logo from "@/assets/images/logo.svg";
 import { PATH_NAME } from "@/configs/pathName";
 
 export default function Footer() {
+  const fontSizeDesc = "text-[13px]  md:text-[15px]";
   return (
     <footer
       className="w-full px-4 sm:px-8 md:px-16 lg:px-32 pt-10 md:pt-20 pb-7  flex flex-col items-center gap-10 md:gap-20"
@@ -17,62 +18,66 @@ export default function Footer() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-11 text-white">
+      <div className="flex flex-col md:flex-row justify-center items-center gap-3 md:gap-10 text-white">
         <Link
           href={PATH_NAME.HOME}
-          className="text-center text-lg md:text-xl hover:text-secondary"
+          className="text-center text-sm md:text-xl hover:text-secondary"
         >
           HOME
         </Link>
         <div className="hidden md:block lg:w-3 lg:h-3 md:w-2 md:h-2 bg-secondary rounded-full" />
         <Link
           href={PATH_NAME.PRODUCTS}
-          className="text-center text-lg md:text-xl hover:text-secondary"
+          className="text-center text-sm md:text-xl hover:text-secondary"
         >
           SẢN PHẨM
         </Link>
         <div className="hidden md:block w-3 h-3 md:w-2 md:h-2 bg-secondary rounded-full" />
         <Link
           href={PATH_NAME.BLOGS}
-          className="text-center text-lg md:text-xl hover:text-secondary"
+          className="text-center text-sm md:text-xl hover:text-secondary"
         >
           BLOGS
         </Link>
         <div className="hidden md:block w-3 h-3 md:w-2 md:h-2 bg-secondary rounded-full" />
         <Link
           href={PATH_NAME.ABOUTUS}
-          className="text-center text-lg md:text-xl hover:text-secondary"
+          className="text-center text-sm md:text-xl hover:text-secondary"
         >
           VỀ CHÚNG TÔI
         </Link>
       </div>
 
-      <div className="w-full flex flex-col md:flex-row justify-between items-center gap-10 text-white">
+      <div className="w-full flex flex-col md:flex-row justify-between items-center sm:gap-10 gap-3 text-white">
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-4">
             <LocalPhoneIcon />
-            <div>+84 969 666 352</div>
+            <a href="tel:0338963327" className={` ${fontSizeDesc}`}>
+              0338963327
+            </a>
           </div>
           <div className="flex items-center gap-4">
             <EmailIcon />
-            <div>floravnu@gmail.com</div>
+            <a href="mailto:floravnu@gmail.com" className={` ${fontSizeDesc}`}>
+              floravnu@gmail.com
+            </a>
           </div>
           <div className="flex items-start gap-4">
             <ApartmentIcon />
-            <div>
+            <address className={`not-italic ${fontSizeDesc}`}>
               Khu phố 34, Phường Linh Xuân
               <br />
               TP. Hồ Chí Minh
-            </div>
+            </address>
           </div>
         </div>
 
         <Image src={logo} alt="FloraVNU logo" className="w-70 h-auto" />
 
-        <div className="text-center md:text-left max-w-xs text-sm sm:text-base">
+        <p className="text-center md:text-left max-w-xs text-sm sm:text-base ">
           Website do nhóm sinh viên Trường Đại học Công nghệ Thông tin - ĐHQG
           TP.HCM phục vụ mục đích học tập.
-        </div>
+        </p>
       </div>
 
       <div className="w-full py-4 border-t border-white/20 flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-10 text-xs sm:text-sm text-gray-300 text-center">

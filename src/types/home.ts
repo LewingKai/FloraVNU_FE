@@ -1,10 +1,12 @@
 export interface Flower {
-  id: string;
+  _id: string;
   image: ImageType;
   name: string;
   description: string;
-  price: string;
+  price?: string;
   alt: string;
+  rating?: number;
+  stockQuantity?: number;
 }
 
 type ImageType = {
