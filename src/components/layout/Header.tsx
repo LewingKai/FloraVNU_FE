@@ -21,7 +21,6 @@ interface HeaderProps {
 const Header = ({ toggleSidebar }: HeaderProps) => {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
   const { user, isAuth, fetchMe } = useAuth();
 
   useEffect(() => {
@@ -34,8 +33,14 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
   }, []);
 
   useEffect(() => {
-    fetchMe();
-  }, [fetchMe]);
+    if (
+      !user &&
+      typeof window !== "undefined" &&
+      localStorage.getItem("access_token")
+    ) {
+      fetchMe();
+    }
+  }, [user, fetchMe]);
 
   return (
     <header
@@ -54,7 +59,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
             className=" lg:w-[140px] w-[50px]"
           />
         </Link>
-        <nav className="flex gap-10 max-md:hidden items-center ml-[20px]">
+        <nav className="flex gap-10 max-lg:hidden items-center ml-[20px]">
           <Link
             href={PATH_NAME.HOME}
             className={
@@ -131,7 +136,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
       )}
 
       <button
-        className="hidden max-lg:block text-black sm:text-2xl text-xl focus:outline-none p-5"
+        className="hidden max-lg:block text-black text-2xl focus:outline-none"
         onClick={toggleSidebar}
       >
         <FontAwesomeIcon icon={faBars} size="sm" />
