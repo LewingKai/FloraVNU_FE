@@ -101,6 +101,7 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
               email={user.email}
               avatar={user.avatar}
               role={user.role}
+              onNavigate={toggleSidebar}
             />
           </div>
         ) : (
