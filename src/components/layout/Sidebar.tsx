@@ -94,34 +94,29 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
           </nav>
         </div>
 
-        <div className="flex flex-col items-end mb-6 gap-3.5">
-          {isAuth && user ? (
-            <div className="mb-[40vw] sm:mb-[20vw]">
-              <AccountMenu
-                fullName={user.fullName}
-                email={user.email}
-                avatar={user.avatar}
-                role={user.role}
-              />
-            </div>
-          ) : (
-            <>
-              <Link href={PATH_NAME.SIGNUP} onClick={toggleSidebar}>
-                <Button
-                  variant="default"
-                  className="border-primary text-primary w-full"
-                >
-                  Đăng ký
-                </Button>
-              </Link>
-              <Link href={PATH_NAME.SIGNIN} onClick={toggleSidebar}>
-                <Button variant="default" className="w-full">
-                  Đăng nhập
-                </Button>
-              </Link>
-            </>
-          )}
-        </div>
+        {isAuth && user ? (
+          <div className="flex justify-end mb-[40vw] sm:mb-[20vw]">
+            <AccountMenu
+              fullName={user.fullName}
+              email={user.email}
+              avatar={user.avatar}
+              role={user.role}
+            />
+          </div>
+        ) : (
+          <div className="flex flex-col mb-6 gap-3.5">
+            <Link href={PATH_NAME.SIGNIN} onClick={toggleSidebar}>
+              <Button variant="default" className="w-full">
+                Đăng nhập
+              </Button>
+            </Link>
+            <Link href={PATH_NAME.SIGNUP} onClick={toggleSidebar}>
+              <Button variant="default" className="w-full">
+                Đăng ký
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

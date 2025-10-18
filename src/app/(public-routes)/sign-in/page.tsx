@@ -25,7 +25,7 @@ const SignIn = () => {
     password: "",
   });
   const [loading, setLoading] = useState(false);
-  const { setUser, login, fetchMe } = useAuth();
+  const { setUser, login } = useAuth();
 
   const handleChange = useCallback((field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value || "" }));
