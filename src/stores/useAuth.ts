@@ -26,6 +26,7 @@ const useAuth = create<AuthState>((set, get) => ({
 
   logout() {
     clientRequest.removeAccessToken();
+    localStorage.removeItem("user_id");
     set({ isAuth: false, user: null });
   },
 

@@ -27,9 +27,16 @@ interface AccountMenuProps {
   email: string;
   avatar?: { url: string };
   role: string;
+  onNavigate?: () => void;
 }
 
-const AccountMenu = ({ fullName, email, avatar, role }: AccountMenuProps) => {
+const AccountMenu = ({
+  fullName,
+  email,
+  avatar,
+  role,
+  onNavigate,
+}: AccountMenuProps) => {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -45,8 +52,16 @@ const AccountMenu = ({ fullName, email, avatar, role }: AccountMenuProps) => {
 
   const handleLogout = () => {
     logout();
-    toast.success("Đăng xuất thành công!");
-    router.push(PATH_NAME.HOME);
+    setTimeout(() => {
+      router.push(PATH_NAME.HOME);
+      toast.success("Đăng xuất thành công!");
+    }, 100);
+  };
+
+  const handleMenuNavigate = (callback: () => void) => {
+    if (onNavigate) onNavigate();
+    handleClose();
+    callback();
   };
 
   return (
@@ -119,20 +134,18 @@ const AccountMenu = ({ fullName, email, avatar, role }: AccountMenuProps) => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem
-          onClick={() => {
-            router.push(PATH_NAME.ACCOUNTDETAILS);
-            handleClose();
-          }}
+          onClick={() =>
+            handleMenuNavigate(() => router.push(PATH_NAME.ACCOUNT))
+          }
           sx={{ paddingTop: "8px", paddingBottom: "8px" }}
         >
           <FontAwesomeIcon icon={faUser} className="mr-2" size="lg" />
           Tài khoản của tôi
         </MenuItem>
         <MenuItem
-          onClick={() => {
-            router.push(PATH_NAME.ORDERSHISTORY);
-            handleClose();
-          }}
+          onClick={() =>
+            handleMenuNavigate(() => router.push(PATH_NAME.ORDERSHISTORY))
+          }
           sx={{ paddingTop: "8px", paddingBottom: "8px" }}
         >
           <FontAwesomeIcon
@@ -144,20 +157,15 @@ const AccountMenu = ({ fullName, email, avatar, role }: AccountMenuProps) => {
         </MenuItem>
         {role === "admin" && (
           <MenuItem
-            onClick={() => {
-              router.push("/admin");
-              handleClose();
-            }}
+            onClick={() => handleMenuNavigate(() => router.push("/admin"))}
             sx={{ paddingTop: "8px", paddingBottom: "8px" }}
           >
             <FontAwesomeIcon icon={faStore} className="mr-2" size="lg" />
             Trang quản lý của Admin
           </MenuItem>
         )}
-
         <Divider sx={{ marginTop: "5px", marginBottom: "5px" }} />
-
-        <MenuItem onClick={handleLogout}>
+        <MenuItem onClick={() => handleMenuNavigate(handleLogout)}>
           <FontAwesomeIcon
             icon={faRightFromBracket}
             className="mr-2"
