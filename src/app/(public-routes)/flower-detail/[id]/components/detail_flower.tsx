@@ -6,46 +6,13 @@ import { faCartPlus, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Rating } from "@mui/material";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RatingFlowerComponent from "./ratting_flower";
-import DOMPurify from "dompurify";
+import DOMPurify from "isomorphic-dompurify";
 import helpersFunction from "@/helpers/helpers";
 import { DetailProductTextVN } from "@/helpers/text_vn";
-
-const sampleReviews: Review[] = [
-  // {
-  //   id: 1,
-  //   name: "Nguyễn Văn A",
-  //   rating: 5,
-  //   date: "12/03/2025",
-  //   comment:
-  //     "Sản phẩm chất lượng tuyệt vời, vải mềm và thoáng mát. Đúng như mô tả và giao hàng nhanh.",
-  // },
-  // {
-  //   id: 2,
-  //   name: "Trần Thị B",
-  //   rating: 2,
-  //   date: "05/03/2025",
-  //   comment:
-  //     "Tôi rất hài lòng với chất lượng sản phẩm. Tuy nhiên kích thước hơi rộng một chút so với bảng size.",
-  // },
-  // {
-  //   id: 3,
-  //   name: "Lê Hoàng C",
-  //   rating: 3,
-  //   date: "28/02/2025",
-  //   comment:
-  //     "Chất liệu vải tốt nhưng màu sắc hơi khác so với hình ảnh trên website.",
-  // },
-];
-
-const flowerItem = {
-  imageUrl: "/images/home/rose.png",
-  title: "Hoa nắng vàng",
-  price: "500000",
-  description:
-    "Khám phá bộ sưu tập những đóa hoa tinh khôi, được tuyển chọn và sắp xếp tỉ mỉ, mang đến vẻ đẹp thanh lịch cho mọi khoảnh khắc yêu thương.",
-};
+import { emitter } from "@/utils/eventbus";
+import reviewAction from "@/services/axios/actions/review.action";
 
 interface DetailFlowerProps {
   flowerData: Flower;
@@ -53,7 +20,6 @@ interface DetailFlowerProps {
 }
 
 const DetailFlower = ({ flowerData, reviewList }: DetailFlowerProps) => {
-  console.log("reviewList: ", reviewList);
   const [countItemAdd, setCountItemAdd] = useState(1);
   const [seeMore, setSeeMore] = useState<boolean>(false);
   const onChangeQuality = (value: number) => {
@@ -84,7 +50,7 @@ const DetailFlower = ({ flowerData, reviewList }: DetailFlowerProps) => {
           <div className="w-full flex justify-end">
             <Rating
               name="half-rating"
-              defaultValue={flowerData.rating}
+              value={flowerData.rating}
               precision={0.5}
             />
           </div>
