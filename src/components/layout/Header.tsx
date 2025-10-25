@@ -102,15 +102,15 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
           </Link>
         </nav>
       </div>
-      <button onClick={() => {}}>
+      <Link href={PATH_NAME.MYCART}>
         <div className="relative">
           <FontAwesomeIcon icon={faCartShopping} size="xl" color="#E32C89" />
           <p className="text-[10px] p-0.5 px-1.5 rounded-full bg-white text-[#E32C89]  absolute -top-1/4 -right-1">
             2
           </p>
         </div>
-      </button>
-      <div className="text-[20px] text-[#E32C89] ml-3"> |</div>
+      </Link>
+      <div className="text-[20px] text-[#E32C89] ml-3 mr-1.5"> |</div>
       {isAuth && user ? (
         <div className="hidden lg:flex">
           <AccountMenu

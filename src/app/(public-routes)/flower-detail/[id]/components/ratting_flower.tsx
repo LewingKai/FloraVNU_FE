@@ -1,12 +1,14 @@
+"use client";
 import { DetailProductTextVN } from "@/helpers/text_vn";
 import reviewAction from "@/services/axios/actions/review.action";
 import useAuth from "@/stores/useAuth";
 import { Review } from "@/types/review";
+import { emitter } from "@/utils/eventbus";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Try } from "@mui/icons-material";
 import { Avatar, Rating } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 interface RatingFlowerProps {
@@ -23,25 +25,51 @@ const RatingFlowerComponent: React.FC<RatingFlowerProps> = ({
   const [reviewComment, setReviewComment] = useState("");
   const [visibleCount, setVisibleCount] = useState(5);
   const { user } = useAuth();
-  const reversedReviews = [...reviewList].reverse();
+  const [listComments, setListComments] = useState<Review[]>(() =>
+    reviewList ? [...reviewList].reverse() : []
+  );
+  const fetchComments = async () => {
+    try {
+      const res = await reviewAction.getReviewsByFlowerId(flowerid);
+      const updatedReviews = (res.data as Review[]) || [];
+      setListComments([...updatedReviews].reverse());
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    }
+  };
 
-  const visibleReviews = reversedReviews.slice(0, visibleCount);
+  useEffect(() => {
+    console.log("Setting up commentAdded listener");
+    const handler = () => fetchComments();
+    emitter.on("updateCommentList", handler);
+
+    return () => {
+      emitter.off("updateCommentList", handler);
+    };
+  }, []);
+
+  const visibleReviews = listComments.slice(0, visibleCount);
+
   const handleDeleteReview = async (idReview: string) => {
     try {
       const res = await reviewAction.deleteReview(idReview);
       toast.success("Xóa bình luận thành công!");
+      setListComments((prev) =>
+        prev.filter((item) => item._id.toString() !== idReview)
+      );
     } catch (error) {
       console.error("Error deleting review:", error);
       toast.error("Không thể xóa bình luận!");
     }
   };
   const handleLoadMore = () => {
-    if (visibleCount >= reversedReviews.length) {
+    if (visibleCount >= listComments.length) {
       setVisibleCount(5);
       return;
     }
     setVisibleCount((prev) => prev + 5);
   };
+
   const handleSubmitReview = async () => {
     const requestData = {
       flowerId: flowerid,
@@ -52,6 +80,7 @@ const RatingFlowerComponent: React.FC<RatingFlowerProps> = ({
       const res = await reviewAction.submitReview(requestData);
       if (res.data != null) {
         toast.success("Bình luận thành công!");
+        emitter.emit("updateCommentList");
       } else {
         toast.error("Bình luận thất bại!");
       }
@@ -63,10 +92,10 @@ const RatingFlowerComponent: React.FC<RatingFlowerProps> = ({
     }
   };
   const averageRating =
-    reviewList.length > 0
+    listComments.length > 0
       ? Math.ceil(
-          reviewList.reduce((sum, r) => sum + (r.rating || 0), 0) /
-            reviewList.length
+          listComments.reduce((sum, r) => sum + (r.rating || 0), 0) /
+            listComments.length
         )
       : 0;
   return (
@@ -87,7 +116,7 @@ const RatingFlowerComponent: React.FC<RatingFlowerProps> = ({
             />
           </div>
           <div className="text-gray-500 text-sm mt-1">
-            Dựa trên {reviewList.length} đánh giá
+            Dựa trên {listComments.length} đánh giá
           </div>
           {/* {!showReviewForm ? (
             <button
@@ -168,9 +197,9 @@ const RatingFlowerComponent: React.FC<RatingFlowerProps> = ({
                       {review.accountId?.username}
                     </div>
                   </div>
-                  <div className="text-gray-500 text-sm">
+                  {/* <div className="text-gray-500 text-sm">
                     {review.createdAt}
-                  </div>
+                  </div> */}
                 </div>
                 <div className="my-2">
                   <Rating
@@ -198,13 +227,13 @@ const RatingFlowerComponent: React.FC<RatingFlowerProps> = ({
           </div>
         )}
       </div>
-      {visibleCount < 5 && (
+      {listComments.length > 5 && (
         <div className="w-full flex justify-center mt-5">
           <button
             className="mt-2 mx-auto px-4 py-2 bg-blue-300 rounded hover:bg-blue-500 text-white"
             onClick={handleLoadMore}
           >
-            {visibleCount < reversedReviews.length ? "Xem thêm" : "Rút gọn"}
+            {visibleCount < listComments.length ? "Xem thêm" : "Rút gọn"}
           </button>
         </div>
       )}

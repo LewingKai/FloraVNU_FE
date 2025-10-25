@@ -15,4 +15,6 @@ export const PATH_NAME = {
   PROFILE: "/account/profile",
   CHANGEPASSWORD: "/account/change-password",
   ORDERSHISTORY: "/orders-history",
+  MYCART: "/my-cart",
+  DETAILORDER: "/detail-order",
 };

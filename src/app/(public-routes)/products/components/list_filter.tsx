@@ -2,14 +2,9 @@ import { KeyboardArrowDown } from "@mui/icons-material";
 import { Checkbox, Slider } from "@mui/material";
 import { useState } from "react";
 
-interface Title {
-  label: string;
-  value: string;
-}
-
 interface ListFilterProps {
   label: string;
-  listTitle?: Title[];
+  listTitle?: String[];
   isPriceFilter?: boolean;
   onChange?: (values: string[]) => void;
   onPriceChange?: (min: number, max: number) => void;
@@ -62,13 +57,13 @@ const ListFilter: React.FC<ListFilterProps> = ({
           <div className="sm:px-6 px-2 sm:pb-5">
             {listTitle?.map((item) => (
               <div
-                key={item.value}
+                key={item.toString()}
                 className="flex w-full items-center justify-between"
               >
-                <p className="sm:text-[15px] text-[12px]">{item.label}</p>
+                <p className="sm:text-[15px] text-[12px]">{item}</p>
                 <Checkbox
-                  checked={selected.includes(item.value)}
-                  onChange={() => handleCheckboxChange(item.value)}
+                  checked={selected.includes(item.toString())}
+                  onChange={() => handleCheckboxChange(item.toString())}
                   sx={{
                     color: "#E32C89",
                     "&.Mui-checked": { color: "#FF69B5" },
