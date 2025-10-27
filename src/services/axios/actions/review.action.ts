@@ -15,7 +15,6 @@ class ReviewAction {
       const response = await clientRequest
         .getAxiosInstance()
         .post(reviewEndpoint.comments, reviewRequest);
-      console.log("response submit review: ", response);
       return response.data;
     } catch (error) {
       console.error("Error submitting review:", error);

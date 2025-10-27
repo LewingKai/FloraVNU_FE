@@ -17,7 +17,8 @@ import productApi from "@/services/axios/actions/products.action";
 import SearchBar from "@/components/ui/SearchBar";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ProductTextVN } from "@/helpers/text_vn";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, QueryClient, useQuery } from "@tanstack/react-query";
+import helpersFunction from "@/helpers/helpers";
 
 const filterType = {
   event: [
@@ -53,9 +54,10 @@ const sortTypeList = [
 
 type Props = {
   searchParams: SearchParamsType;
+  filterListCate: any;
 };
 
-type FilterListType = {
+export type FilterListType = {
   limited: string;
   forms: string[];
   occasions: string[];
@@ -69,7 +71,7 @@ type FilterListType = {
   priceMin: number;
 };
 
-const ProductsList = ({ searchParams }: Props) => {
+const ProductsList = ({ searchParams, filterListCate }: Props) => {
   const fontSizeP =
     "text-[12px]  sm:text-[15px] md:text-[18px]  lg:text-[20px]";
   const fontSizeH1 =
@@ -83,7 +85,7 @@ const ProductsList = ({ searchParams }: Props) => {
     forms: [],
     occasions: [],
     types: [],
-    priceMax: 500000,
+    priceMax: 50000000,
     stockQuantity: enumSortType.priceIncreases,
     priceSort: sortType,
     searchType: "name",
@@ -97,6 +99,7 @@ const ProductsList = ({ searchParams }: Props) => {
   const router = useRouter();
   const searchParam = useSearchParams();
   const [count, setCount] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = () => {
     setFilterList((prev) => ({
       ...prev,
@@ -128,7 +131,7 @@ const ProductsList = ({ searchParams }: Props) => {
       types: (params.get("types")?.split(",") ?? []) as string[],
       priceMax: params.get("priceMax")
         ? Number(params.get("priceMax"))
-        : 500000,
+        : 50000000,
       priceMin: params.get("priceMin") ? Number(params.get("priceMin")) : 0,
       stockQuantity,
       priceSort,
@@ -156,6 +159,8 @@ const ProductsList = ({ searchParams }: Props) => {
   }, [parsedParams]);
 
   const fetchProducts = async (filters: FilterListType) => {
+    console.log("gọi api ở trong");
+    setIsLoading(true);
     const paramsWeb = new URLSearchParams();
 
     if (filters.limited) paramsWeb.set("limit", filters.limited);
@@ -174,16 +179,21 @@ const ProductsList = ({ searchParams }: Props) => {
       "sort",
       `price:${filters.priceSort},stockQuantity:${filters.stockQuantity}`
     );
-    console.log("gọi api lần", count);
     setCount((prev) => prev + 1);
-    const res = await productApi.search(Object.fromEntries(paramsWeb));
+    let res = [];
+    try {
+      res = await productApi.search(Object.fromEntries(paramsWeb));
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
     return res;
   };
 
-  const { data, isPending, isError } = useQuery({
-    queryKey: ["products", JSON.stringify(searchParams)],
+  const { data, isPending, isError, isSuccess, isFetching } = useQuery({
+    queryKey: helpersFunction.getProductQueryKey(searchParams),
     queryFn: () => fetchProducts(filterList),
-    placeholderData: keepPreviousData,
+    // placeholderData: keepPreviousData,
     enabled: !hasInitial,
     // initialData: hasInitial
     //   ? { data: flowerList, total: flowerList.length }
@@ -192,6 +202,7 @@ const ProductsList = ({ searchParams }: Props) => {
   });
 
   useEffect(() => {
+    // if (!isSuccess) return;
     if (hasInitial) setHasInitial(false);
     if (isFirstRender.current) {
       isFirstRender.current = false;
@@ -224,7 +235,7 @@ const ProductsList = ({ searchParams }: Props) => {
       const currentUrl = window.location.search;
 
       if (newUrl !== currentUrl) {
-        router.replace(newUrl);
+        router.replace(newUrl, { scroll: false });
       }
     };
 
@@ -237,7 +248,16 @@ const ProductsList = ({ searchParams }: Props) => {
       [key]: values,
     }));
   };
+  const [isClientLoading, setIsClientLoading] = useState(false);
+  useEffect(() => {
+    setIsClientLoading(true);
 
+    const timer = setTimeout(() => {
+      setIsClientLoading(false);
+    }, 2300);
+
+    return () => clearTimeout(timer);
+  }, [JSON.stringify(filterList)]);
   return (
     <div>
       <div
@@ -314,26 +334,26 @@ const ProductsList = ({ searchParams }: Props) => {
           </FormControl>
         </div>
       </div>
-      <div className="flex flex-col gap-10 items-center pb-10 md:px-10 px-3">
+      <div className="flex flex-col gap-10 items-center pb-10">
         <div className="flex sm:gap-10 gap-5 w-[95%] justify-center">
           {/* Bộ lọc */}
           {openFilterBox && (
             <div className="sm:w-[25%] w-[45%] border h-fit border-gray-200">
               {/* lọc theo sự kiện */}
               <ListFilter
-                listTitle={filterType.event}
+                listTitle={filterListCate.occasions || []}
                 label={ProductTextVN.sortByEvent}
                 onChange={(values) => handleFilterChange("occasions", values)}
               />
               {/* lọc theo loài hoa */}
               <ListFilter
-                listTitle={filterType.flowerType}
+                listTitle={filterListCate.types || []}
                 label={ProductTextVN.sortByType}
                 onChange={(values) => handleFilterChange("types", values)}
               />
               {/* lọc theo kiểu dáng */}
               <ListFilter
-                listTitle={filterType.shapeType}
+                listTitle={filterListCate.forms || []}
                 label={ProductTextVN.sortByShape}
                 onChange={(values) => handleFilterChange("forms", values)}
               />
@@ -347,7 +367,7 @@ const ProductsList = ({ searchParams }: Props) => {
 
           {/* Sản phẩm */}
           <div className={`${openFilterBox ? "w-[70%]" : "w-full"}`}>
-            {isPending ? (
+            {isFetching || isPending || isLoading || isClientLoading ? (
               <div className="w-full h-[700px] flex justify-center items-center">
                 <CircularProgress
                   enableTrackSlot

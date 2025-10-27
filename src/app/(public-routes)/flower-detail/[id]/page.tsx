@@ -21,7 +21,6 @@ const DetailFlowerPage = async ({ params }: Props) => {
     const resReviewList = await reviewAction.getReviewsByFlowerId(id);
     flowerData = resDetail.data || ({} as Flower);
     reviewList = (resReviewList.data as Review[]) || [];
-    console.log("reviewList:", reviewList);
   } catch (error) {
     console.error(error);
   }

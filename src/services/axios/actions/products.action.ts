@@ -20,7 +20,7 @@ class ProductApi {
       const res = await client.get(productEndpoint.search, {
         params: filteredParams,
       });
-
+      console.log("res.data ==============:", filteredParams);
       return res.data;
     } catch (error) {
       return [];
@@ -40,6 +40,30 @@ class ProductApi {
     try {
       const endpoint = productEndpoint.getDetail.replace(":id", id);
       const res = await client.get(endpoint);
+      return res.data;
+    } catch (error) {
+      return null;
+    }
+  }
+  async getAllOccasions() {
+    try {
+      const res = await client.get(productEndpoint.getOccasionsFilter);
+      return res.data;
+    } catch (error) {
+      return null;
+    }
+  }
+  async getAllForm() {
+    try {
+      const res = await client.get(productEndpoint.getFormFilter);
+      return res.data;
+    } catch (error) {
+      return null;
+    }
+  }
+  async getAllType() {
+    try {
+      const res = await client.get(productEndpoint.fetchTypesFilter);
       return res.data;
     } catch (error) {
       return null;
