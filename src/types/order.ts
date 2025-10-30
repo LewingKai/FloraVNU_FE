@@ -25,6 +25,7 @@ export interface Order {
   note: string;
   orderStatus: "Pending" | "Processing" | "Delivered" | "Cancelled";
   paymentMethod: "Cash" | "Bank";
+  paymentStatus: boolean;
   createdAt: string;
   updatedAt: string;
 }

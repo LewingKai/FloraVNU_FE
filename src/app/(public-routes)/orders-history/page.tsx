@@ -1,6 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Container, Typography, CircularProgress, Box } from "@mui/material";
+import {
+  Container,
+  Typography,
+  CircularProgress,
+  Box,
+  Grid,
+} from "@mui/material";
 import { toast } from "react-toastify";
 
 import { Order } from "@/types/order";
@@ -33,8 +39,8 @@ export default function OrdersHistoryPage() {
               order.orderItems.map(async (item) => {
                 const detail = await productApi.getDetail(item.flowerId);
                 if (!detail) return item;
-                const { name, image, price, rating } = detail.data;
-                return { ...item, name, image, price, rating };
+                const { name, image, rating } = detail.data;
+                return { ...item, name, image, rating };
               })
             ),
           }))
@@ -121,34 +127,69 @@ export default function OrdersHistoryPage() {
   };
 
   return (
-    <Container sx={{ pt: 14, pb: 4 }}>
-      <Box sx={{ maxWidth: 250, mb: 3 }}>
-        <OrderStatusSelect status={filterStatus} onChange={setFilterStatus} />
+    <Container maxWidth="md" sx={{ pt: { xs: 10, sm: 14 }, pb: 6 }}>
+      {/* Header */}
+      <Box
+        display="flex"
+        justifyContent={{ xs: "center", sm: "space-between" }}
+        alignItems="center"
+        flexWrap="wrap"
+        gap={2}
+        mb={4}
+      >
+        <Typography
+          variant="h4"
+          fontWeight={700}
+          textAlign={{ xs: "center", sm: "left" }}
+          width="100%"
+        >
+          Lịch sử đơn hàng
+        </Typography>
+        <Box sx={{ width: { xs: "100%", sm: 250 }, mx: { xs: "auto", sm: 0 } }}>
+          <OrderStatusSelect status={filterStatus} onChange={setFilterStatus} />
+        </Box>
       </Box>
 
+      {/* Loading */}
       {loading ? (
-        <CircularProgress sx={{ mt: 4 }} />
+        <Box display="flex" justifyContent="center" mt={6}>
+          <CircularProgress />
+        </Box>
       ) : filteredOrders.length > 0 ? (
-        filteredOrders.map((order) => (
-          <OrderCard
-            key={order._id}
-            order={order}
-            onPay={() => handlePay(order._id, order.totalPrice)}
-            onCancel={() => handleCancel(order._id)}
-            onDelete={() => handleDelete(order._id)}
-            onChangePayment={() =>
-              handleChangePayment(
-                `${order.paymentMethod === "Cash" ? "Bank" : "Cash"}`,
-                order._id
-              )
-            }
-            onReview={handleReview}
-          />
-        ))
+        <Box display="flex" flexDirection="column" alignItems="center" gap={3}>
+          {filteredOrders.map((order) => (
+            <Box key={order._id} sx={{ width: "100%", maxWidth: 600 }}>
+              <OrderCard
+                order={order}
+                onPay={() => handlePay(order._id, order.totalPrice)}
+                onCancel={() => handleCancel(order._id)}
+                onDelete={() => handleDelete(order._id)}
+                onChangePayment={() =>
+                  handleChangePayment(
+                    order.paymentMethod === "Cash" ? "Bank" : "Cash",
+                    order._id
+                  )
+                }
+                onReview={handleReview}
+              />
+            </Box>
+          ))}
+        </Box>
       ) : (
-        <Typography variant="body1" sx={{ mt: 3 }}>
-          Không có đơn hàng nào.
-        </Typography>
+        <Box
+          textAlign="center"
+          mt={6}
+          p={3}
+          sx={{
+            borderRadius: "12px",
+            backgroundColor: "#f9f9f9",
+            boxShadow: "inset 0 0 8px rgba(0,0,0,0.05)",
+          }}
+        >
+          <Typography variant="body1" color="text.secondary">
+            Không có đơn hàng nào.
+          </Typography>
+        </Box>
       )}
 
       <ReviewModal

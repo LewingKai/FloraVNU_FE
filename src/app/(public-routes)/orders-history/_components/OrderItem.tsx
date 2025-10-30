@@ -31,19 +31,26 @@ export default function OrderItem({
     <Card
       sx={{
         display: "flex",
-        mb: 1.5,
-        boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
+        flexDirection: { xs: "column", sm: "row" },
+        boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
         borderRadius: "12px",
         overflow: "hidden",
+        transition: "transform 0.2s ease",
+        "&:hover": { transform: "scale(1.02)" },
       }}
     >
       <CardMedia
         component="img"
         image={image.url}
-        sx={{ width: 120, objectFit: "cover" }}
+        alt={name}
+        sx={{
+          width: { xs: "100%", sm: 160 },
+          height: { xs: 160, sm: "auto" },
+          objectFit: "cover",
+        }}
       />
       <CardContent sx={{ flex: 1 }}>
-        <Typography variant="h6" fontWeight={600}>
+        <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 0.5 }}>
           {name}
         </Typography>
         <Rating value={rating || 4} readOnly size="small" />
@@ -70,11 +77,11 @@ export default function OrderItem({
                 variant="default"
                 disabled={!isDelivered}
                 onClick={() => onReview(flowerId)}
-                className={`${
+                className={
                   isDelivered
                     ? "bg-secondary"
                     : "bg-gray-300 cursor-not-allowed"
-                }`}
+                }
               >
                 Đánh giá
               </Button>

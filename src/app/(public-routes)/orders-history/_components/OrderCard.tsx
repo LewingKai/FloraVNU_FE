@@ -47,11 +47,14 @@ export default function OrderCard({
     <Card
       sx={{
         mb: 3,
-        boxShadow: "0 4px 14px rgba(0,0,0,0.1)",
         borderRadius: "16px",
+        boxShadow: "0 4px 14px rgba(0,0,0,0.08)",
+        transition: "transform 0.2s, box-shadow 0.2s",
+        "&:hover": {
+          transform: "translateY(-4px)",
+          boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
+        },
         overflow: "hidden",
-        backgroundColor: "#fff",
-        position: "relative",
       }}
     >
       <Box
@@ -65,7 +68,7 @@ export default function OrderCard({
           px: 2,
           py: 0.5,
           borderRadius: "20px",
-          fontSize: 14,
+          fontSize: 13,
           textTransform: "uppercase",
         }}
       >
@@ -80,7 +83,7 @@ export default function OrderCard({
         }
         subheader={
           <Typography fontSize={14} color="text.secondary">
-            Ngày đặt: {new Date(order.createdAt).toLocaleString("vi-VN")}
+            Ngày đặt: {new Date(order.createdAt).toLocaleDateString("vi-VN")}
           </Typography>
         }
       />
@@ -114,6 +117,10 @@ export default function OrderCard({
             <Typography variant="body2">
               <b>Phương thức thanh toán:</b> {order.paymentMethod}
             </Typography>
+            <Typography variant="body2">
+              <b>Trạng thái thanh toán:</b>{" "}
+              {order.paymentStatus ? "Đã thanh toán" : "Chưa thanh toán"}
+            </Typography>
           </Stack>
 
           <Divider sx={{ my: 2 }} />
@@ -123,7 +130,7 @@ export default function OrderCard({
             justifyContent="space-between"
             alignItems="center"
           >
-            <Typography fontWeight={600}>
+            <Typography fontWeight={600} color="primary.main">
               Tổng tiền: {order.totalPrice.toLocaleString()}₫
             </Typography>
           </Stack>
@@ -137,14 +144,12 @@ export default function OrderCard({
             {order.orderStatus === "Pending" && (
               <>
                 <Button
-                  variant="default"
                   onClick={() => onCancel(order._id)}
                   className="bg-gray-300 hover:bg-gray-400"
                 >
                   Hủy đơn
                 </Button>
                 <Button
-                  variant="default"
                   onClick={() => onChangePayment(order._id)}
                   className="bg-blue-600 hover:bg-blue-700"
                 >
@@ -156,7 +161,6 @@ export default function OrderCard({
             {(order.orderStatus === "Processing" ||
               order.orderStatus === "Delivered") && (
               <Button
-                variant="default"
                 onClick={() => onPay(order._id)}
                 className="bg-green-600 hover:bg-green-700"
               >
@@ -166,9 +170,8 @@ export default function OrderCard({
 
             {order.orderStatus === "Cancelled" && (
               <Button
-                variant="outline"
                 onClick={() => onDelete(order._id)}
-                className="text-gray-600 border-gray-400 hover:bg-gray-100"
+                className="border border-gray-400 text-gray-700 hover:bg-gray-100"
               >
                 Xóa đơn
               </Button>
