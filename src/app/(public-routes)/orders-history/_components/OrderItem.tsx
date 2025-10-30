@@ -16,7 +16,7 @@ interface Props extends FlowerItem {
 }
 
 export default function OrderItem({
-  _id,
+  flowerId,
   name,
   image,
   price,
@@ -69,7 +69,7 @@ export default function OrderItem({
               <Button
                 variant="default"
                 disabled={!isDelivered}
-                onClick={() => onReview(_id)}
+                onClick={() => onReview(flowerId)}
                 className={`${
                   isDelivered
                     ? "bg-secondary"

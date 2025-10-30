@@ -2,20 +2,23 @@
 import { useEffect, useState } from "react";
 import { Container, Typography, CircularProgress, Box } from "@mui/material";
 import { toast } from "react-toastify";
-import { redirect } from "next/navigation";
 
+import { Order } from "@/types/order";
 import OrderCard from "./_components/OrderCard";
 import OrderStatusSelect from "./_components/OrderStatusSelect";
-import { Order } from "@/types/order";
+import ReviewModal from "./_components/ReviewModal";
 
 import orderApi from "@/services/axios/actions/order.action";
 import productApi from "@/services/axios/actions/products.action";
 import paymentApi from "@/services/axios/actions/payment.action";
+import reviewAction from "@/services/axios/actions/review.action";
 
 export default function OrdersHistoryPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState("Pending");
+  const [reviewModalOpen, setReviewModalOpen] = useState(false);
+  const [selectedFlowerId, setSelectedFlowerId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -53,10 +56,10 @@ export default function OrdersHistoryPage() {
     ? orders.filter((o) => o.orderStatus === filterStatus)
     : orders;
 
-  const handlePay = async () => {
+  const handlePay = async (description: string, amount: number) => {
     try {
-      const res = await paymentApi.createPayment();
-      redirect(res.checkoutUrl);
+      const res = await paymentApi.createPayment(description, amount);
+      window.location.href = res.data.checkoutUrl;
     } catch (err) {
       toast.error("Thanh toán thất bại!");
       throw err;
@@ -93,8 +96,29 @@ export default function OrdersHistoryPage() {
     }
   };
 
-  const handleReview = (flowerId: string) =>
-    console.log("Đánh giá hoa:", flowerId);
+  const handleSubmitReview = async (
+    flowerId: string,
+    rating: number,
+    content: string
+  ) => {
+    try {
+      const data = {
+        flowerId,
+        rating,
+        content,
+      };
+      await reviewAction.submitReview(data);
+      toast.success("Đánh giá thành công!");
+    } catch (err) {
+      toast.error("Gửi đánh giá thất bại!");
+      throw err;
+    }
+  };
+
+  const handleReview = (flowerId: string) => {
+    setSelectedFlowerId(flowerId);
+    setReviewModalOpen(true);
+  };
 
   return (
     <Container sx={{ pt: 14, pb: 4 }}>
@@ -109,7 +133,7 @@ export default function OrdersHistoryPage() {
           <OrderCard
             key={order._id}
             order={order}
-            onPay={handlePay}
+            onPay={() => handlePay(order._id, order.totalPrice)}
             onCancel={() => handleCancel(order._id)}
             onDelete={() => handleDelete(order._id)}
             onChangePayment={() =>
@@ -126,6 +150,13 @@ export default function OrdersHistoryPage() {
           Không có đơn hàng nào.
         </Typography>
       )}
+
+      <ReviewModal
+        open={reviewModalOpen}
+        onClose={() => setReviewModalOpen(false)}
+        flowerId={selectedFlowerId}
+        onSubmit={handleSubmitReview}
+      />
     </Container>
   );
 }
