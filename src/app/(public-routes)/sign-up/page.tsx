@@ -16,7 +16,7 @@ import {
   validateRequired,
   validateConfirmPassword,
 } from "@/utils/validation";
-import { User } from "@/types/api/account";
+import { User } from "@/types/account";
 
 import ValidatedTextField from "@/components/ui/ValidatedTextField";
 import PasswordTextField from "@/components/ui/PasswordTextField";

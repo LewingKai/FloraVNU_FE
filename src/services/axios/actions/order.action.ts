@@ -30,6 +30,26 @@ class OrderApi {
       throw error;
     }
   }
+
+  async cancelOrder(id: string) {
+    try {
+      const res = await client.patch(orderEndpoint.cancelOrder(id));
+      return res.data;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async updatePaymentMethod(paymentMethod: string, id: string) {
+    try {
+      const res = await client.patch(orderEndpoint.updatePaymentMethod(id), {
+        paymentMethod,
+      });
+      return res.data;
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
 const orderApi = new OrderApi();
