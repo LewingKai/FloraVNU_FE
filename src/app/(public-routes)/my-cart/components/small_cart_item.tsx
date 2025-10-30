@@ -65,7 +65,7 @@ const SmallCartItem = ({
                 defaultQuanity={quantityItem ?? 1}
               />
             ) : (
-              <p>{quantityItem}</p>
+              <p className="text-[12px] font-bold">{quantityItem}</p>
             )}
           </div>
         </div>
