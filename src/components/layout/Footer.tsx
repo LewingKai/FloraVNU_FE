@@ -18,7 +18,7 @@ export default function Footer() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="flex flex-col md:flex-row justify-center items-center gap-3 md:gap-10 text-white">
+      <div className="hidden sm:flex flex-col md:flex-row justify-center items-center gap-3 md:gap-10 text-white">
         <Link
           href={PATH_NAME.HOME}
           className="text-center text-sm md:text-xl hover:text-secondary"
@@ -49,7 +49,7 @@ export default function Footer() {
       </div>
 
       <div className="w-full flex flex-col md:flex-row justify-between items-center sm:gap-10 gap-3 text-white">
-        <div className="flex flex-col gap-4">
+        <div className="sm:flex hidden flex-col gap-4">
           <div className="flex items-center gap-4">
             <LocalPhoneIcon />
             <a href="tel:0338963327" className={` ${fontSizeDesc}`}>

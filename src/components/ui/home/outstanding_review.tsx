@@ -12,11 +12,11 @@ const OutStadingReview = React.memo(({ outStadingCommentList }: Props) => {
   const [selected, setSelected] = useState(0);
   return (
     <div>
-      <div className="flex justify-center items-center md:gap-6 gap-3 overflow-x-auto h-[20vh]">
+      <div className="flex justify-center items-center md:gap-6 gap-3 overflow-x-clip">
         {outStadingCommentList.map((t, index) => (
           <div
             key={t._id}
-            className={` cursor-pointer transition-all md:w-[80px] md:h-[80px]  h-[40px] w-[40px] duration-300 rounded-full overflow-clip ${
+            className={` cursor-pointer transition-all md:w-[50px] md:h-[50px]  h-[40px] w-[40px] duration-300 rounded-full overflow-clip ${
               selected === index
                 ? "scale-125 border-2 border-white"
                 : "scale-90 opacity-70"
@@ -37,7 +37,7 @@ const OutStadingReview = React.memo(({ outStadingCommentList }: Props) => {
       </div>
 
       {/* Nội dung comment */}
-      <div className="sm:max-w-[75vw] max-w-[85%] mx-auto sm:p-6 p-3 rounded-br-4xl rounded-tl-4xl bg-white/80 sm:my-5 my-2 min-h-[25vh] overflow-hidden">
+      <div className="sm:max-w-[75vw] max-w-[85%] mx-auto sm:p-6 p-3 rounded-br-4xl rounded-tl-4xl bg-white/80 sm:my-5 my-5 lg:min-h-[25vh] overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={selected}

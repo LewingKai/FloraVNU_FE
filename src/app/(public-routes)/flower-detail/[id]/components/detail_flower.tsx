@@ -13,26 +13,81 @@ import helpersFunction from "@/helpers/helpers";
 import { DetailProductTextVN } from "@/helpers/text_vn";
 import { emitter } from "@/utils/eventbus";
 import reviewAction from "@/services/axios/actions/review.action";
-
+import cartApi from "@/services/axios/actions/cart.action";
+import { toast } from "react-toastify";
+import ButtonAdjustQuantity from "@/components/ui/button-adjust-quantity";
+import Link from "next/link";
+import { PATH_NAME } from "@/configs/pathName";
+import useAuth from "@/stores/useAuth";
+import { useRouter } from "next/navigation";
+import { CardItemData } from "@/services/axios/types";
 interface DetailFlowerProps {
   flowerData: Flower;
   reviewList: Review[];
 }
-
+// export interface CardItemData {
+//   _id?: string;
+//   name?: string;
+//   image?: ImageCartItem;
+//   description?: string;
+//   price?: number;
+// }
+type CartItem = {
+  flowerId: CardItemData;
+  quantity: number;
+  price: number;
+};
 const DetailFlower = ({ flowerData, reviewList }: DetailFlowerProps) => {
-  const [countItemAdd, setCountItemAdd] = useState(1);
+  const userInfo = useAuth().isAuth;
+  const [quantity, setQuantity] = useState(1);
   const [seeMore, setSeeMore] = useState<boolean>(false);
-  const onChangeQuality = (value: number) => {
-    if (value < 1) return;
-    setCountItemAdd(value);
-  };
-  const onIncrease = () => {
-    setCountItemAdd((prev) => prev + 1);
-  };
-  const onDecrease = () => {
-    setCountItemAdd((prev) => (prev > 1 ? prev - 1 : 1));
-  };
+  const router = useRouter();
+  function handleChangeQuantity(value: number) {
+    setQuantity(value);
+  }
   const safeHtml = DOMPurify.sanitize(flowerData.description);
+  const handleAddToCart = async () => {
+    if (userInfo == null) {
+      toast.error("Vui lòng đăng nhập!");
+      return;
+    }
+    try {
+      const res = await cartApi.addItemToCart(flowerData._id, quantity);
+      if (res.status == "success") {
+        toast.success("Thêm vào giỏ hàng thành công.");
+        setQuantity(1);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Không thể thêm vào giỏ hàng!");
+    }
+  };
+
+  function handleNavigateToOrder() {
+    if (userInfo == null) {
+      toast.error("Vui lòng đăng nhập!");
+      return;
+    }
+    const flowerinfo: CardItemData = {
+      _id: flowerData._id,
+      name: flowerData.name,
+      image: {
+        url: flowerData.image.url,
+      },
+      description: flowerData.description,
+      price: Number(flowerData.price ?? "0"),
+    };
+    const itemAdded: CartItem[] = [
+      {
+        flowerId: flowerinfo,
+        quantity: quantity,
+        price: Number(flowerData.price ?? 0),
+      },
+    ];
+
+    localStorage.setItem("itemAdded", JSON.stringify(itemAdded));
+    router.push(PATH_NAME.DETAILORDER);
+  }
   return (
     <div className="px-20 mt-30 mb-20">
       <div className="flex gap-10 ">
@@ -52,6 +107,7 @@ const DetailFlower = ({ flowerData, reviewList }: DetailFlowerProps) => {
               name="half-rating"
               value={flowerData.rating}
               precision={0.5}
+              readOnly
             />
           </div>
           <h1 className="text-4xl font-bold">{flowerData.name}</h1>
@@ -87,42 +143,12 @@ const DetailFlower = ({ flowerData, reviewList }: DetailFlowerProps) => {
           </div>
           <div className="flex gap-5  items-center my-10">
             <p>{DetailProductTextVN.quantity}</p>
-            <div className="flex gap-2 items-center mt-auto">
-              <BubblyButton
-                className={`${
-                  countItemAdd <= 1 || (flowerData.stockQuantity ?? 0) <= 0
-                    ? "bg-primary"
-                    : "bg-[#FF69B5]"
-                } rounded-full w-8 h-8 p-1 text-white`}
-                onClick={onDecrease}
-                disabled={
-                  countItemAdd <= 1 || (flowerData.stockQuantity ?? 0) <= 0
-                }
-              >
-                <FontAwesomeIcon icon={faMinus} />{" "}
-              </BubblyButton>
-              <input
-                type="text"
-                className="w-[20px] focus:outline-none text-center border-b border-b-[#a5a3a3]"
-                value={countItemAdd}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  if (/^-?\d*$/.test(value)) {
-                    onChangeQuality(+value);
-                  }
-                }}
+            <div className="mt-auto">
+              <ButtonAdjustQuantity
+                maxQuantity={flowerData.stockQuantity ?? 0}
+                onChange={handleChangeQuantity}
+                defaultQuanity={quantity}
               />
-              <BubblyButton
-                className={`${
-                  (flowerData.stockQuantity ?? 0) <= countItemAdd
-                    ? "bg-primary"
-                    : "bg-[#FF69B5]"
-                } rounded-full p-1 w-8 h-8 text-white flex items-center justify-center`}
-                onClick={onIncrease}
-                disabled={(flowerData.stockQuantity ?? 0) <= countItemAdd}
-              >
-                <FontAwesomeIcon icon={faPlus} size="lg" />
-              </BubblyButton>
             </div>
             <p>
               trong {flowerData.stockQuantity}{" "}
@@ -131,11 +157,21 @@ const DetailFlower = ({ flowerData, reviewList }: DetailFlowerProps) => {
           </div>
 
           <div className="w-[90%] justify-between flex gap-5">
-            <button className="uppercase flex-1  py-3 border rounded-full">
+            <button
+              onClick={handleAddToCart}
+              className="flex-1 uppercase font-bold py-3 border   rounded-full 
+               hover:bg-secondary hover:text-white transition-all duration-500 flex items-center justify-center gap-2"
+            >
               <FontAwesomeIcon icon={faCartPlus} />
               {DetailProductTextVN.addToCart}
             </button>
-            <button className="uppercase text-secondary flex-1  py-3 border rounded-full">
+
+            {/* Nút mua ngay */}
+            <button
+              onClick={handleNavigateToOrder}
+              className="flex-1 uppercase font-bold py-3 border hover:border-secondary hover:bg-secondary hover:text-white rounded-full
+               bg-white text-secondary transition-all duration-500"
+            >
               {DetailProductTextVN.buyNow}
             </button>
           </div>
