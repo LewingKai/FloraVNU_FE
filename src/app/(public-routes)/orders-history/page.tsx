@@ -26,35 +26,35 @@ export default function OrdersHistoryPage() {
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
   const [selectedFlowerId, setSelectedFlowerId] = useState<string | null>(null);
 
+  const fetchOrders = async () => {
+    try {
+      const res = await orderApi.getOrderByAccountId();
+      const orders = res.data;
+
+      const ordersData = await Promise.all(
+        orders.map(async (order) => ({
+          ...order,
+          orderItems: await Promise.all(
+            order.orderItems.map(async (item) => {
+              const detail = await productApi.getDetail(item.flowerId._id);
+              if (!detail) return item;
+              const { name, image, rating } = detail.data;
+              return { ...item, name, image, rating };
+            })
+          ),
+        }))
+      );
+
+      setOrders(ordersData);
+    } catch (err) {
+      toast.error("Lấy thông tin đơn thất bại!");
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const res = await orderApi.getOrderByAccountId();
-        const orders = res.data;
-
-        const ordersData = await Promise.all(
-          orders.map(async (order) => ({
-            ...order,
-            orderItems: await Promise.all(
-              order.orderItems.map(async (item) => {
-                const detail = await productApi.getDetail(item.flowerId);
-                if (!detail) return item;
-                const { name, image, rating } = detail.data;
-                return { ...item, name, image, rating };
-              })
-            ),
-          }))
-        );
-
-        setOrders(ordersData);
-      } catch (err) {
-        toast.error("Lấy thông tin đơn thất bại!");
-        throw err;
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchOrders();
   }, []);
 
@@ -76,6 +76,7 @@ export default function OrdersHistoryPage() {
     try {
       await orderApi.cancelOrder(id);
       toast.success("Hủy đơn thành công!");
+      fetchOrders();
     } catch (err) {
       toast.error("Hủy đơn thất bại!");
       throw err;
@@ -86,6 +87,7 @@ export default function OrdersHistoryPage() {
     try {
       await orderApi.deleteOrder(id);
       toast.success("Xóa đơn thành công");
+      fetchOrders();
     } catch (err) {
       toast.error("Xóa đơn thất bại!");
       throw err;
@@ -96,6 +98,7 @@ export default function OrdersHistoryPage() {
     try {
       await orderApi.updatePaymentMethod(paymentMethod, id);
       toast.success("Thay đổi phương thức thanh toán thành công!");
+      fetchOrders();
     } catch (err) {
       toast.error("Thay đổi phương thức thanh toán thất bại!");
       throw err;

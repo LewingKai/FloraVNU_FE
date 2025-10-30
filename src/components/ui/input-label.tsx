@@ -32,7 +32,7 @@ export default function LabeledInput({
         placeholder={placeholder}
         disabled={disabled}
         required={required}
-        value={deffaultValue}
+        defaultValue={deffaultValue}
         readOnly={readOnly}
         className={`border-gray-500 border-2 rounded-md px-3 py-2 ${readOnly ? "bg-gray-200 focus:none" : "  focus:outline-none  focus:border-pink-400 "}`}
       />

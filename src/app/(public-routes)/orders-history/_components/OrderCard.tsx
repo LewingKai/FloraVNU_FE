@@ -50,11 +50,6 @@ export default function OrderCard({
         mb: 3,
         borderRadius: "16px",
         boxShadow: "0 4px 14px rgba(0,0,0,0.08)",
-        transition: "transform 0.2s, box-shadow 0.2s",
-        "&:hover": {
-          transform: "translateY(-4px)",
-          boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
-        },
         overflow: "hidden",
       }}
     >
@@ -171,8 +166,9 @@ export default function OrderCard({
 
             {order.orderStatus === "Cancelled" && (
               <Button
+                variant="default"
                 onClick={() => onDelete(order._id)}
-                className="border border-gray-400 text-gray-700 hover:bg-gray-100"
+                className="bg-red-600 hover:bg-red-500"
               >
                 Xóa đơn
               </Button>

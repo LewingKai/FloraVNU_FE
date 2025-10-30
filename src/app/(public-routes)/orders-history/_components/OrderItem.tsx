@@ -35,8 +35,6 @@ export default function OrderItem({
         boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
         borderRadius: "12px",
         overflow: "hidden",
-        transition: "transform 0.2s ease",
-        "&:hover": { transform: "scale(1.02)" },
       }}
     >
       <CardMedia
