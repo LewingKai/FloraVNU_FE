@@ -33,7 +33,7 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
   return (
     <div className="lg:hidden">
       <div
-        className={`fixed inset-0 bg-black bg-opacity-50 z-[100] transition-opacity ${
+        className={`fixed inset-0 bg-black bg-opacity-50 z-[100] transition-opacity max-w-[80%]  ${
           isOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
         onClick={toggleSidebar}
