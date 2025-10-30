@@ -124,7 +124,7 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="absolute bottom-1/5 left-1/2 w-[80%] lg:w-[60%] -translate-x-1/2">
+        <div className="absolute sm:bottom-1/5 bottom-1/9 left-1/2 w-[80%] lg:w-[60%] -translate-x-1/2">
           <h1 className={` ${fontSizeH1} font-bold text-white text-center`}>
             {HomeTextVN.slogan}
           </h1>
@@ -139,7 +139,7 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
               searchValue={searchValue}
               currencyValue={searchType}
             />
-            <p className="sm:text-[15px]  lg:text-[15px] text-[10px] font-light text-black text-center mt-5">
+            <p className="sm:text-[15px]  lg:text-[15px] text-[10px] font-light text-black text-center sm:mt-5">
               {HomeTextVN.descriptionSlogan}
             </p>
           </div>
@@ -169,7 +169,7 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
               {HomeTextVN.customerRating}
             </h2>
             <p
-              className={`${fontSizeP} italic text-white text-center sm:mb-5 `}
+              className={`${fontSizeP} italic text-white text-center sm:mb-5 mb-3`}
             >
               {HomeTextVN.whatOurCustomersSay}
             </p>
@@ -182,12 +182,12 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
               {HomeTextVN.whyShouldYouChooseUs}
             </h2>
             <div className="w-[10vw] h-[4px] bg-secondary mx-auto "></div>
-            <div className="place-items-center w-full sm:px-20 px-5 md:py-10 py-5 sm:grid-cols-2 grid-cols-2 grid md:gap-5 gap-4">
+            <div className="place-items-center w-full sm:px-20 px-5 md:py-10 py-5 sm:grid-cols-2 grid-cols-2 grid md:gap-5 gap-4 ">
               {listItem.map((item, index) => {
                 return (
                   <div
                     key={index}
-                    className="sm:flex items-center min-w-[30vw] max-w-[50vw] sm:min-h-[0vh] min-h-[30vh] bg-white sm:p-7 p-4 gap-10 md:mb-7 rounded-2xl"
+                    className="sm:flex items-center min-w-[30vw] max-w-[50vw] sm:min-h-[0vh] min-h-[0vh] bg-white sm:p-7 p-4 gap-10 md:mb-7 rounded-2xl"
                   >
                     <div className="flex-shrink-0 w-[30px] h-[40px] mx-auto mb-2  sm:w-[50px] sm:h-[50px] md:w-[60px] md:h-[60px]">
                       <Image

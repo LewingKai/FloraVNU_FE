@@ -70,8 +70,8 @@ const RecommendCarousel = React.memo(({ flowers }: { flowers: Flower[] }) => {
     autoplay: true,
     autoplaySpeed: 3000,
     pauseOnHover: true,
-    nextArrow: <NextArrow />, // Custom Next Arrow
-    prevArrow: <PrevArrow />, // Custom Previous Arrow
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     responsive: [
       {
         breakpoint: 1200,
@@ -96,10 +96,20 @@ const RecommendCarousel = React.memo(({ flowers }: { flowers: Flower[] }) => {
       {
         breakpoint: 700,
         settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          initialSlide: 1,
+          centerMode: false,
+          centerPadding: "20px",
+        },
+      },
+      {
+        breakpoint: 300,
+        settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
           initialSlide: 1,
-          centerMode: true,
+          centerMode: false,
           centerPadding: "20px",
         },
       },

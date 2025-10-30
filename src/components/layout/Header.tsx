@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import logo from "@/assets/images/logo.svg";
 import { PATH_NAME } from "@/configs/pathName";
 import { Button } from "../ui/Button";
@@ -13,6 +13,7 @@ import useAuth from "@/stores/useAuth";
 import { headerText } from "@/helpers/text_vn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -22,7 +23,15 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const { user, isAuth, fetchMe } = useAuth();
-
+  const router = useRouter();
+  const handleNavigateMyCart = () => {
+    if (user == null) {
+      toast.error("Vui lòng đăng nhập!");
+      return;
+    } else {
+      router.push(PATH_NAME.MYCART);
+    }
+  };
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 0);
@@ -102,14 +111,17 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
           </Link>
         </nav>
       </div>
-      <Link href={PATH_NAME.MYCART}>
+      <button
+        onClick={handleNavigateMyCart}
+        className="p-2 hover:bg-gray-50 duration-300  rounded-full pointer-coarse:"
+      >
         <div className="relative">
           <FontAwesomeIcon icon={faCartShopping} size="xl" color="#E32C89" />
-          <p className="text-[10px] p-0.5 px-1.5 rounded-full bg-white text-[#E32C89]  absolute -top-1/4 -right-1">
+          {/* <p className="text-[10px] p-0.5 px-1.5 rounded-full bg-white text-[#E32C89]  absolute -top-1/4 -right-1">
             2
-          </p>
+          </p> */}
         </div>
-      </Link>
+      </button>
       <div className="text-[20px] text-[#E32C89] ml-3 mr-1.5"> |</div>
       {isAuth && user ? (
         <div className="hidden lg:flex">
