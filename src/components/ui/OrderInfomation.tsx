@@ -53,7 +53,7 @@ const OrderInfomation = ({
       return;
     }
     localStorage.setItem("itemAdded", JSON.stringify(itemAddedList));
-    router.push(PATH_NAME.DETAILORDER);
+    router.push(PATH_NAME.CREATEORDER);
   }
   useEffect(() => {
     setItemAddedList(itemAdded);
@@ -123,7 +123,7 @@ const OrderInfomation = ({
         </div>
       </div>
       <div className="w-full">
-        {pathname != PATH_NAME.DETAILORDER ? (
+        {pathname != PATH_NAME.CREATEORDER ? (
           <button
             onClick={handleNavigateToOrder}
             className=" block uppercase min-w-[100%] py-3 bg-[#FF69B5] text-white font-bold  text-center"
