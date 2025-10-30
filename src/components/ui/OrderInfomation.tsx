@@ -78,7 +78,10 @@ const OrderInfomation = ({
         </h2>
         <div className="flex justify-between items-center mt-3">
           <p className="font-bold">{itemAddedList.length} sản phẩm</p>
-          <button onClick={() => setOpenDetailsOrder(!openDetailsOrder)}>
+          <button
+            onClick={() => setOpenDetailsOrder(!openDetailsOrder)}
+            type="button"
+          >
             {openDetailsOrder ? (
               <FontAwesomeIcon icon={faCaretDown} />
             ) : (
