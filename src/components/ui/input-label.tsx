@@ -1,4 +1,5 @@
 import React from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 export interface LabeledInputProps {
   label: string;
@@ -9,6 +10,8 @@ export interface LabeledInputProps {
   deffaultValue?: string;
   disabled?: boolean;
   readOnly?: boolean;
+  errorMessage?: string;
+  register?: UseFormRegisterReturn;
 }
 
 export default function LabeledInput({
@@ -20,6 +23,8 @@ export default function LabeledInput({
   deffaultValue,
   disabled = false,
   readOnly = false,
+  register,
+  errorMessage,
 }: LabeledInputProps) {
   return (
     <div className="flex flex-col gap-1 w-full py-2">
@@ -27,15 +32,22 @@ export default function LabeledInput({
         {label} {required && <span className="text-red-500">*</span>}
       </label>
       <input
+        {...register}
         name={name}
         type={type}
         placeholder={placeholder}
         disabled={disabled}
-        required={required}
         defaultValue={deffaultValue}
         readOnly={readOnly}
-        className={`border-gray-500 border-2 rounded-md px-3 py-2 ${readOnly ? "bg-gray-200 focus:none" : "  focus:outline-none  focus:border-pink-400 "}`}
+        className={`border-2 rounded-md px-3 py-2 ${
+          errorMessage
+            ? "border-red-500 focus:border-red-500"
+            : "border-gray-500 focus:outline-none focus:border-pink-400"
+        } ${readOnly ? "bg-gray-200" : ""}`}
       />
+      {errorMessage && (
+        <p className="text-red-500 text-sm mt-1">{errorMessage}</p>
+      )}
     </div>
   );
 }
