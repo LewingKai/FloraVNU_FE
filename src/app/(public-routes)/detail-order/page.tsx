@@ -70,6 +70,7 @@ const DetailOrder = () => {
     try {
       const res = await orderApi.createOrder(dataRequest);
       console.log("Tạo order", dataRequest);
+      toast.success("Tạo đơn hàng thành công!");
     } catch (error) {
       console.log(error);
       toast.error("Không thành công!");
@@ -83,7 +84,7 @@ const DetailOrder = () => {
     }
   }, []);
   return (
-    <form onSubmit={handleSubmit}>
+    <form id="create-order-form" onSubmit={handleSubmit}>
       <div className="sm:flex justify-between gap-20 lg:p-16 md:p-10 p-5 mt-15">
         <div className="sm:flex-3">
           <h3 className="text-[#E32C89] font-bold text-[18px] uppercase">
@@ -119,12 +120,7 @@ const DetailOrder = () => {
             Thông tin người nhận
           </h3>
           <div className="w-full h-[2px] bg-[#E32C89] my-2"></div>
-          <LabeledInput
-            label="Họ và tên người nhận"
-            required={true}
-            placeholder="Nhập họ và tên người nhận"
-            name="receiverName"
-          />
+
           <div className="flex gap-2 items-center">
             <p className="font-bold">Nhận hàng tại cửa hàng?</p>
             <Switch
@@ -135,6 +131,13 @@ const DetailOrder = () => {
               }}
             />
           </div>
+          <LabeledInput
+            label="Họ và tên người nhận"
+            required={true}
+            placeholder="Nhập họ và tên người nhận"
+            name="receiverName"
+            deffaultValue={isNotDelivery ? userInfo?.fullName : ""}
+          />
           <div className={`${isNotDelivery ? "hidden" : ""}`}>
             <LabeledInput
               label="Số điện thoại người nhận"
@@ -144,24 +147,22 @@ const DetailOrder = () => {
               type="tel"
               disabled={isNotDelivery}
             />
-            <div className="sm:flex justify-between gap-10">
-              <LabeledInput
-                label="Ngày giao hàng"
-                required={true}
-                placeholder="Nhập ngày giao hàng"
-                name="deliveryDate"
-                type="date"
-                disabled={isNotDelivery}
-              />
-              <LabeledInput
-                label="Thời gian giao hàng"
-                required={true}
-                placeholder="Nhập thời gian giao hàng"
-                name="deliveryTime"
-                type="time"
-                disabled={isNotDelivery}
-              />
-            </div>
+          </div>
+          <div className="sm:flex justify-between gap-10">
+            <LabeledInput
+              label="Ngày nhận"
+              required={true}
+              placeholder="Nhập ngày nhận"
+              name="deliveryDate"
+              type="date"
+            />
+            <LabeledInput
+              label="Thời gian nhận"
+              required={true}
+              placeholder="Nhập thời gian nhận"
+              name="deliveryTime"
+              type="time"
+            />
           </div>
           <LabeledInput
             label="Địa chỉ nhận hàng"
@@ -173,7 +174,7 @@ const DetailOrder = () => {
             deffaultValue={
               !isNotDelivery
                 ? ""
-                : "FloraVNU - Khu phố 34, Phường Linh Xuân, TP. Hồ Chí Minh"
+                : "Cửa hàng FloraVNU - Khu phố 34, Phường Linh Xuân, TP. Hồ Chí Minh"
             }
           />
           <LabeledInput
@@ -241,6 +242,7 @@ const DetailOrder = () => {
             />
             <button
               type="submit"
+              form="create-order-form"
               className="block text-center uppercase w-full py-3 bg-[#FF69B5] text-white font-bold"
             >
               Thanh toán
@@ -258,6 +260,7 @@ const DetailOrder = () => {
             />
             <button
               type="submit"
+              form="create-order-form"
               className="block text-center uppercase w-full py-3 bg-[#FF69B5] text-white font-bold"
             >
               Thanh toán
