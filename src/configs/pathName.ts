@@ -16,5 +16,5 @@ export const PATH_NAME = {
   CHANGEPASSWORD: "/account/change-password",
   ORDERSHISTORY: "/orders-history",
   MYCART: "/my-cart",
-  DETAILORDER: "/detail-order",
+  CREATEORDER: "/create-order",
 };

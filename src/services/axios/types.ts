@@ -17,6 +17,8 @@ export type Res_Error = {
 export type ItemCartRequest = {
   flowerId: string;
   quantity: string;
+  price: number;
+  discountPercent: number;
 };
 export type CreateOrderRequestType = {
   senderName?: string;
