@@ -128,7 +128,6 @@ export default function OrdersHistoryPage() {
 
   return (
     <Container maxWidth="md" sx={{ pt: { xs: 10, sm: 14 }, pb: 6 }}>
-      {/* Header */}
       <Box
         display="flex"
         justifyContent={{ xs: "center", sm: "space-between" }}
@@ -150,7 +149,6 @@ export default function OrdersHistoryPage() {
         </Box>
       </Box>
 
-      {/* Loading */}
       {loading ? (
         <Box display="flex" justifyContent="center" mt={6}>
           <CircularProgress />
