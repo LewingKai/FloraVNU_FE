@@ -2,7 +2,7 @@ import { client } from "@/services/axios";
 import authEndpoint from "../endpoints/auth.endpoint";
 import accountEndpoint from "../endpoints/account.endpoint";
 import { clientRequest } from "../ClientRequest";
-import { User } from "@/types/api/account";
+import { User } from "@/types/account";
 
 class AuthApi {
   async signIn(username: string, password: string) {
