@@ -74,7 +74,11 @@ export default function OrderItem({
               <Button
                 variant="default"
                 disabled={!isDelivered}
-                onClick={() => onReview(flowerId)}
+                onClick={() =>
+                  onReview(
+                    typeof flowerId === "object" ? flowerId._id : flowerId
+                  )
+                }
                 className={
                   isDelivered
                     ? "bg-secondary"

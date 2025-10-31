@@ -30,6 +30,7 @@ export default function OrdersHistoryPage() {
     try {
       const res = await orderApi.getOrderByAccountId();
       const orders = res.data;
+      console.log(orders);
 
       const ordersData = await Promise.all(
         orders.map(async (order) => ({
@@ -79,17 +80,6 @@ export default function OrdersHistoryPage() {
       fetchOrders();
     } catch (err) {
       toast.error("Hủy đơn thất bại!");
-      throw err;
-    }
-  };
-
-  const handleDelete = async (id: string) => {
-    try {
-      await orderApi.deleteOrder(id);
-      toast.success("Xóa đơn thành công");
-      fetchOrders();
-    } catch (err) {
-      toast.error("Xóa đơn thất bại!");
       throw err;
     }
   };
@@ -164,7 +154,6 @@ export default function OrdersHistoryPage() {
                 order={order}
                 onPay={() => handlePay(order._id, order.totalPrice)}
                 onCancel={() => handleCancel(order._id)}
-                onDelete={() => handleDelete(order._id)}
                 onChangePayment={() =>
                   handleChangePayment(
                     order.paymentMethod === "Cash" ? "Bank" : "Cash",

@@ -16,7 +16,6 @@ interface Props {
   order: Order;
   onPay: (id: string) => void;
   onCancel: (id: string) => void;
-  onDelete: (id: string) => void;
   onChangePayment: (id: string) => void;
   onReview: (flowerId: string) => void;
 }
@@ -25,7 +24,6 @@ export default function OrderCard({
   order,
   onPay,
   onCancel,
-  onDelete,
   onChangePayment,
   onReview,
 }: Props) {
@@ -138,39 +136,30 @@ export default function OrderCard({
             sx={{ mt: 2 }}
           >
             {order.orderStatus === "Pending" && (
-              <>
-                <Button
-                  onClick={() => onCancel(order._id)}
-                  className="bg-gray-300 hover:bg-gray-400"
-                >
-                  Hủy đơn
-                </Button>
-                <Button
-                  onClick={() => onChangePayment(order._id)}
-                  className="bg-blue-600 hover:bg-blue-700"
-                >
-                  Đổi phương thức
-                </Button>
-              </>
+              <Button
+                onClick={() => onCancel(order._id)}
+                className="bg-gray-300 hover:bg-gray-400"
+              >
+                Hủy đơn
+              </Button>
             )}
 
-            {(order.orderStatus === "Processing" ||
-              order.orderStatus === "Delivered") && (
+            {(order.orderStatus === "Pending" ||
+              order.orderStatus === "Processing") && (
+              <Button
+                onClick={() => onChangePayment(order._id)}
+                className="bg-blue-600 hover:bg-blue-700"
+              >
+                Đổi phương thức
+              </Button>
+            )}
+
+            {order.orderStatus === "Delivered" && (
               <Button
                 onClick={() => onPay(order._id)}
                 className="bg-green-600 hover:bg-green-700"
               >
                 Thanh toán
-              </Button>
-            )}
-
-            {order.orderStatus === "Cancelled" && (
-              <Button
-                variant="default"
-                onClick={() => onDelete(order._id)}
-                className="bg-red-600 hover:bg-red-500"
-              >
-                Xóa đơn
               </Button>
             )}
           </Stack>
