@@ -1,5 +1,5 @@
 import accountApi from "@/services/axios/actions/account.action";
-import { Account } from "@/types/api/account";
+import { Account } from "@/types/account";
 import { create } from "zustand";
 import { clientRequest } from "@/services/axios/ClientRequest";
 
