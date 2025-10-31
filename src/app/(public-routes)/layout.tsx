@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
+import ChatBox from "@/components/layout/chatbox";
 
 export default function DefaultLayout({
   children,
@@ -25,6 +26,7 @@ export default function DefaultLayout({
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <div>{children}</div>
       <ToastContainer autoClose={1000} />
+      <ChatBox />
       <Footer />
     </>
   );

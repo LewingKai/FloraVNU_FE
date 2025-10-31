@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 export default {
   content: [
@@ -24,5 +25,18 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        ".no-scrollbar": {
+          /* Ẩn scrollbar trên tất cả trình duyệt */
+          "-ms-overflow-style": "none" /* IE và Edge */,
+          "scrollbar-width": "none" /* Firefox */,
+          "&::-webkit-scrollbar": {
+            display: "none" /* Chrome, Safari và Opera */,
+          },
+        },
+      });
+    }),
+  ],
 } satisfies Config;

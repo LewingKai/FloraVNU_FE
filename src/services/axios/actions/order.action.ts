@@ -1,7 +1,15 @@
-import { client } from "@/services/axios";
+import { client, CreateOrderRequestType } from "@/services/axios";
 import orderEndpoint from "../endpoints/order.endpoint";
 
 class OrderApi {
+  async createOrder(dataRequest: CreateOrderRequestType) {
+    try {
+      const res = await client.post(orderEndpoint.order, dataRequest);
+      return res.data;
+    } catch (error) {
+      throw error;
+    }
+  }
   async getOrderByAccountId() {
     try {
       const res = await client.get(orderEndpoint.getOrderByAccountId);

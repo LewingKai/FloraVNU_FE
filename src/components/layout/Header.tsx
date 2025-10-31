@@ -113,7 +113,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
       </div>
       <button
         onClick={handleNavigateMyCart}
-        className="p-2 hover:bg-gray-50 duration-300  rounded-full pointer-coarse:"
+        className="p-2 hover:bg-gray-50 duration-300  rounded-full cursor-pointer"
       >
         <div className="relative">
           <FontAwesomeIcon icon={faCartShopping} size="xl" color="#E32C89" />
