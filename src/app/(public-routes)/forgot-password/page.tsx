@@ -50,6 +50,15 @@ const ForgotPassword = () => {
   };
 
   const handleSubmit = async () => {
+    if (
+      !validateEmail(formData.email) ||
+      !validatePassword(formData.newPassword) ||
+      !validateRequired(formData.otp)
+    ) {
+      toast.error("Vui lòng nhập đầy đủ thông tin hợp lệ!");
+      return;
+    }
+
     try {
       setLoading(true);
       await accountApi.resetPassword(formData);

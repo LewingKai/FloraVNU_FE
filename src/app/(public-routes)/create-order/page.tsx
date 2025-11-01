@@ -23,6 +23,8 @@ import {
 } from "@/services/axios/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBagShopping } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation";
+import { PATH_NAME } from "@/configs/pathName";
 
 type CartItem = {
   flowerId: CardItemData;
@@ -37,6 +39,7 @@ const DetailOrder = () => {
   const [itemAddedList, setItemAddedList] = useState<CartItem[]>([]);
   const [totalPrice, setTotalPrice] = useState<string>("0");
   const [openModal, setOpenModal] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -90,6 +93,7 @@ const DetailOrder = () => {
     try {
       await orderApi.createOrder(dataRequest);
       toast.success("Tạo đơn hàng thành công!");
+      router.push(PATH_NAME.ORDERSHISTORY);
       reset();
     } catch (error) {
       toast.error("Không thành công!");
@@ -317,7 +321,7 @@ const DetailOrder = () => {
               form="create-order-form"
               className="block text-center uppercase w-full py-3 bg-[#FF69B5] text-white font-bold"
             >
-              Thanh toán
+              Tạo đơn
             </button>
           </div>
         </Modal>
@@ -333,7 +337,7 @@ const DetailOrder = () => {
               type="submit"
               className="block text-center uppercase w-full py-3 bg-[#FF69B5] text-white font-bold"
             >
-              Thanh toán
+              Tạo đơn
             </button>
           </div>
         </div>
