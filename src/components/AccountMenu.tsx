@@ -76,20 +76,22 @@ const AccountMenu = ({
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <div className="flex gap-3 justify-start items-center hover:none">
-              <div className="flex-col gap-2 text-sm justify-start">
-                <p className="font-bold text-[15px] text-right text-black">
-                  {fullName}
-                </p>
+            <div className="flex gap-3 justify-start items-center">
+              <div className="hidden lg:flex flex-col gap-1 text-sm justify-start">
+                <p className="font-bold text-[15px] text-black">{fullName}</p>
                 <p className="text-[13px] italic font-light text-black">
                   {email}
                 </p>
               </div>
+
               <Avatar
-                sx={{ width: 40, height: 40 }}
                 src={avatar?.url}
                 alt="avatar"
-                className="border-2 rounded-full border-white"
+                sx={{
+                  width: 40,
+                  height: 40,
+                }}
+                className="border-2 rounded-full border-white cursor-pointer"
               />
             </div>
           </IconButton>

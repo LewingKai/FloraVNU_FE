@@ -83,12 +83,22 @@ const SignIn = () => {
             validationRules={validateRequired}
             errorMessage="Tên tài khoản không được để trống."
           />
-          <PasswordTextField
-            value={formData.password}
-            onChange={(value) => handleChange("password", value)}
-            validationRules={validatePassword}
-            errorMessage="Mật khẩu không hợp lệ."
-          />
+          <div className="flex flex-col items-end">
+            <PasswordTextField
+              value={formData.password}
+              onChange={(value) => handleChange("password", value)}
+              validationRules={validatePassword}
+              errorMessage="Mật khẩu không hợp lệ."
+            />
+            <Link href={PATH_NAME.FORGOTPASSWORD}>
+              <Button
+                variant="link"
+                className="p-0 cursor-pointer text-white hover:underline"
+              >
+                Quên mật khẩu
+              </Button>
+            </Link>
+          </div>
         </div>
 
         <Button

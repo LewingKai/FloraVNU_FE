@@ -124,7 +124,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
       </button>
       <div className="text-[20px] text-[#E32C89] ml-3 mr-1.5"> |</div>
       {isAuth && user ? (
-        <div className="hidden lg:flex">
+        <div className="lg:flex">
           <AccountMenu
             fullName={user.fullName}
             email={user.email}
@@ -148,7 +148,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
       )}
 
       <button
-        className="hidden max-lg:block text-black text-2xl focus:outline-none"
+        className="hidden max-lg:block mx-4 text-black text-2xl focus:outline-none"
         onClick={toggleSidebar}
       >
         <FontAwesomeIcon icon={faBars} size="sm" />

@@ -111,8 +111,7 @@ const Profile = () => {
       }
     } catch (error) {
       setIsLoading(false);
-      toast.error("Cập nhật thất bại!");
-      throw error;
+      toast.error(error.message || "Cập nhật thất bại!");
     }
   };
 
