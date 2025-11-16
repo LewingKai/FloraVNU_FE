@@ -159,7 +159,9 @@ const AccountMenu = ({
         </MenuItem>
         {role === "admin" && (
           <MenuItem
-            onClick={() => handleMenuNavigate(() => router.push("/admin"))}
+            onClick={() =>
+              handleMenuNavigate(() => router.push(PATH_NAME.ADMIN))
+            }
             sx={{ paddingTop: "8px", paddingBottom: "8px" }}
           >
             <FontAwesomeIcon icon={faStore} className="mr-2" size="lg" />
