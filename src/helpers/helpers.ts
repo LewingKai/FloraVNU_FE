@@ -10,18 +10,23 @@ class HelpersFunctions {
   // làm sạch chuỗi nếu có thẻ html
   stripHtmlTags = (html: string) => {
     if (!html) return "";
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    doc.querySelectorAll("img").forEach((img) => img.remove());
-    return doc.body.textContent.replace(/["']/g, "") || "";
+    let cleaned = html.replace(/<img[^>]*>/gi, "");
+    cleaned = cleaned.replace(/<\/?[^>]+(>|$)/g, "");
+    cleaned = cleaned.replace(/["']/g, "");
+    return cleaned.trim();
   };
+
   normalizeParams(params: SearchParamsType) {
     return JSON.stringify(
       Object.entries(params)
         .sort(([a], [b]) => a.localeCompare(b))
-        .reduce((acc, [key, val]) => {
-          acc[key] = typeof val === "string" ? val : String(val);
-          return acc;
-        }, {} as Record<string, string>)
+        .reduce(
+          (acc, [key, val]) => {
+            acc[key] = typeof val === "string" ? val : String(val);
+            return acc;
+          },
+          {} as Record<string, string>
+        )
     );
   }
   getProductQueryKey = (params: SearchParamsType) => [
