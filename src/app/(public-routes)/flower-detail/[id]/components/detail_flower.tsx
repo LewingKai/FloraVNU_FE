@@ -21,9 +21,11 @@ import { PATH_NAME } from "@/configs/pathName";
 import useAuth from "@/stores/useAuth";
 import { useRouter } from "next/navigation";
 import { CardItemData } from "@/services/axios/types";
+import FlowerItem from "@/components/flower_item";
 interface DetailFlowerProps {
   flowerData: Flower;
   reviewList: Review[];
+  OutstandingFlowerList: Flower[];
 }
 // export interface CardItemData {
 //   _id?: string;
@@ -37,7 +39,11 @@ type CartItem = {
   quantity: number;
   price: number;
 };
-const DetailFlower = ({ flowerData, reviewList }: DetailFlowerProps) => {
+const DetailFlower = ({
+  flowerData,
+  reviewList,
+  OutstandingFlowerList,
+}: DetailFlowerProps) => {
   const userInfo = useAuth().isAuth;
   const [quantity, setQuantity] = useState(1);
   const [seeMore, setSeeMore] = useState<boolean>(false);
@@ -86,7 +92,7 @@ const DetailFlower = ({ flowerData, reviewList }: DetailFlowerProps) => {
     ];
 
     localStorage.setItem("itemAdded", JSON.stringify(itemAdded));
-    router.push(PATH_NAME.DETAILORDER);
+    router.push(PATH_NAME.CREATEORDER);
   }
   return (
     <div className="px-20 mt-30 mb-20">
@@ -186,18 +192,19 @@ const DetailFlower = ({ flowerData, reviewList }: DetailFlowerProps) => {
         </div>
         <div className="w-full h-0.5 bg-black"></div>
         <div className="grid grid-cols-4 gap-10 mt-10">
-          {/* {listFlowerItem.map((item) => {
+          {OutstandingFlowerList.map((item) => {
             return (
               <FlowerItem
-                _id={item.id}
-                key={item.id}
-                image={item.imageUrl.url || "/images/default-flower.jpg"}
-                name={item.title}
+                _id={item._id}
+                key={item._id}
+                image={item.image || "/images/default-flower.jpg"}
+                alt={item.name}
+                name={item.name}
                 price={item.price}
                 description={item.description}
               />
             );
-          })} */}
+          })}
         </div>
       </div>
       {/* Đánh giá của người mua */}

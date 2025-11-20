@@ -15,16 +15,29 @@ interface Props {
 const DetailFlowerPage = async ({ params }: Props) => {
   const { id } = await params;
   let flowerData: Flower = {} as Flower;
+  let OutstandingFlowerList: Flower[] = [] as Flower[];
   let reviewList: Review[] = [];
   try {
     const resDetail = await productApi.getDetail(id as string);
     const resReviewList = await reviewAction.getReviewsByFlowerId(id);
+
     flowerData = resDetail.data || ({} as Flower);
+    const resOutstandingFlower = await productApi.getOutStadingFlowersSameType(
+      flowerData?.types?.join(", ") ?? ""
+    );
+    OutstandingFlowerList = resOutstandingFlower.data;
+    console.log("resOutstandingFlower:", resOutstandingFlower);
     reviewList = (resReviewList.data as Review[]) || [];
   } catch (error) {
     console.error(error);
   }
-  return <DetailFlower flowerData={flowerData} reviewList={reviewList} />;
+  return (
+    <DetailFlower
+      flowerData={flowerData}
+      reviewList={reviewList}
+      OutstandingFlowerList={OutstandingFlowerList}
+    />
+  );
 };
 
 export default DetailFlowerPage;

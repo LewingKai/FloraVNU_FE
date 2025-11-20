@@ -89,7 +89,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
           >
             {headerText.productsPage}
           </Link>
-          <Link
+          {/* <Link
             href={PATH_NAME.BLOGS}
             className={
               pathname === PATH_NAME.BLOGS
@@ -98,7 +98,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
             }
           >
             {headerText.blogPage}
-          </Link>
+          </Link> */}
           <Link
             href={PATH_NAME.ABOUTUS}
             className={

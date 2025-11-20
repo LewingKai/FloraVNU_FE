@@ -7,6 +7,7 @@ export interface Flower {
   alt: string;
   rating?: number;
   stockQuantity?: number;
+  types?: [string];
 }
 
 type ImageType = {
