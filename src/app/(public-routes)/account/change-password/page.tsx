@@ -32,6 +32,15 @@ const ChangePassword = () => {
   }
 
   const handleSubmit = async () => {
+    if (
+      !validatePassword(data.currentPassword) ||
+      !validatePassword(data.newPassword) ||
+      !validatePassword(data.confirmNewPassword)
+    ) {
+      toast.error("Vui lòng nhập đầy đủ thông tin hợp lệ!");
+      return;
+    }
+
     try {
       setIsLoading(true);
 
@@ -42,12 +51,10 @@ const ChangePassword = () => {
         user._id
       );
       toast.success("Đổi mật khẩu thành công!");
-      setIsLoading(false);
     } catch (error) {
-      setIsLoading(false);
-      toast.error("Đổi mật khẩu thất bại!");
-      throw error;
+      toast.error(error.message || "Đổi mật khẩu thất bại!");
     } finally {
+      setIsLoading(false);
       setData({
         currentPassword: "",
         newPassword: "",

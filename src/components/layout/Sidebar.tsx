@@ -94,17 +94,7 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
           </nav>
         </div>
 
-        {isAuth && user ? (
-          <div className="flex justify-end mb-[40vw] sm:mb-[20vw]">
-            <AccountMenu
-              fullName={user.fullName}
-              email={user.email}
-              avatar={user.avatar}
-              role={user.role}
-              onNavigate={toggleSidebar}
-            />
-          </div>
-        ) : (
+        {!(isAuth && user) && (
           <div className="flex flex-col mb-6 gap-3.5">
             <Link href={PATH_NAME.SIGNIN} onClick={toggleSidebar}>
               <Button variant="default" className="w-full">

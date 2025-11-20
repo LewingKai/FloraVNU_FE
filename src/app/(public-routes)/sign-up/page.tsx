@@ -70,8 +70,7 @@ const SignUp = () => {
       toast.success("Đăng ký thành công! Hãy đăng nhập để tiếp tục");
       router.push(PATH_NAME.SIGNIN);
     } catch (error) {
-      toast.error("Đăng ký thất bại!");
-      throw error;
+      toast.error(error.message || "Đăng ký thất bại!");
     } finally {
       setLoading(false);
     }

@@ -30,7 +30,6 @@ export default function OrdersHistoryPage() {
     try {
       const res = await orderApi.getOrderByAccountId();
       const orders = res.data;
-      console.log(orders);
 
       const ordersData = await Promise.all(
         orders.map(async (order) => ({

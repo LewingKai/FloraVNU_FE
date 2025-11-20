@@ -109,21 +109,27 @@ export default function OrderCard({
               {new Date(order.deliveryDate).toLocaleString("vi-VN")}
             </Typography>
             <Typography variant="body2">
-              <b>Phương thức thanh toán:</b> {order.paymentMethod}
+              <b>Lời nhắn:</b> {order.message}
             </Typography>
             <Typography variant="body2">
-              <b>Trạng thái thanh toán:</b>{" "}
-              {order.paymentStatus ? "Đã thanh toán" : "Chưa thanh toán"}
+              <b>Lưu ý cho quán:</b> {order.note || "Không có"}
             </Typography>
           </Stack>
 
           <Divider sx={{ my: 2 }} />
 
           <Stack
-            direction="row"
+            direction="column"
             justifyContent="space-between"
-            alignItems="center"
+            spacing={0.5}
           >
+            <Typography variant="body2">
+              <b>Phương thức thanh toán:</b> {order.paymentMethod}
+            </Typography>
+            <Typography variant="body2">
+              <b>Trạng thái thanh toán:</b>{" "}
+              {order.paymentStatus ? "Đã thanh toán" : "Chưa thanh toán"}
+            </Typography>
             <Typography fontWeight={600} color="primary.main">
               Tổng tiền: {order.totalPrice.toLocaleString()}₫
             </Typography>
@@ -154,14 +160,20 @@ export default function OrderCard({
               </Button>
             )}
 
-            {order.orderStatus === "Delivered" && (
-              <Button
-                onClick={() => onPay(order._id)}
-                className="bg-green-600 hover:bg-green-700"
-              >
-                Thanh toán
-              </Button>
-            )}
+            {order.orderStatus === "Delivered" &&
+              order.paymentMethod === "Bank" && (
+                <Button
+                  disabled={order.paymentStatus}
+                  onClick={() => onPay(order._id)}
+                  className={
+                    order.paymentStatus
+                      ? "bg-gray-300 cursor-not-allowed"
+                      : "bg-green-600 hover:bg-green-700"
+                  }
+                >
+                  Thanh toán
+                </Button>
+              )}
           </Stack>
         </Stack>
       </CardContent>

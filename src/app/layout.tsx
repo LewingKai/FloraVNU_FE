@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import { Metadata } from "next";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,10 +13,64 @@ const geistMono = Geist_Mono({
 });
 import ReactQueryProvider from "@/components/layout/tanstack_query";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "FloraVNU - Tiệm hoa tươi, nơi tình yêu bắt đầu",
   description:
     "FloraVNU – tiệm hoa tươi tại Làng Đại học Thủ Đức, mang đến những bó hoa tươi đẹp và ý nghĩa cho mọi dịp. Đặt hoa nhanh, giao tận tay, gửi trọn yêu thương đến người bạn quý.",
+  keywords: [
+    "FloraVNU",
+    "floravnu",
+    "flora vnu",
+    "Flora VNU",
+    "hoa tươi Làng Đại học Thủ Đức",
+    "tiệm hoa Thủ Đức",
+    "shop hoa tươi VNU",
+    "đặt hoa online Thủ Đức",
+    "giao hoa tận nơi Thủ Đức",
+    "bó hoa tặng người yêu",
+    "hoa sinh nhật đẹp",
+    "hoa chúc mừng khai trương",
+    "hoa tốt nghiệp Làng Đại học",
+    "hoa tặng ngày lễ tình nhân",
+    "hoa tặng 8/3 ý nghĩa",
+    "hoa tặng mẹ đẹp và sang",
+    "hoa hồng tươi đẹp",
+    "shop hoa tươi giá rẻ Thủ Đức",
+    "hoa tươi sinh viên VNU",
+    "đặt hoa nhanh Làng Đại học",
+  ],
+  openGraph: {
+    title: "FloraVNU - Tiệm hoa tươi, nơi tình yêu bắt đầu",
+    description:
+      "FloraVNU – tiệm hoa tươi tại Làng Đại học Thủ Đức, mang đến những bó hoa tươi đẹp và ý nghĩa cho mọi dịp. Đặt hoa nhanh, giao tận tay, gửi trọn yêu thương đến người bạn quý.",
+    // url: "...",
+    images: [
+      {
+        url: "/blogs/image1.png",
+        width: 1200,
+        height: 630,
+        alt: "FloraVNU - Tiệm hoa tươi, nơi tình yêu bắt đầu",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FloraVNU - Tiệm hoa tươi, nơi tình yêu bắt đầu",
+    description:
+      "FloraVNU – tiệm hoa tươi tại Làng Đại học Thủ Đức, mang đến những bó hoa tươi đẹp và ý nghĩa cho mọi dịp. Đặt hoa nhanh, giao tận tay, gửi trọn yêu thương đến người bạn quý.",
+    images: ["/blogs/image1.png"],
+  },
+  alternates: {
+    // canonical: "",
+  },
+  verification: {
+    // google: "qWaMtk5cUkw5LEkyrIHU6nkEXKwWsP-2GYwUz2OCkqQ",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   icons: {
     icon: [
       { url: "/favicon_io/favicon.ico" },
@@ -37,40 +92,6 @@ export const metadata = {
         type: "image/png",
       },
     ],
-    openGraph: {
-      title: "FloraVNU - Tiệm hoa tươi, nơi tình yêu bắt đầu",
-      description:
-        "FloraVNU – tiệm hoa tươi tại Làng Đại học Thủ Đức, mang đến những bó hoa tươi đẹp và ý nghĩa cho mọi dịp. Đặt hoa nhanh, giao tận tay, gửi trọn yêu thương đến người bạn quý.",
-      // url: "...",
-      images: [
-        {
-          url: "https://i.pinimg.com/736x/f4/00/e6/f400e61ef9f778657b1f843a589fbe2d.jpg",
-          width: 1200,
-          height: 630,
-          alt: "FloraVNU - Tiệm hoa tươi, nơi tình yêu bắt đầu",
-        },
-      ],
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "FloraVNU - Tiệm hoa tươi, nơi tình yêu bắt đầu",
-      description:
-        "FloraVNU – tiệm hoa tươi tại Làng Đại học Thủ Đức, mang đến những bó hoa tươi đẹp và ý nghĩa cho mọi dịp. Đặt hoa nhanh, giao tận tay, gửi trọn yêu thương đến người bạn quý.",
-      images: [
-        "https://i.pinimg.com/736x/f4/00/e6/f400e61ef9f778657b1f843a589fbe2d.jpg",
-      ],
-    },
-    alternates: {
-      // canonical: "",
-    },
-    verification: {
-      // google: "qWaMtk5cUkw5LEkyrIHU6nkEXKwWsP-2GYwUz2OCkqQ",
-    },
-    robots: {
-      index: true,
-      follow: true,
-    },
   },
 };
 

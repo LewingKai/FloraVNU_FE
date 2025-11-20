@@ -40,6 +40,24 @@ class AccountApi {
       throw error;
     }
   }
+
+  async forgotPassword(email: string) {
+    try {
+      const res = await client.post(accountEndpoint.forgotPassword, { email });
+      return res.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async resetPassword(formData: object) {
+    try {
+      const res = await client.post(accountEndpoint.resetPassword, formData);
+      return res.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 const accountApi = new AccountApi();
