@@ -33,13 +33,13 @@ export default function Footer() {
           SẢN PHẨM
         </Link>
         <div className="hidden md:block w-3 h-3 md:w-2 md:h-2 bg-secondary rounded-full" />
-        <Link
+        {/* <Link
           href={PATH_NAME.BLOGS}
           className="text-center text-sm md:text-xl hover:text-secondary"
         >
           BLOGS
-        </Link>
-        <div className="hidden md:block w-3 h-3 md:w-2 md:h-2 bg-secondary rounded-full" />
+        </Link> */}
+        {/* <div className="hidden md:block w-3 h-3 md:w-2 md:h-2 bg-secondary rounded-full" /> */}
         <Link
           href={PATH_NAME.ABOUTUS}
           className="text-center text-sm md:text-xl hover:text-secondary"
