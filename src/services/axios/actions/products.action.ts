@@ -25,6 +25,17 @@ class ProductApi {
       return [];
     }
   }
+  async getOutStadingFlowersSameType(type: string) {
+    try {
+      const res = await client.get(
+        `${productEndpoint.search}?limit=4&page=1&sort=rating:desc&types=${type}`
+      );
+      return res.data;
+    } catch (error) {
+      return [];
+    }
+  }
+
   async getOutStadingFlowers() {
     try {
       const res = await client.get(

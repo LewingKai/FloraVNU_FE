@@ -232,7 +232,7 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
               {imageAlbum.map((img, index) => (
                 <div
                   key={index}
-                  className="relative w-full sm:h-[250px] h-[100px] rounded-br-4xl  rounded-tl-4xl overflow-hidden group"
+                  className="hover:cursor-pointer relative w-full sm:h-[250px] h-[100px] rounded-br-4xl  rounded-tl-4xl overflow-hidden group"
                   onClick={() => {
                     router.push(`${PATH_NAME.PRODUCTS}?types=${img.title}`);
                   }}

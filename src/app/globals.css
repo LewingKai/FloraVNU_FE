@@ -61,3 +61,18 @@ body {
 .flower-des_item strong {
   color: #000;
 }
+
+.chatbox-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chatbox-content a {
+  display: block;
+  text-decoration: none;
+}
+
+.chatbox-content div {
+  word-break: break-word; /* tránh text quá dài tràn */
+}

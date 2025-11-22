@@ -18,6 +18,7 @@ type Props = {
   handleRemove: (flowerId: string) => void;
   onQuantityChange?: (flowerId: string, newQuantity: number) => void;
   enableAdjustQuantity?: boolean;
+  key: string;
 };
 const SmallCartItem = ({
   itemData,
@@ -25,6 +26,7 @@ const SmallCartItem = ({
   handleRemove,
   enableAdjustQuantity = true,
   onQuantityChange,
+  key,
 }: Props) => {
   const [quantityItem, setQuantityItem] = useState(quantity ?? 1);
   const [maxQuantity, setMaxQuantity] = useState(quantity);
@@ -37,6 +39,7 @@ const SmallCartItem = ({
 
   return (
     <div
+      key={key}
       className={`flex justify-between items-center  w-full mt-5  gap-3 relative`}
     >
       <div className={`relative w-full  flex-1  h-[100px]`}>
