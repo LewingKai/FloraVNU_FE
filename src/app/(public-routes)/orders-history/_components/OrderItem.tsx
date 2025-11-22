@@ -7,16 +7,22 @@ import {
   Stack,
   Tooltip,
 } from "@mui/material";
-import { FlowerItem } from "@/types/order";
 import { Button } from "@/components/ui/Button";
+import { Image } from "@/types/order";
 
-interface Props extends FlowerItem {
-  onReview: (flowerId: string) => void;
+interface Props {
+  _id: string;
+  name: string;
+  image: Image;
+  price: number;
+  rating: number;
+  quantity: number;
   orderStatus: string;
+  onReview: (_id: string) => void;
 }
 
-export default function OrderItem({
-  flowerId,
+export default function OrderHistoryItem({
+  _id,
   name,
   image,
   price,
@@ -74,11 +80,7 @@ export default function OrderItem({
               <Button
                 variant="default"
                 disabled={!isDelivered}
-                onClick={() =>
-                  onReview(
-                    typeof flowerId === "object" ? flowerId._id : flowerId
-                  )
-                }
+                onClick={() => onReview(_id)}
                 className={
                   isDelivered
                     ? "bg-secondary"
