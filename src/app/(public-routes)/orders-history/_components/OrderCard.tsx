@@ -89,11 +89,11 @@ export default function OrderCard({
           {order.orderItems.map((item) => (
             <OrderHistoryItem
               key={item._id}
-              _id={item.flowerId._id}
-              name={item.flowerId.name}
-              image={item.flowerId.image}
+              _id={item?.flowerId?._id}
+              name={item?.flowerId?.name}
+              image={item.flowerId?.image}
               price={item.price}
-              rating={item.flowerId.rating}
+              rating={item.flowerId?.rating}
               quantity={item.quantity}
               onReview={onReview}
               orderStatus={order.orderStatus}

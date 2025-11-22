@@ -9,7 +9,7 @@ import { set } from "react-hook-form";
 // import { Avatar } from "antd";
 import { toast } from "react-toastify";
 // import ReactMarkdown from "react-markdown";
-
+import DOMPurify from "dompurify";
 export default function ChatBox() {
   const { user } = useAuth();
   const [isOpenChatbox, setIsOpenChatbox] = useState(false);
@@ -61,14 +61,25 @@ export default function ChatBox() {
         <div className="overflow-hidden w-[25vw] h-[65vh] border-gray-200 border bg-[#fff] rounded-xl inset-shadow-sm shadow-xl relative">
           <div className="flex justify-between items-center py-2 bg-secondary px-4 rounded-t-xl w-[25vw] shadow-lg sticky  top-0">
             <p className="text-[#fff] font-bold text-lg">Trợ lí Từ Từ</p>
-            <button onClick={() => setIsOpenChatbox(false)}>
+            <button
+              onClick={() => {
+                setMessHistory([
+                  {
+                    role: "ai",
+                    message: "Chào bạn! Tôi có thể giúp gì cho bạn nhỉ?",
+                  },
+                ]);
+                setIsOpenChatbox(false);
+              }}
+            >
               <FontAwesomeIcon icon={faXmark} color="white" size="sm" />
             </button>
           </div>
           <div className="overflow-y-auto no-scrollbar max-h-[72%] p-4">
-            {messHistory.map((mess) => {
+            {messHistory.map((mess, index) => {
+              console.log("mess.message", mess.message);
               return (
-                <div>
+                <div key={index}>
                   {mess.role === "user" ? (
                     <div className="justify-end items-end gap-2 flex">
                       <div className="p-2 flex flex-col text-sm max-w-[80%] bg-[#fb61aefa] text-white rounded-b-xl rounded-tl-xl mt-2 text-right">
@@ -88,7 +99,9 @@ export default function ChatBox() {
                     <div className="justify-start flex">
                       <div className="p-2 flex flex-col text-sm max-w-[80%] bg-[#cecece8e] rounded-b-xl rounded-tr-xl mt-2 text-left">
                         <div
-                          dangerouslySetInnerHTML={{ __html: mess.message }}
+                          dangerouslySetInnerHTML={{
+                            __html: mess.message,
+                          }}
                         />
                       </div>
                     </div>
