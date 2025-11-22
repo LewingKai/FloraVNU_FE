@@ -9,7 +9,7 @@ import {
   Box,
 } from "@mui/material";
 import { Order } from "@/types/order";
-import OrderItem from "./OrderItem";
+import OrderHistoryItem from "./OrderItem";
 import { Button } from "@/components/ui/Button";
 
 interface Props {
@@ -36,7 +36,7 @@ export default function OrderCard({
 
   const statusLabel = {
     Pending: "Chờ xử lý",
-    Processing: "Đang xử lý",
+    Processing: "Đang giao",
     Delivered: "Đã giao",
     Cancelled: "Đã hủy",
   }[order.orderStatus];
@@ -87,9 +87,14 @@ export default function OrderCard({
       <CardContent sx={{ px: 3, pt: 2, pb: 3 }}>
         <Stack spacing={2}>
           {order.orderItems.map((item) => (
-            <OrderItem
+            <OrderHistoryItem
               key={item._id}
-              {...item}
+              _id={item.flowerId._id}
+              name={item.flowerId.name}
+              image={item.flowerId.image}
+              price={item.price}
+              rating={item.flowerId.rating}
+              quantity={item.quantity}
               onReview={onReview}
               orderStatus={order.orderStatus}
             />

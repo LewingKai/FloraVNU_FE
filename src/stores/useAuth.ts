@@ -43,7 +43,6 @@ const useAuth = create<AuthState>((set, get) => ({
         set({ user: res.data, isAuth: true });
       }
     } catch (error) {
-      console.log(error);
       get().logout();
     }
   },

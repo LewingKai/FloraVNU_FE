@@ -20,7 +20,6 @@ class ProductApi {
       const res = await client.get(productEndpoint.search, {
         params: filteredParams,
       });
-      console.log("res.data ==============:", filteredParams);
       return res.data;
     } catch (error) {
       return [];

@@ -64,7 +64,6 @@ const DetailFlower = ({
         setQuantity(1);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Không thể thêm vào giỏ hàng!");
     }
   };

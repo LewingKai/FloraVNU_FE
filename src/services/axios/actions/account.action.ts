@@ -23,6 +23,15 @@ class AccountApi {
     }
   }
 
+  async deleteAccount(id: string) {
+    try {
+      const res = await client.delete(accountEndpoint.deleteAccount(id));
+      return res.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async changePassword(
     currentPassword: string,
     newPassword: string,

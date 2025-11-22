@@ -27,9 +27,7 @@ const MyCartPage = () => {
       if (res.cartItems.length > 0) {
         setCartItems(res.cartItems);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   function handleSelectItem(

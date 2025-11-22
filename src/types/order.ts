@@ -1,17 +1,7 @@
-export interface FlowerItem {
-  flowerId: string;
-  quantity: number;
-  _id: string;
-  name: string;
-  image: Image;
-  price: number;
-  rating: number;
-}
-
 export interface Order {
   _id: string;
   accountId: string;
-  orderItems: FlowerItem[];
+  orderItems: OrderItem[];
   totalPrice: number;
   senderName: string;
   senderEmail: string;
@@ -30,7 +20,25 @@ export interface Order {
   updatedAt: string;
 }
 
+export interface OrderItem {
+  discountPercent: number;
+  flowerId: FlowerItem;
+  price: number;
+  quantity: 1;
+  _id: string;
+}
+
+export interface FlowerItem {
+  description: string;
+  discountPercent: number;
+  image: Image;
+  name: string;
+  price: number;
+  rating: number;
+  stockQuantity: number;
+  _id: string;
+}
+
 export interface Image {
   url: string;
-  public_id: string;
 }

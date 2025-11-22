@@ -17,4 +17,8 @@ export const PATH_NAME = {
   ORDERSHISTORY: "/orders-history",
   MYCART: "/my-cart",
   CREATEORDER: "/create-order",
+
+  ADMIN: "/admin",
+  ADMINACCOUNTS: "/admin/accounts",
+  ADMINORDERS: "/admin/orders",
 };
