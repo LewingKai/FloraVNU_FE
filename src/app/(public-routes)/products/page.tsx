@@ -71,7 +71,6 @@ export default async function ProductsScreen({ searchParams }: Props) {
       forms: resForm.data || [],
       types: resType.data || [],
     };
-    console.log("filterrerer", filterList);
   } catch (error) {
     console.error(error);
   }

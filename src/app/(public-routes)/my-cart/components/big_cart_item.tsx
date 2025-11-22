@@ -36,7 +36,6 @@ const BigCartItem = ({
       toast.success("Đã xóa thành công");
       emitter.emit("updateCartItemList");
     } catch (error) {
-      console.log(error);
       toast.error("Không thể xóa!");
     }
   }
@@ -51,7 +50,6 @@ const BigCartItem = ({
       const res = await cartApi.updateQuantityInCart(itemData._id ?? "", type);
       setQuantityItem(value);
     } catch (error) {
-      console.log(error);
       toast.error("Đã xảy ra lỗi!");
     }
   }

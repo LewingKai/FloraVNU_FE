@@ -45,12 +45,10 @@ export default function ChatBox() {
       };
       setMessHistory((prev) => [...prev, responseMess]);
     } catch (error) {
-      console.log("Có lỗi khi gửi câu hỏi", error);
     } finally {
       setIsLoading(false);
     }
   };
-  console.log(messHistory);
   return (
     <div className={`overscroll-x-auto fixed bottom-3 right-3 z-50`}>
       <div

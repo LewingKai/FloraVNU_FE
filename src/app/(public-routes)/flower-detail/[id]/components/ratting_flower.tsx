@@ -39,7 +39,6 @@ const RatingFlowerComponent: React.FC<RatingFlowerProps> = ({
   };
 
   useEffect(() => {
-    console.log("Setting up commentAdded listener");
     const handler = () => fetchComments();
     emitter.on("updateCommentList", handler);
 

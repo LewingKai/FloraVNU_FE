@@ -67,7 +67,6 @@ const OrderInfomation = ({
     setTotalPrice(total);
   }, [itemAdded, itemAddedList]);
   useEffect(() => {
-    console.log("price totall ====", totalPrice);
     if (onGetDataCallBack) onGetDataCallBack(totalPrice.toString(), itemAdded);
   }, [totalPrice]);
   return (

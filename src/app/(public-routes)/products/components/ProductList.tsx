@@ -159,7 +159,6 @@ const ProductsList = ({ searchParams, filterListCate }: Props) => {
   }, [parsedParams]);
 
   const fetchProducts = async (filters: FilterListType) => {
-    console.log("gọi api ở trong");
     setIsLoading(true);
     const paramsWeb = new URLSearchParams();
 
@@ -183,9 +182,7 @@ const ProductsList = ({ searchParams, filterListCate }: Props) => {
     let res = [];
     try {
       res = await productApi.search(Object.fromEntries(paramsWeb));
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
     setIsLoading(false);
     return res;
   };
