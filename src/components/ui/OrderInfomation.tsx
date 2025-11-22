@@ -94,6 +94,7 @@ const OrderInfomation = ({
               return (
                 <SmallCartItem
                   itemData={item.flowerId}
+                  key={item.flowerId._id ?? ""}
                   quantity={item.quantity}
                   handleRemove={handleRemove}
                   onQuantityChange={handleQuantityChange}

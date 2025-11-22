@@ -45,7 +45,7 @@ export default function OrderHistoryItem({
     >
       <CardMedia
         component="img"
-        image={image.url}
+        image={image?.url}
         alt={name}
         sx={{
           width: { xs: "100%", sm: 160 },
@@ -65,7 +65,7 @@ export default function OrderHistoryItem({
           variant="body1"
           sx={{ color: "#FF69B5", fontWeight: 600, mt: 0.5 }}
         >
-          {price.toLocaleString()}₫
+          {price?.toLocaleString()}₫
         </Typography>
 
         <Stack direction="row" justifyContent="flex-end" sx={{ mt: 1 }}>

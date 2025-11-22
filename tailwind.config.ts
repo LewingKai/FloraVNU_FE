@@ -7,6 +7,32 @@ export default {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  // @ts-ignore
+  safelist: [
+    "flex",
+    "items-center",
+    "justify-start",
+    "gap-2",
+    "rounded-lg",
+    "rounded-b-xl",
+    "rounded-tr-xl",
+    "bg-white",
+    "bg-[#cecece8e]",
+    "shadow-md",
+    "transition-all",
+    "hover:-translate-y-1",
+    "hover:bg-[#ff69b422]",
+    "hover:shadow-xl",
+    "max-w-70",
+    "line-clamp-1",
+    "line-clamp-2",
+    "p-2",
+    "text-sm",
+    "text-gray-600",
+    "text-[#000000]",
+    "text-[#FF0000]",
+    // … thêm tất cả class mà API trả về
+  ],
   theme: {
     extend: {
       colors: {

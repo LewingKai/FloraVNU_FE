@@ -12,7 +12,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import useAuth from "@/stores/useAuth";
 import { toast } from "react-toastify";
 import orderApi from "@/services/axios/actions/order.action";
@@ -47,6 +47,7 @@ const DetailOrder = () => {
     formState: { errors },
     reset,
     getValues,
+    control,
   } = useForm({
     defaultValues: {
       senderName: userInfo?.fullName || "",
@@ -66,6 +67,7 @@ const DetailOrder = () => {
   });
 
   const onSubmit = async (formData: any) => {
+    console.log("formData.paymentMethod", formData.paymentMethod);
     const dataRequest: CreateOrderRequestType = {
       senderName: formData.senderName,
       senderEmail: formData.senderEmail,
@@ -77,7 +79,7 @@ const DetailOrder = () => {
       deliveryTime: formData.deliveryTime,
       message: formData.messageForReceiver,
       note: formData.note,
-      paymentMethod: formData.paymentMethod || "Cash",
+      paymentMethod: formData.paymentMethod,
       orderItems: itemAddedList.map(
         (item): ItemCartRequest => ({
           flowerId: item.flowerId._id ?? "",
@@ -114,6 +116,7 @@ const DetailOrder = () => {
       senderPhoneNumber:
         currentValues.senderPhoneNumber || userInfo?.phone || "",
       receiverName: (isNotDelivery ? userInfo?.fullName : "") || "",
+      paymentMethod: "Cash",
       receiverAddress: isNotDelivery
         ? "Cửa hàng FloraVNU - Khu phố 34, Phường Linh Xuân, TP. Hồ Chí Minh"
         : "",
@@ -273,20 +276,26 @@ const DetailOrder = () => {
           </h3>
           <div className="w-full h-[2px] bg-[#E32C89] my-2"></div>
 
-          <FormControl>
-            <RadioGroup defaultValue="Cash" {...register("paymentMethod")}>
-              <FormControlLabel
-                value="Cash"
-                control={<Radio />}
-                label="Thanh toán khi nhận hàng"
-              />
-              <FormControlLabel
-                value="Bank"
-                control={<Radio />}
-                label="Thanh toán qua cổng VNPAY"
-              />
-            </RadioGroup>
-          </FormControl>
+          <Controller
+            name="paymentMethod"
+            control={control}
+            defaultValue={"Cash"}
+            rules={{ required: "Vui lòng chọn phương thức thanh toán" }}
+            render={({ field }) => (
+              <RadioGroup {...field}>
+                <FormControlLabel
+                  value="Cash"
+                  control={<Radio />}
+                  label="Thanh toán khi nhận hàng"
+                />
+                <FormControlLabel
+                  value="Bank"
+                  control={<Radio />}
+                  label="Thanh toán qua cổng VNPAY"
+                />
+              </RadioGroup>
+            )}
+          />
         </div>
         <div className="sm:hidden fixed top-1/2 right-4 transform -translate-y-1/2 z-50">
           <div className="bg-[#E32C89] p-1 rounded-full shadow-lg hover:scale-105 transition cursor-pointer opacity-65">
