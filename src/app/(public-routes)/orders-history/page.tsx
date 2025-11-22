@@ -107,22 +107,25 @@ export default function OrdersHistoryPage() {
 
       {filteredOrders.length > 0 ? (
         <Box display="flex" flexDirection="column" alignItems="center" gap={3}>
-          {filteredOrders.map((order) => (
-            <Box key={order._id} sx={{ width: "100%", maxWidth: 600 }}>
-              <OrderCard
-                order={order}
-                onPay={() => handlePay(order._id, order.totalPrice)}
-                onCancel={() => handleCancel(order._id)}
-                onChangePayment={() =>
-                  handleChangePayment(
-                    order.paymentMethod === "Cash" ? "Bank" : "Cash",
-                    order._id
-                  )
-                }
-                onReview={handleReview}
-              />
-            </Box>
-          ))}
+          {filteredOrders
+            .slice()
+            .reverse()
+            .map((order) => (
+              <Box key={order._id} sx={{ width: "100%", maxWidth: 600 }}>
+                <OrderCard
+                  order={order}
+                  onPay={() => handlePay(order._id, order.totalPrice)}
+                  onCancel={() => handleCancel(order._id)}
+                  onChangePayment={() =>
+                    handleChangePayment(
+                      order.paymentMethod === "Cash" ? "Bank" : "Cash",
+                      order._id
+                    )
+                  }
+                  onReview={handleReview}
+                />
+              </Box>
+            ))}
         </Box>
       ) : (
         <Box
