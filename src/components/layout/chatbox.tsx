@@ -98,6 +98,7 @@ export default function ChatBox() {
                   ) : (
                     <div className="justify-start flex">
                       <div className="p-2 flex flex-col text-sm max-w-[80%] bg-[#cecece8e] rounded-b-xl rounded-tr-xl mt-2 text-left">
+                        <div className="hidden w-16"></div>
                         <div
                           dangerouslySetInnerHTML={{
                             __html: mess.message,
