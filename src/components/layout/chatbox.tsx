@@ -77,7 +77,6 @@ export default function ChatBox() {
           </div>
           <div className="overflow-y-auto no-scrollbar max-h-[72%] p-4">
             {messHistory.map((mess, index) => {
-              console.log("mess.message", mess.message);
               return (
                 <div key={index}>
                   {mess.role === "user" ? (

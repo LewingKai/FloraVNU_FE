@@ -13,7 +13,7 @@ interface Props {
 }
 
 const DetailFlowerPage = async ({ params }: Props) => {
-  const { id } = await params;
+  const { id } = params;
   let flowerData: Flower = {} as Flower;
   let OutstandingFlowerList: Flower[] = [] as Flower[];
   let reviewList: Review[] = [];
@@ -26,7 +26,6 @@ const DetailFlowerPage = async ({ params }: Props) => {
       flowerData?.types?.join(", ") ?? ""
     );
     OutstandingFlowerList = resOutstandingFlower.data;
-    console.log("resOutstandingFlower:", resOutstandingFlower);
     reviewList = (resReviewList.data as Review[]) || [];
   } catch (error) {
     console.error(error);

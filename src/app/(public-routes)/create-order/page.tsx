@@ -67,7 +67,6 @@ const DetailOrder = () => {
   });
 
   const onSubmit = async (formData: any) => {
-    console.log("formData.paymentMethod", formData.paymentMethod);
     const dataRequest: CreateOrderRequestType = {
       senderName: formData.senderName,
       senderEmail: formData.senderEmail,

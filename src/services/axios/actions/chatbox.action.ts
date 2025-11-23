@@ -7,7 +7,6 @@ class ChatBoxApi {
       const res = await client.post(ChatboxEndpoint.chatbox, {
         query: mesage,
       });
-      console.log(res.data);
       return res.data;
     } catch (error) {
       throw error;
