@@ -52,7 +52,8 @@ const ChangePassword = () => {
       );
       toast.success("Đổi mật khẩu thành công!");
     } catch (error) {
-      toast.error(error.message || "Đổi mật khẩu thất bại!");
+      const errorMessage = error instanceof Error ? error.message : "Đổi mật khẩu thất bại!";
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
       setData({

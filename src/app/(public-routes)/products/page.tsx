@@ -10,7 +10,7 @@ import { SearchParamsType } from "@/types/home";
 import helpersFunction from "@/helpers/helpers";
 
 type Props = {
-  searchParams?: SearchParamsType;
+  searchParams?: Promise<SearchParamsType>;
 };
 
 export default async function ProductsScreen({ searchParams }: Props) {

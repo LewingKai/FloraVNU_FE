@@ -20,7 +20,7 @@ export default function OrdersHistoryPage() {
 
   useEffect(() => {
     fetchOrders();
-  }, []);
+  }, [fetchOrders]);
 
   const filteredOrders = filterStatus
     ? orders.filter((o) => o.orderStatus === filterStatus)

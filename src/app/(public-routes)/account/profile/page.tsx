@@ -110,8 +110,8 @@ const Profile = () => {
         toast.success("Cập nhật thành công!");
       }
     } catch (error) {
-      setIsLoading(false);
-      toast.error(error.message || "Cập nhật thất bại!");
+      const errorMessage = error instanceof Error ? error.message : "Cập nhật thất bại!";
+      toast.error(errorMessage);
     }
   };
 

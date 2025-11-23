@@ -4,9 +4,8 @@ import reviewAction from "@/services/axios/actions/review.action";
 import { Flower } from "@/types/home";
 import { Review } from "@/types/review";
 
-// @ts-expect-error
-const DetailFlowerPage = async ({ params }: { params: { id: string } }) => {
-  const { id } = params;
+const DetailFlowerPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
 
   let flowerData: Flower = {} as Flower;
   let OutstandingFlowerList: Flower[] = [];
