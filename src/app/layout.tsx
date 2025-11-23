@@ -15,6 +15,7 @@ import ReactQueryProvider from "@/components/layout/tanstack_query";
 import ThemeRegistry from "@/components/layout/ThemeRegistry";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://floravnu.com"),
   title: "FloraVNU - Tiệm hoa tươi, nơi tình yêu bắt đầu",
   description:
     "FloraVNU – tiệm hoa tươi tại Làng Đại học Thủ Đức, mang đến những bó hoa tươi đẹp và ý nghĩa cho mọi dịp. Đặt hoa nhanh, giao tận tay, gửi trọn yêu thương đến người bạn quý.",
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
     title: "FloraVNU - Tiệm hoa tươi, nơi tình yêu bắt đầu",
     description:
       "FloraVNU – tiệm hoa tươi tại Làng Đại học Thủ Đức, mang đến những bó hoa tươi đẹp và ý nghĩa cho mọi dịp. Đặt hoa nhanh, giao tận tay, gửi trọn yêu thương đến người bạn quý.",
-    // url: "...",
+    url: "https://floravnu.com",
     images: [
       {
         url: "/blogs/image1.png",
@@ -63,10 +64,10 @@ export const metadata: Metadata = {
     images: ["/blogs/image1.png"],
   },
   alternates: {
-    // canonical: "",
+    canonical: "https://floravnu.com",
   },
   verification: {
-    // google: "qWaMtk5cUkw5LEkyrIHU6nkEXKwWsP-2GYwUz2OCkqQ",
+    google: "ccOO_9hcDdRurbHQPI2fWWv5ixbLdjwoVM6kMO2a9iE",
   },
   robots: {
     index: true,
