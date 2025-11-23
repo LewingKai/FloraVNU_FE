@@ -94,9 +94,9 @@ const DetailFlower = ({
     router.push(PATH_NAME.CREATEORDER);
   }
   return (
-    <div className="px-20 mt-30 mb-20">
-      <div className="flex gap-10 ">
-        <div className="relative w-[35%] h-auto object-cover">
+    <div className="md:px-20 px-5 mt-30 mb-20">
+      <div className="flex md:flex-row flex-col md:gap-10 gap-5">
+        <div className="relative md:w-[35%] w-full md:h-auto h-80 object-cover md:rounded-0 rounded-4xl overflow-hidden">
           <Image
             src={flowerData.image?.url || "/images/default-flower.jpg"}
             alt={flowerData.name || "Bó hoa xinh"}
@@ -115,11 +115,11 @@ const DetailFlower = ({
               readOnly
             />
           </div>
-          <h1 className="text-4xl font-bold">{flowerData.name}</h1>
+          <h1 className="lg:text-4xl text-2xl font-bold my-2">
+            {flowerData.name}
+          </h1>
           <div
-            className={`flower-description mt-5 ${
-              !seeMore ? "line-clamp-4" : ""
-            }`}
+            className={`flower-description ${!seeMore ? "line-clamp-4" : ""}`}
             dangerouslySetInnerHTML={{ __html: safeHtml }}
           />
 
@@ -130,7 +130,7 @@ const DetailFlower = ({
             {seeMore ? "Rút gọn" : "Xem thêm"}
           </div>
 
-          <div className="flex w-full justify-between bg-[#F5F5F5] py-5 mt-10">
+          <div className="flex w-full justify-between bg-[#F5F5F5] md:py-5 py-2 md:mt-10 mt-5">
             <div className="ml-5">
               <p className="text-red-500 font-bold text-2xl">
                 {helpersFunction.formatPrice(Number(flowerData.price))}
@@ -140,14 +140,15 @@ const DetailFlower = ({
                 {DetailProductTextVN.includedVAT}
               </p>
             </div>
-            <div className="p-4  rounded-l-full bg-red-500  w-[30%] ">
-              <p className="text-right uppercase text-white text-2xl">
+            <div className="p-4 hidden md:flex rounded-l-full bg-red-500  w-[30%] ">
+              <p className="text-right uppercase text-white lg:text-2xl text-lg">
                 {DetailProductTextVN.flashSales}
               </p>
             </div>
           </div>
-          <div className="flex gap-5  items-center my-10">
+          <div className="flex gap-5  items-center justify-center my-10">
             <p>{DetailProductTextVN.quantity}</p>
+
             <div className="mt-auto">
               <ButtonAdjustQuantity
                 maxQuantity={flowerData.stockQuantity ?? 0}
@@ -161,7 +162,7 @@ const DetailFlower = ({
             </p>
           </div>
 
-          <div className="w-[90%] justify-between flex gap-5">
+          <div className=" justify-between flex md:flex-row flex-col  gap-5">
             <button
               onClick={handleAddToCart}
               className="flex-1 uppercase font-bold py-3 border   rounded-full 
@@ -190,7 +191,7 @@ const DetailFlower = ({
           </h2>
         </div>
         <div className="w-full h-0.5 bg-black"></div>
-        <div className="grid grid-cols-4 gap-10 mt-10">
+        <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-10 mt-10">
           {OutstandingFlowerList.map((item) => {
             return (
               <FlowerItem
