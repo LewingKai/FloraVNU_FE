@@ -6,13 +6,11 @@ import { Flower } from "@/types/home";
 import reviewAction from "@/services/axios/actions/review.action";
 import { Review } from "@/types/review";
 
-interface Props {
-  params: {
-    id: string;
-  };
+interface PageProps {
+  params: Record<string, string>;
 }
 
-const DetailFlowerPage = async ({ params }: Props) => {
+const DetailFlowerPage = async ({ params }: PageProps) => {
   const { id } = params;
   let flowerData: Flower = {} as Flower;
   let OutstandingFlowerList: Flower[] = [] as Flower[];
