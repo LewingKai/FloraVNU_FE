@@ -20,12 +20,12 @@ export interface SearchParamsType {
   forms?: string;
   occasions?: string;
   types?: string;
-  priceMax?: Number;
+  priceMax?: number;
   sort?: string;
   searchType?: string;
   keyword?: string;
   page?: string;
-  priceMin?: Number;
+  priceMin?: number;
 }
 
 export const enumSortType = {

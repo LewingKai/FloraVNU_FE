@@ -1,11 +1,11 @@
 import Image from "next/image";
 
 type blogItem = {
-  imageUrl: String;
-  title: String;
-  desc: String;
-  author: String;
-  dateTime: String;
+  imageUrl: string;
+  title: string;
+  desc: string;
+  author: string;
+  dateTime: string;
 };
 
 type Props = {

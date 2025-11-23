@@ -4,7 +4,7 @@ import { useState } from "react";
 
 interface ListFilterProps {
   label: string;
-  listTitle?: String[];
+  listTitle?: string[];
   isPriceFilter?: boolean;
   onChange?: (values: string[]) => void;
   onPriceChange?: (min: number, max: number) => void;

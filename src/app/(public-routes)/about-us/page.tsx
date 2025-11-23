@@ -105,11 +105,11 @@ const AboutUs = () => {
           </p>
         </div>
       </div>
-      <div>
+      {/* <div>
         {serviceBenefits.map((item, index) => {
           return <div></div>;
         })}
-      </div>
+      </div> */}
     </div>
   );
 };

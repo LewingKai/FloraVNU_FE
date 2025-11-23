@@ -26,7 +26,7 @@ jobs:
             - name: Download dependencies
               run: |
                   rm -rf package-lock.json
-                  npm i --legacy-peer-deps
+                  npm i
             - run: npm run lint
             - run: npm run format:check
             - run: npm run build
