@@ -103,8 +103,42 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "FloraVNU",
+    "alternateName": "Flora VNU",
+    "url": "https://floravnu.com",
+    "logo": "https://floravnu.com/images/logo.png",
+    "image": "https://floravnu.com/blogs/image1.png",
+    "description": "FloraVNU – tiệm hoa tươi tại Làng Đại học Thủ Đức, mang đến những bó hoa tươi đẹp và ý nghĩa cho mọi dịp",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Khu phố 34, Phường Linh Xuân",
+      "addressLocality": "Thành phố Thủ Đức",
+      "addressRegion": "TP. Hồ Chí Minh",
+      "addressCountry": "VN"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+84-338963327",
+      "contactType": "Customer Service",
+      "email": "floravnu@gmail.com",
+      "availableLanguage": "Vietnamese"
+    },
+    "sameAs": [
+      "https://www.facebook.com/floravnu"
+    ]
+  };
+
   return (
-    <html lang="en">
+    <html lang="vi">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
