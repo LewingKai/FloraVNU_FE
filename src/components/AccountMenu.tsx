@@ -76,9 +76,11 @@ const AccountMenu = ({
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <div className="flex gap-3 justify-start items-center">
+            <div className="flex gap-3 justify-end items-center min-w-fit">
               <div className="hidden lg:flex flex-col gap-1 text-sm justify-start">
-                <p className="font-bold text-[15px] text-black">{fullName}</p>
+                <p className="font-bold text-[15px] text-black whitespace-nowrap">
+                  {fullName}
+                </p>
                 <p className="text-[13px] italic font-light text-black">
                   {email}
                 </p>

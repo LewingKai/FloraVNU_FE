@@ -103,16 +103,6 @@ const RecommendCarousel = React.memo(({ flowers }: { flowers: Flower[] }) => {
           centerPadding: "20px",
         },
       },
-      {
-        breakpoint: 300,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          initialSlide: 1,
-          centerMode: false,
-          centerPadding: "20px",
-        },
-      },
     ],
   };
 

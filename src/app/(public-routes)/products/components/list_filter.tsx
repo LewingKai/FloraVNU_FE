@@ -20,7 +20,7 @@ const ListFilter: React.FC<ListFilterProps> = ({
   const [open, setOpen] = useState(true);
   const [selected, setSelected] = useState<string[]>([]);
   const [value1, setValue1] = useState<number[]>([20, 80]);
-
+  const [countItemShow, setCountItemShow] = useState(5);
   const handleCheckboxChange = (value: string) => {
     const newSelected = selected.includes(value)
       ? selected.filter((v) => v !== value)
@@ -55,7 +55,7 @@ const ListFilter: React.FC<ListFilterProps> = ({
       {open &&
         (!isPriceFilter ? (
           <div className="sm:px-6 px-2 sm:pb-5">
-            {listTitle?.map((item) => (
+            {listTitle?.slice(0, countItemShow).map((item) => (
               <div
                 key={item.toString()}
                 className="flex w-full items-center justify-between"
@@ -71,6 +71,20 @@ const ListFilter: React.FC<ListFilterProps> = ({
                 />
               </div>
             ))}
+            {(listTitle?.length ?? 0) > 5 && (
+              <button
+                onClick={() => {
+                  if (countItemShow == 5) {
+                    setCountItemShow(listTitle?.length ?? 5);
+                  } else {
+                    setCountItemShow(5);
+                  }
+                }}
+                className="text-blue-500 underline sm:text-[15px] text-[12px] font-bold mb-5"
+              >
+                {countItemShow == 5 ? "Xem thêm" : "Rút gọn"}
+              </button>
+            )}
           </div>
         ) : (
           <div className="sm:px-6 px-2 sm:mb-5">

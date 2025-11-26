@@ -154,7 +154,7 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
           {HomeTextVN.outStadingProducts}
         </h2>
         <div className="w-[15vw] h-[4px] bg-secondary mx-auto mb-5"></div>
-        <div className="mx-auto max-w-[1100px] max-md:px-12 mt-5">
+        <div className="mx-auto max-w-[1100px] max-md:px-12 mt-5 relative">
           {outStandingFlower && (
             <RecommendCarousel flowers={outStandingFlower || []} />
           )}

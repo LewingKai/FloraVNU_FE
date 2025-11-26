@@ -355,10 +355,10 @@ const ProductsList = ({ searchParams, filterListCate }: Props) => {
                 onChange={(values) => handleFilterChange("forms", values)}
               />
               {/* lọc theo giá */}
-              <ListFilter
+              {/* <ListFilter
                 label={ProductTextVN.sortByPriceLevel}
                 isPriceFilter={true}
-              />
+              /> */}
             </div>
           )}
 
