@@ -51,8 +51,8 @@ const ChangePassword = () => {
         user._id
       );
       toast.success("Đổi mật khẩu thành công!");
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Đổi mật khẩu thất bại!";
+    } catch (error: any) {
+      const errorMessage = error.message || 'Đổi mật khẩu thất bại!';
       toast.error(errorMessage);
     } finally {
       setIsLoading(false);

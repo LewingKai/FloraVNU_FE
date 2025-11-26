@@ -49,9 +49,9 @@ const SignIn = () => {
 
       toast.success("Đăng nhập thành công!");
       router.push(PATH_NAME.HOME);
-    } catch (error) {
-      toast.error("Đăng nhập thất bại!");
-      throw error;
+    } catch (error: any) {
+      const errorMessage = error.message || 'Đăng nhập thất bại!';
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
