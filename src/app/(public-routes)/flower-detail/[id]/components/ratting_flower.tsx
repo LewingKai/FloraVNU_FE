@@ -167,13 +167,13 @@ const RatingFlowerComponent: React.FC<RatingFlowerProps> = ({
                 <button
                   type="button"
                   // onClick={() => setShowReviewForm(false)}
-                  className="px-4 py-2 border rounded-md hover:bg-gray-50"
+                  className="px-4 py-2 border rounded-md hover:bg-gray-50 cursor-pointer"
                 >
                   {DetailProductTextVN.cancel}
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
+                  className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors cursor-pointers"
                 >
                   {DetailProductTextVN.sendReview}
                 </button>
@@ -191,7 +191,7 @@ const RatingFlowerComponent: React.FC<RatingFlowerProps> = ({
               <div key={review.createdAt} className="border-b pb-6 mt-5">
                 <div className="flex justify-between">
                   <div className=" flex gap-2 justify-between items-center">
-                    <Avatar src={review.accountId?.avatar.url} />
+                    <Avatar src={review.accountId?.avatar?.url} />
                     <div className="font-semibold">
                       {review.accountId?.username}
                     </div>
@@ -211,7 +211,7 @@ const RatingFlowerComponent: React.FC<RatingFlowerProps> = ({
                 <p className=" text-gray-700">{review.content}</p>
                 {review.accountId?._id == user?._id ? (
                   <button
-                    className="flex justify-end w-full"
+                    className="flex justify-end w-full cursor-pointer"
                     onClick={() => handleDeleteReview(review._id.toString())}
                   >
                     <FontAwesomeIcon icon={faTrash} color="red" />

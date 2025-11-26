@@ -166,7 +166,7 @@ const DetailFlower = ({
             <button
               onClick={handleAddToCart}
               className="flex-1 uppercase font-bold py-3 border   rounded-full 
-               hover:bg-secondary hover:text-white transition-all duration-500 flex items-center justify-center gap-2"
+               hover:bg-secondary hover:text-white transition-all duration-500 flex items-center justify-center gap-2 cursor-pointer"
             >
               <FontAwesomeIcon icon={faCartPlus} />
               {DetailProductTextVN.addToCart}
@@ -175,7 +175,7 @@ const DetailFlower = ({
             {/* Nút mua ngay */}
             <button
               onClick={handleNavigateToOrder}
-              className="flex-1 uppercase font-bold py-3 border hover:border-secondary hover:bg-secondary hover:text-white rounded-full
+              className="flex-1 uppercase font-bold py-3 border hover:border-secondary hover:bg-secondary hover:text-white rounded-full cursor-pointer
                bg-white text-secondary transition-all duration-500"
             >
               {DetailProductTextVN.buyNow}

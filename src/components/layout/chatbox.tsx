@@ -3,7 +3,7 @@ import useAuth from "@/stores/useAuth";
 import { faPaperPlane, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { set } from "react-hook-form";
 // import ChatBoxApi from "../../../apis/chatboxApi";
 // import { Avatar } from "antd";
@@ -21,6 +21,36 @@ export default function ChatBox() {
       message: "Chào bạn! Tôi có thể giúp gì cho bạn nhỉ?",
     },
   ]);
+
+  const loadingListMessage = [
+    "Đang xử lý câu hỏi...",
+    "Đang phân tích...",
+    "Đang lập kế hoạch...",
+    "Đang tạo câu trả lời...",
+  ];
+  const [loadingTextIndex, setLoadingTextIndex] = useState(0);
+
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval> | undefined;
+
+    if (isloading) {
+      setLoadingTextIndex(0);
+
+      interval = setInterval(() => {
+        setLoadingTextIndex((prev) => {
+          if (prev === loadingListMessage.length - 1) {
+            if (interval !== undefined) clearInterval(interval);
+            return prev;
+          }
+          return prev + 1;
+        });
+      }, 2000);
+    }
+
+    return () => {
+      if (interval !== undefined) clearInterval(interval);
+    };
+  }, [isloading]);
 
   function handleOpenChatBox() {
     if (!user) {
@@ -53,7 +83,7 @@ export default function ChatBox() {
     <div className={`overscroll-x-auto fixed bottom-3 right-3 z-50`}>
       <div
         onClick={() => handleOpenChatBox()}
-        className={`px-4 py-2 bg-secondary text-white rounded-full text-[18px] ${isOpenChatbox ? "hidden" : ""}`}
+        className={`px-4 py-2 bg-secondary text-white cursor-pointer rounded-full text-[18px] ${isOpenChatbox ? "hidden" : ""}`}
       >
         Mở ChatBox
       </div>
@@ -112,10 +142,8 @@ export default function ChatBox() {
               );
             })}
             {isloading ? (
-              <div className="p-2 max-w-[30%] bg-[#cecece8e]  rounded-b-xl rounded-tr-xl mt-2 text-sm">
-                Loading<span className="dot-flash">.</span>
-                <span className="dot-flash delay-3">.</span>
-                <span className="dot-flash delay-2">.</span>
+              <div className="p-2 w-fit bg-[#cecece8e]  rounded-b-xl rounded-tr-xl mt-2 text-sm">
+                {loadingListMessage[loadingTextIndex]}
               </div>
             ) : null}
           </div>
