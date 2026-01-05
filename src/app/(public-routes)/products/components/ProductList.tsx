@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import FlowerItem from "@/components/flower_item";
 import { faSliders } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,6 +20,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { ProductTextVN } from "@/helpers/text_vn";
 import { keepPreviousData, QueryClient, useQuery } from "@tanstack/react-query";
 import helpersFunction from "@/helpers/helpers";
+import dynamic from "next/dynamic";
 
 const filterType = {
   event: [
@@ -187,11 +189,15 @@ const ProductsList = ({ searchParams, filterListCate }: Props) => {
     return res;
   };
 
+  const productQueryKey = useMemo(
+  () => helpersFunction.getProductQueryKey(helpersFunction.mapFilterToSearchParams(filterList)),
+  [filterList]
+);
   const { data, isPending, isError, isSuccess, isFetching } = useQuery({
-    queryKey: helpersFunction.getProductQueryKey(searchParams),
+    queryKey: productQueryKey,
     queryFn: () => fetchProducts(filterList),
-    // placeholderData: keepPreviousData,
-    enabled: !hasInitial,
+    placeholderData: keepPreviousData,
+    // enabled: !hasInitial,
     // initialData: hasInitial
     //   ? { data: flowerList, total: flowerList.length }
     //   : undefined,
@@ -245,35 +251,29 @@ const ProductsList = ({ searchParams, filterListCate }: Props) => {
       [key]: values,
     }));
   };
-  const [isClientLoading, setIsClientLoading] = useState(false);
-  useEffect(() => {
-    setIsClientLoading(true);
 
-    const timer = setTimeout(() => {
-      setIsClientLoading(false);
-    }, 2300);
-
-    return () => clearTimeout(timer);
-  }, [JSON.stringify(filterList)]);
   return (
     <div>
-      <div
-        style={{
-          backgroundImage: "url('/images/menu/image1.png')",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-        }}
-        className="w-full lg:h-[650px] md:h-[450px] h-[200px] relative items-center justify-center flex"
-      >
-        <div className="sm:max-w-[70%] max-w-[80%]">
-          <h1 className={`${fontSizeH1} font-bold text-white text-center mb-5`}>
-            {ProductTextVN.ourProducts}
-          </h1>
-          <p className="text-[12px]  sm:text-[15px] md:text-[18px]  lg:text-[20px] font-light italic text-white text-center">
-            {ProductTextVN.descriptionProductSlogan}
-          </p>
-        </div>
+      <div className="relative w-full lg:h-[650px] md:h-[450px] h-[200px] flex items-center justify-center">
+      <Image
+        src="/images/menu/image1.png"
+        alt="Hero background"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
+      />
+
+      {/* overlay content */}
+      <div className="relative z-10 sm:max-w-[70%] max-w-[80%] text-center">
+        <h1 className={`${fontSizeH1} font-bold text-white mb-5`}>
+          {ProductTextVN.ourProducts}
+        </h1>
+        <p className="text-white italic">
+          {ProductTextVN.descriptionProductSlogan}
+        </p>
       </div>
+    </div>
       <div className="border-b border-t flex  justify-between items-center md:px-10 px-3 md:py-6 py-2 md:my-5 my-3 md:gap-10 gap-3">
         <button
           className="flex items-center gap-2 flex-1"
@@ -364,7 +364,7 @@ const ProductsList = ({ searchParams, filterListCate }: Props) => {
 
           {/* Sản phẩm */}
           <div className={`${openFilterBox ? "w-[70%]" : "w-full"}`}>
-            {isFetching || isPending || isLoading || isClientLoading ? (
+            {isFetching || isPending || isLoading ? (
               <div className="w-full h-[700px] flex justify-center items-center">
                 <CircularProgress
                   enableTrackSlot
@@ -416,11 +416,18 @@ const ProductsList = ({ searchParams, filterListCate }: Props) => {
             }
             page={filterList.page}
             onChange={(e, value) =>
+            {
               setFilterList((prev) => ({
                 ...prev,
                 page: value,
               }))
+              window.scrollTo({
+                top: 600,
+                behavior: "smooth",
+              });
             }
+            }
+           
             sx={{
               "& .MuiPaginationItem-root": {
                 color: "#000",

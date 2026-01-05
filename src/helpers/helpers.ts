@@ -1,3 +1,4 @@
+import { FilterListType } from "@/app/(public-routes)/products/components/ProductList";
 import { SearchParamsType } from "@/types/home";
 
 class HelpersFunctions {
@@ -33,6 +34,21 @@ class HelpersFunctions {
     "products",
     JSON.stringify(params),
   ];
+
+   mapFilterToSearchParams = (
+  filters: FilterListType
+): SearchParamsType => ({
+  limit: filters.limited,
+  forms: filters.forms.length ? filters.forms.join(",") : undefined,
+  occasions: filters.occasions.length ? filters.occasions.join(",") : undefined,
+  types: filters.types.length ? filters.types.join(",") : undefined,
+  priceMax: filters.priceMax,
+  priceMin: filters.priceMin,
+  searchType: filters.searchType,
+  keyword: filters.keyword,
+  page: filters.page.toString(),
+  sort: `price:${filters.priceSort},stockQuantity:${filters.stockQuantity}`,
+});
 }
 const helpersFunction = new HelpersFunctions();
 export default helpersFunction;
