@@ -91,7 +91,7 @@ export default function BlogTulip() {
 
         <h2>2. Lịch sử và nguồn gốc của hoa Tulip</h2>
         <p>
-          Hoa Tulip có nguồn gốc từ Trung Á và được du nhập vào châu Âu từ thế kỷ 16. Tại Hà Lan, hoa Tulip từng gây nên cơn sốt "Tulip Mania" vào thế kỷ 17, trở thành biểu tượng của sự giàu sang và quyền lực. Ngày nay, Tulip được trồng rộng rãi trên khắp thế giới, từ vườn hoa công cộng đến các bó hoa trang trí, trở thành món quà ý nghĩa trong nhiều dịp.
+          Hoa Tulip có nguồn gốc từ Trung Á và được du nhập vào châu Âu từ thế kỷ 16. Tại Hà Lan, hoa Tulip từng gây nên cơn sốt Tulip Mania vào thế kỷ 17, trở thành biểu tượng của sự giàu sang và quyền lực. Ngày nay, Tulip được trồng rộng rãi trên khắp thế giới, từ vườn hoa công cộng đến các bó hoa trang trí, trở thành món quà ý nghĩa trong nhiều dịp.
         </p>
 
         <Image
