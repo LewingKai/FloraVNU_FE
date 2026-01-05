@@ -76,3 +76,43 @@ body {
 .chatbox-content div {
   word-break: break-word; /* tránh text quá dài tràn */
 }
+
+.detail-blog h1{
+  font-size: 40px; /* thêm đơn vị px */
+  color: #e60023;
+  font-weight: 700; /* nếu muốn chữ đậm */
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.detail-blog{
+  padding: 150px;
+}
+.detail-blog p,
+.detail-blog li,
+.detail-blog blockquote
+{
+  font-size: 20px; /* thêm đơn vị px */
+  
+}
+.detail-blog h3{
+  font-size: 20px; /* thêm đơn vị px */
+  font-weight: 700;
+}
+.detail-blog h2{
+  font-size: 25px; /* thêm đơn vị px */
+  font-weight: 700;
+}
+
+.detail-blog .blog-link {
+  color: dodgerblue;
+  font-size: 20;
+}
+.detail-blog a{
+  color: blue;
+  text-decoration: underline;
+}
+
+

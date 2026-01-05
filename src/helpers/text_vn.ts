@@ -58,7 +58,7 @@ export const headerText = {
   homePages: "Trang chủ",
   productsPage: "Sản phẩm",
   aboutUsPage: "Về chúng tôi",
-  blogPage: "Blogs",
+  blogPage: "Bài viết",
   signIn: "Đăng nhập",
   signUp: "Đăng kí",
 };

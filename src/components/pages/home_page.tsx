@@ -129,7 +129,7 @@ const HomePage = ({ outStandingFlower, outStadingCommentList }: Props) => {
             {HomeTextVN.slogan}
           </h1>
 
-          <div className=" bg-white rounded-xl md:p-10 p-3 sm:p-6 md:mt-10 mt-3 w-[90%] mx-auto">
+          <div className=" bg-white rounded-xl md:p-10 p-3 sm:p-6 md:mt-10 mt-3 w-[95%] mx-auto flex flex-col justify-center items-center">
             <SearchBar
               handleChangeCurrencies={(e) =>
                 setSearchType(e.target.value as string)

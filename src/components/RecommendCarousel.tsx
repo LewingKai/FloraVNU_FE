@@ -1,7 +1,9 @@
 "use client";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import React from "react";
-import Slider, { Settings } from "react-slick";
+import dynamic from "next/dynamic";
+const Slider = dynamic(() => import("react-slick"), { ssr: false });
+import  { Settings } from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import FlowerItem from "./flower_item";
@@ -103,11 +105,21 @@ const RecommendCarousel = React.memo(({ flowers }: { flowers: Flower[] }) => {
           centerPadding: "20px",
         },
       },
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+          centerMode: false,
+          centerPadding: "20px",
+        },
+      },
     ],
   };
 
   return (
-    <div className="mx-auto max-w-[1190px] relative">
+    <div className="mx-auto  max-w-full sm:max-w-[1190px] relative">
       <Slider {...settings}>
         {flowers.map((item, index) => (
           <div className="px-2" key={index}>
