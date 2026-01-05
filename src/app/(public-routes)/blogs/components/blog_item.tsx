@@ -1,11 +1,14 @@
 import Image from "next/image";
+import Link from "next/link";
 
-type blogItem = {
+export type blogItem = {
   imageUrl: string;
   title: string;
   desc: string;
   author: string;
   dateTime: string;
+  _id: string;
+  url: string;
 };
 
 type Props = {
@@ -25,36 +28,34 @@ const BlogItem = ({
   blogData,
 }: Props) => {
   return (
-    <div className={`${containerClassName}`}>
-      <div className={`${imageClassName} relative`}>
-        <Image
-          src="/images/blogs/image1.png"
-          alt="blog thumbnail"
-          sizes="1000px"
-          fill
-          className="object-cover"
-        />
-      </div>
-      <div className={contentClassName}>
-        <div className="flex justify-between">
-          <p className={`${fontSizeDesc} text-blue-500 font-bold`}>
-            Nguyễn Công Bá
-          </p>
-          <p className={`${fontSizeDesc} italic font-light text-gray-500`}>
-            20/11/2025
-          </p>
+      <Link href={blogData?.url ?? ""} className={`${containerClassName}`}>
+        <div className={`${imageClassName} relative`}>
+          <Image
+            src= {blogData?.imageUrl ?? "/images/blogs/langdaihoc.png"}
+            alt="blog thumbnail"
+            sizes="1000px"
+            fill
+            className="object-cover"
+          />
         </div>
-        <p className={` line-clamp-2 font-bold ${fontSizeTitle}`}>
-          Blog title nè Đảm bảo đúng hẹn, an toàn đến tay bạn. Đảm bảo đúng hẹn,
-          an toàn đến tay bạn.
-        </p>
-        <p className={`${fontSizeDesc} line-clamp-2 italic font-light`}>
-          Blog desc Đảm bảo đúng hẹn, an toàn đến tay bạn. Đảm bảo đúng hẹn, an
-          toàn đến tay bạn. Đảm bảo đúng hẹn, an toàn đến tay bạn.
-        </p>
-        <p className={`${fontSizeDesc} text-blue-500 underline`}>Đọc thêm</p>
-      </div>
-    </div>
+        <div className={contentClassName}>
+          <div className="flex justify-between">
+            <p className={`${fontSizeDesc} text-blue-500 font-bold`}>
+               { blogData?.author ?? "Nguyễn Công Bá"}  
+            </p>
+            <p className={`${fontSizeDesc} italic font-light text-gray-500`}>
+              { blogData?.dateTime ?? "20/11/2025"}
+            </p>
+          </div>
+          <p className={` line-clamp-2 font-bold ${fontSizeTitle}`}>
+            { blogData?.title ?? "title"}
+          </p>
+          <p className={`${fontSizeDesc} line-clamp-2 italic font-light`}>
+            { blogData?.desc ?? "desc"}
+          </p>
+          <p className={`${fontSizeDesc} text-blue-500 underline`}>Đọc thêm</p>
+        </div>
+      </Link>
   );
 };
 
