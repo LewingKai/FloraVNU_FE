@@ -96,8 +96,8 @@ const staticBlogs : blogItem[] = [
           
           <BlogItem
           key={staticBlogs[0]._id}
-            containerClassName="md:w-[40vw]"
-            imageClassName="w-full md:h-[60%] min:h-[150px] "
+            containerClassName="md:w-[40vw] "
+            imageClassName="w-full h-[180px] sm:h-[220px] md:h-[260px]"
             contentClassName="flex flex-col gap-2 py-2"
             blogData = {staticBlogs[0]}
           />
