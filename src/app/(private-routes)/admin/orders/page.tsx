@@ -299,7 +299,7 @@ const AdminOrders = () => {
                           Processing: "Đang giao",
                           Delivered: "Đã giao",
                           Cancelled: "Đã hủy",
-                        }[order.orderStatus]
+                        }[order.orderStatus as "Pending" | "Processing" | "Delivered" | "Cancelled"]
                       }
                     </span>
                   </TableCell>
@@ -342,7 +342,7 @@ const AdminOrders = () => {
                                   Processing: "Đang giao",
                                   Delivered: "Đã giao",
                                   Cancelled: "Đã hủy",
-                                }[order.orderStatus]
+                                }[order.orderStatus as "Pending" | "Processing" | "Delivered" | "Cancelled"]
                               }
                             </MenuItem>
                             {getNextStatusOptions(order.orderStatus).map(opt => (
