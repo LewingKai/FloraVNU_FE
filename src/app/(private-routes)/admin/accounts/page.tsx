@@ -123,53 +123,61 @@ const AdminAccounts = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {accounts.map((acc) => (
-                  <TableRow
-                    key={acc._id}
-                    className="hover:bg-pink-50 transition-colors"
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell>
-                      <Avatar
-                        src={acc.avatar?.url}
-                        alt={acc.fullName}
-                        sx={{ width: 48, height: 48, border: "2px solid #f48fb1" }}
-                      />
-                    </TableCell>
-                    <TableCell className="font-semibold">{acc.username}</TableCell>
-                    <TableCell>{acc.fullName}</TableCell>
-                    <TableCell>
-                      <span className="text-blue-700">{acc.email}</span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="capitalize">{acc.gender}</span>
-                    </TableCell>
-                    <TableCell>
-                      {acc.birthday
-                        ? new Date(acc.birthday).toLocaleDateString("vi-VN")
-                        : ""}
-                    </TableCell>
-                    <TableCell>
-                      <span className="font-medium">{acc.phone}</span>
-                    </TableCell>
-                    <TableCell>
-                      <span
-                        className={
-                          acc.role === "admin"
-                            ? "bg-pink-100 text-pink-600 px-2 py-1 rounded-full text-xs font-bold"
-                            : "bg-gray-100 text-gray-700 px-2 py-1 rounded-full text-xs font-bold"
-                        }
-                      >
-                        {acc.role}
-                      </span>
-                    </TableCell>
-                    <TableCell>
-                      {acc.createdAt
-                        ? new Date(acc.createdAt).toLocaleString("vi-VN")
-                        : ""}
+                {accounts.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={9} align="center">
+                      Không có tài khoản nào.
                     </TableCell>
                   </TableRow>
-                ))}
+                ) : (
+                  accounts.map((acc) => (
+                    <TableRow
+                      key={acc._id}
+                      className="hover:bg-pink-50 transition-colors"
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell>
+                        <Avatar
+                          src={acc.avatar?.url}
+                          alt={acc.fullName}
+                          sx={{ width: 48, height: 48, border: "2px solid #f48fb1" }}
+                        />
+                      </TableCell>
+                      <TableCell className="font-semibold">{acc.username}</TableCell>
+                      <TableCell>{acc.fullName}</TableCell>
+                      <TableCell>
+                        <span className="text-blue-700">{acc.email}</span>
+                      </TableCell>
+                      <TableCell>
+                        <span className="capitalize">{acc.gender}</span>
+                      </TableCell>
+                      <TableCell>
+                        {acc.birthday
+                          ? new Date(acc.birthday).toLocaleDateString("vi-VN")
+                          : ""}
+                      </TableCell>
+                      <TableCell>
+                        <span className="font-medium">{acc.phone}</span>
+                      </TableCell>
+                      <TableCell>
+                        <span
+                          className={
+                            acc.role === "admin"
+                              ? "bg-pink-100 text-pink-600 px-2 py-1 rounded-full text-xs font-bold"
+                              : "bg-gray-100 text-gray-700 px-2 py-1 rounded-full text-xs font-bold"
+                          }
+                        >
+                          {acc.role}
+                        </span>
+                      </TableCell>
+                      <TableCell>
+                        {acc.createdAt
+                          ? new Date(acc.createdAt).toLocaleString("vi-VN")
+                          : ""}
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
               </TableBody>
             </Table>
           </TableContainer>
