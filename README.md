@@ -2,46 +2,46 @@
 
 FloraVNU là nền tảng thương mại điện tử chuyên cung cấp hoa tươi tại Làng Đại học Thủ Đức, được xây dựng bằng Next.js 15 và TypeScript.
 
-## 🌸 Giới thiệu
+## Giới thiệu
 
 FloraVNU mang đến những đóa hoa tươi đẹp và ý nghĩa cho mọi dịp - từ sinh nhật, khai trương, tốt nghiệp đến các ngày lễ đặc biệt. Website được phát triển bởi nhóm sinh viên Trường Đại học Công nghệ Thông tin - ĐHQG TP.HCM phục vụ mục đích học tập.
 
-## ✨ Tính năng chính
+## Tính năng chính
 
 ### Người dùng
-- 🛍️ Duyệt và tìm kiếm sản phẩm hoa với bộ lọc đa dạng (theo sự kiện, loại hoa, kiểu dáng, giá)
-- 🛒 Giỏ hàng và đặt hàng trực tuyến
-- 💳 Thanh toán qua VNPAY hoặc COD
-- 📦 Theo dõi lịch sử đơn hàng và trạng thái giao hàng
-- ⭐ Đánh giá và bình luận sản phẩm (rating 0.5-5 sao)
-- 👤 Quản lý thông tin tài khoản (hồ sơ, đổi mật khẩu, xóa tài khoản)
-- 💬 Chatbox hỗ trợ khách hàng với AI
-- 🎁 Tùy chọn nhận tại cửa hàng hoặc giao hàng tận nơi
-- 📝 Thêm lời nhắn và ghi chú cho đơn hàng
+- Duyệt và tìm kiếm sản phẩm hoa với bộ lọc đa dạng (theo sự kiện, loại hoa, kiểu dáng, giá)
+- Giỏ hàng và đặt hàng trực tuyến
+- Thanh toán qua VNPAY hoặc COD
+- Theo dõi lịch sử đơn hàng và trạng thái giao hàng
+- Đánh giá và bình luận sản phẩm (rating 0.5-5 sao)
+- Quản lý thông tin tài khoản (hồ sơ, đổi mật khẩu, xóa tài khoản)
+- Chatbox hỗ trợ khách hàng với AI
+- Tùy chọn nhận tại cửa hàng hoặc giao hàng tận nơi
+- Thêm lời nhắn và ghi chú cho đơn hàng
 
 ### Quản trị viên
-- 📊 Quản lý đơn hàng (xem, cập nhật trạng thái, hủy)
-- 👥 Quản lý tài khoản người dùng
-- 🌺 Quản lý sản phẩm hoa (thêm, sửa, xóa)
+- Quản lý đơn hàng (xem, cập nhật trạng thái, hủy)
+- Quản lý tài khoản người dùng
+- Quản lý sản phẩm hoa (thêm, sửa, xóa)
 
-## 🛠️ Công nghệ sử dụng
+## Công nghệ sử dụng
 
-- **Framework:** Next.js 15 (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **UI Components:** Material-UI (MUI), Custom UI components
-- **State Management:** Zustand
-- **Data Fetching:** TanStack Query (React Query)
-- **Form Handling:** React Hook Form
-- **HTTP Client:** Axios
-- **Validation:** Custom validation utilities
-- **Rich Text:** DOMPurify cho sanitize HTML
-- **Carousel:** React Slick
-- **Icons:** Font Awesome, MUI Icons
-- **Notifications:** React Toastify
-- **Code Quality:** ESLint, Prettier, Husky, Lint-staged
+- Framework: Next.js 15 (App Router)
+- Language: TypeScript
+- Styling: Tailwind CSS
+- UI Components: Material-UI (MUI), Custom UI components
+- State Management: Zustand
+- Data Fetching: TanStack Query (React Query)
+- Form Handling: React Hook Form
+- HTTP Client: Axios
+- Validation: Custom validation utilities
+- Rich Text: DOMPurify cho sanitize HTML
+- Carousel: React Slick
+- Icons: Font Awesome, MUI Icons
+- Notifications: React Toastify
+- Code Quality: ESLint, Prettier, Husky, Lint-staged
 
-## 📁 Cấu trúc dự án
+## Cấu trúc dự án
 
 ```
 src/
@@ -65,7 +65,7 @@ src/
 │   │   ├── sign-up/                # Register
 │   │   ├── page.tsx                # Home page
 │   ├── (private-routes)/           # Protected pages
-│   │   └── admin/                  # Admin panel\
+│   │   └── admin/                  # Admin panel
 │   ├── layout.tsx                  # Root layout with SEO
 │   ├── sitemap.tsx                 # Dynamic sitemap
 │   └── globals.css                 # Global styles
@@ -107,7 +107,7 @@ src/
 │   └── validation.ts               # Form validation
 ```
 
-## 🚀 Bắt đầu
+## Bắt đầu
 
 ### Yêu cầu
 
@@ -139,7 +139,7 @@ npm run dev
 
 Website sẽ chạy tại `http://localhost:3000`
 
-## 📝 Scripts
+## Scripts
 
 ```bash
 npm run dev          # Chạy development server (port 3000)
@@ -150,7 +150,7 @@ npm run format       # Format code với Prettier
 npm run prepare      # Setup Husky hooks (tự động chạy khi install)
 ```
 
-## 🔒 Bảo mật
+## Bảo mật
 
 - Sanitize HTML content với DOMPurify để tránh XSS
 - Client-side validation với custom rules
@@ -158,7 +158,7 @@ npm run prepare      # Setup Husky hooks (tự động chạy khi install)
 - Secure authentication flow với JWT tokens
 - Environment variables để bảo vệ API keys
 
-## 🎨 Features đặc biệt
+## Features đặc biệt
 
 ### Responsive Design
 - Mobile-first approach
@@ -190,28 +190,28 @@ npm run prepare      # Setup Husky hooks (tự động chạy khi install)
 - Rating system với half-star precision
 - Event bus cho real-time updates
 
-## 🧪 Code Quality
+## Code Quality
 
-- **ESLint**: Linting với Next.js config
-- **Prettier**: Code formatting
-- **Husky**: Git hooks
-- **Lint-staged**: Pre-commit formatting
-- **Commitlint**: Commit message validation
-- **TypeScript**: Type safety
+- ESLint: Linting với Next.js config
+- Prettier: Code formatting
+- Husky: Git hooks
+- Lint-staged: Pre-commit formatting
+- Commitlint: Commit message validation
+- TypeScript: Type safety
 
-## 📦 API Integration
+## API Integration
 
 Website tích hợp với backend API cho các chức năng:
 
-- **Authentication**: Đăng ký, đăng nhập, quên mật khẩu
-- **Products**: Tìm kiếm, lọc, chi tiết sản phẩm
-- **Cart**: Thêm, xóa, cập nhật giỏ hàng
-- **Orders**: Tạo đơn, theo dõi, hủy đơn
-- **Reviews**: Đánh giá, bình luận sản phẩm
-- **Payment**: Tích hợp VNPAY gateway
-- **Chatbox**: AI support bot
+- Authentication: Đăng ký, đăng nhập, quên mật khẩu
+- Products: Tìm kiếm, lọc, chi tiết sản phẩm
+- Cart: Thêm, xóa, cập nhật giỏ hàng
+- Orders: Tạo đơn, theo dõi, hủy đơn
+- Reviews: Đánh giá, bình luận sản phẩm
+- Payment: Tích hợp VNPAY gateway
+- Chatbox: AI support bot
 
-## 🌐 Deployment
+## Deployment
 
 Project được deploy tại: [https://floravnu.com](https://floravnu.com)
 
@@ -222,22 +222,22 @@ npm run build
 npm run start
 ```
 
-## 📄 License
+## License
 
 [MIT License](LICENSE)
 
-## 👥 Nhóm phát triển
+## Nhóm phát triển
 
 Sinh viên Trường Đại học Công nghệ Thông tin - ĐHQG TP.HCM
 
-**Team: NhungChangTraiBanHoa**
+Team: NhungChangTraiBanHoa
 
-## 🔗 Links
+## Links
 
-- **Website**: [https://floravnu.com](https://floravnu.com)
-- **Backend Repository**: [https://github.com/DatHuynhCoder/BE_FloraVNU](https://github.com/DatHuynhCoder/BE_FloraVNU)
-- **Frontend Repository**: [https://github.com/LewingKai/FloraVNU_FE](https://github.com/LewingKai/FloraVNU_FE)
+- Website: [https://floravnu.com](https://floravnu.com)
+- Backend Repository: [https://github.com/DatHuynhCoder/BE_FloraVNU](https://github.com/DatHuynhCoder/BE_FloraVNU)
+- Frontend Repository: [https://github.com/LewingKai/FloraVNU_FE](https://github.com/LewingKai/FloraVNU_FE)
 
 ---
 
-Made with ❤️ by NhungChangTraiBanHoa Team
+Made with love by NhungChangTraiBanHoa Team
