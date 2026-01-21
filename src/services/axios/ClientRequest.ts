@@ -5,6 +5,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 import type { Res_Error } from "./types";
+import { PATH_NAME } from "@/configs/pathName";
 
 export class ClientRequest {
   private static instance: ClientRequest | null = null;
@@ -37,6 +38,16 @@ export class ClientRequest {
     this.axiosInstance.interceptors.response.use(
       (response: AxiosResponse<unknown>) => response,
       (error) => {
+        if (error.response && error.response.status === 401) {
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("user_id");
+          if (typeof window !== "undefined") {
+            import("react-toastify").then(({ toast }) => {
+              toast.error("Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!");
+            });
+            window.location.href = PATH_NAME.SIGNIN;
+          }
+        }
         if (error.response && error.response.data) {
           const err: Res_Error = error.response.data;
           return Promise.reject(err);
