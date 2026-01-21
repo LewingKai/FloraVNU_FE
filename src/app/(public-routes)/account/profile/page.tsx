@@ -106,12 +106,13 @@ const Profile = () => {
       if (res.data) {
         setUser(res.data);
         setIsEditing(false);
-        setIsLoading(false);
         toast.success("Cập nhật thành công!");
       }
     } catch (error: any) {
       const errorMessage = error.message || 'Cập nhật thất bại!';
       toast.error(errorMessage);
+    } finally {
+      setIsLoading(false)
     }
   };
 

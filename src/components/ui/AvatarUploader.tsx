@@ -3,7 +3,6 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
 import { Button, Tooltip } from "@mui/material";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Image from "next/image";
 import { toast } from "react-toastify";
 
@@ -48,11 +47,6 @@ const AvatarUploader: React.FC<AvatarUploaderProps> = ({
     setPreview(imageUrl);
     onFileSelect(file);
     setIsLoading(false);
-  };
-
-  const handleDeleteAvatar = () => {
-    setPreview("/images/default-avatar.jpg");
-    onFileSelect(null);
   };
 
   return (
@@ -100,24 +94,6 @@ const AvatarUploader: React.FC<AvatarUploaderProps> = ({
                 Đổi ảnh
               </Button>
             </label>
-          </Tooltip>
-
-          <Tooltip title="Xóa ảnh">
-            <Button
-              variant="outlined"
-              color="error"
-              startIcon={<DeleteIcon />}
-              onClick={handleDeleteAvatar}
-              sx={{
-                padding: "8px 16px",
-                borderRadius: "24px",
-                fontWeight: "bold",
-                fontSize: "14px",
-                textTransform: "none",
-              }}
-            >
-              Xóa
-            </Button>
           </Tooltip>
         </div>
       )}
