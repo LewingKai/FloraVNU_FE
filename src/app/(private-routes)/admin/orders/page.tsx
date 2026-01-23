@@ -24,7 +24,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "@/components/ui/Button";
-import { toast } from "react-toastify";
 
 const statusOptions = [
   { label: "Tất cả", value: "" },
@@ -122,10 +121,8 @@ const AdminOrders = () => {
   const handleUpdateStatus = async (orderId: string, newStatus: string) => {
     try {
       await orderApi.updateOrderStatus(newStatus, orderId);
-      toast.success("Cập nhật trạng thái thành công!");
       setParams({ ...params });
     } catch {
-      toast.error("Cập nhật trạng thái thất bại!");
     }
   };
 
@@ -133,10 +130,8 @@ const AdminOrders = () => {
     if (!window.confirm("Bạn có chắc muốn xóa đơn này?")) return;
     try {
       await orderApi.deleteOrder(orderId);
-      toast.success("Xóa đơn thành công!");
       setParams({ ...params });
     } catch {
-      toast.error("Xóa đơn thất bại!");
     }
   };
 
