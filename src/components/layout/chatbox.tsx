@@ -15,6 +15,7 @@ export default function ChatBox() {
   const [isOpenChatbox, setIsOpenChatbox] = useState(false);
   const [message, setMessage] = useState("");
   const [isloading, setIsLoading] = useState(false);
+  const [sessionId, setSessionId] = useState<string>("12");
   const [messHistory, setMessHistory] = useState([
     {
       role: "ai",
@@ -51,11 +52,15 @@ export default function ChatBox() {
       if (interval !== undefined) clearInterval(interval);
     };
   }, [isloading]);
-
+  const createSessionId = () => {
+    return crypto.randomUUID();
+  };
   function handleOpenChatBox() {
     if (!user) {
       toast.error("Vui lòng đăng nhập!");
     } else {
+      const newSessionId = crypto.randomUUID();
+      setSessionId(newSessionId);
       setIsOpenChatbox(true);
     }
   }
@@ -68,12 +73,20 @@ export default function ChatBox() {
     setMessage("");
     setIsLoading(true);
     try {
-      const res = await chatBoxApi.sendMessage(message);
+      const res = await chatBoxApi.sendMessage(message, sessionId);
+      console.log("check send message response", res);
       const responseMess = {
         role: "ai",
         message: res.data,
       };
       setMessHistory((prev) => [...prev, responseMess]);
+      const saveHistory = await chatBoxApi.saveHistory({
+        sessionId: res.saveData.sessionId,
+        summary: res.saveData.summary,
+        query: res.saveData.query,
+        cleanResponse: res.saveData.cleanResponse,
+      });
+      console.log("check save history response", saveHistory);
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -99,6 +112,7 @@ export default function ChatBox() {
                     message: "Chào bạn! Tôi có thể giúp gì cho bạn nhỉ?",
                   },
                 ]);
+                setSessionId("");
                 setIsOpenChatbox(false);
               }}
             >
