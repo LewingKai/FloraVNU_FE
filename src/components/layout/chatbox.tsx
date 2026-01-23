@@ -52,15 +52,15 @@ export default function ChatBox() {
       if (interval !== undefined) clearInterval(interval);
     };
   }, [isloading]);
-const createSessionId = () => {
-  return crypto.randomUUID();
-};
+  const createSessionId = () => {
+    return crypto.randomUUID();
+  };
   function handleOpenChatBox() {
     if (!user) {
       toast.error("Vui lòng đăng nhập!");
     } else {
-       const newSessionId = crypto.randomUUID();
-    setSessionId(newSessionId);
+      const newSessionId = crypto.randomUUID();
+      setSessionId(newSessionId);
       setIsOpenChatbox(true);
     }
   }
@@ -74,11 +74,19 @@ const createSessionId = () => {
     setIsLoading(true);
     try {
       const res = await chatBoxApi.sendMessage(message, sessionId);
+      console.log("check send message response", res);
       const responseMess = {
         role: "ai",
         message: res.data,
       };
       setMessHistory((prev) => [...prev, responseMess]);
+      const saveHistory = await chatBoxApi.saveHistory({
+        sessionId: res.saveData.sessionId,
+        summary: res.saveData.summary,
+        query: res.saveData.query,
+        cleanResponse: res.saveData.cleanResponse,
+      });
+      console.log("check save history response", saveHistory);
     } catch (error) {
     } finally {
       setIsLoading(false);

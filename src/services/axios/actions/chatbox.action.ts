@@ -13,6 +13,29 @@ class ChatBoxApi {
       throw error;
     }
   }
+  async saveHistory({
+    sessionId,
+    summary,
+    query,
+    cleanResponse,
+  }: {
+    sessionId: string;
+    summary: string;
+    query: string;
+    cleanResponse: string;
+  }) {
+    try {
+      const res = await client.post(ChatboxEndpoint.saveChatbox, {
+        sessionId,
+        summary,
+        query,
+        cleanResponse,
+      });
+      return res.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 const chatBoxApi = new ChatBoxApi();
