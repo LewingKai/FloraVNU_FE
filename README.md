@@ -212,7 +212,7 @@ Website tích hợp với backend API cho các chức năng:
 
 ## Deployment
 
-Project được deploy tại: [https://floravnu.com](https://floravnu.com)
+Project được deploy tại: [https://flora-vnu-fe.vercel.app](https://flora-vnu-fe.vercel.app)
 
 ### Build Production
 
@@ -233,7 +233,7 @@ Team: NhungChangTraiBanHoa
 
 ## Links
 
-- Website: [https://floravnu.com](https://floravnu.com)
+- Website: [https://flora-vnu-fe.vercel.app](https://flora-vnu-fe.vercel.app)
 - Backend Repository: [https://github.com/DatHuynhCoder/BE_FloraVNU](https://github.com/DatHuynhCoder/BE_FloraVNU)
 - Frontend Repository: [https://github.com/LewingKai/FloraVNU_FE](https://github.com/LewingKai/FloraVNU_FE)
 
